@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Extension de Google Chrome para conectarse en la red nauta de etecsa",
   "license": "MIT",
+  "esversion": 6,
   "scripts": {
     "build": "node utils/build.js",
     "start": "node utils/webserver.js",
@@ -25,7 +26,8 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "typeface-roboto": "^0.0.75",
-    "yup": "^0.29.1"
+    "yup": "^0.29.1",
+    "cheerio": "^1.0.0-rc.3"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
