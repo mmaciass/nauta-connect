@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
+import login from './reducers/login';
 
-const allReducers = {};
+const allReducers = {
+  login,
+};
 
 const reducers = combineReducers(allReducers);
 

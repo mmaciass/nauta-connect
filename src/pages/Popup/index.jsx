@@ -20,6 +20,7 @@ const theme = createMuiTheme({
 });
 
 const proxyStore = new Store({
+  state:{},
   portName: 'nauta-connect',
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from '../../containers/Login';
+import Login from '../../screens/Login';
 
 const Popup = () => {
   return (

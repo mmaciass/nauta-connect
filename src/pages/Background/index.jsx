@@ -6,9 +6,14 @@ import Background from './Background';
 import { wrapStore } from 'react-chrome-redux';
 
 import store from '../../store';
+import { Provider } from 'react-redux';
 
 wrapStore(store, {
   portName: 'nauta-connect',
 });
 
-render(<Background/>, window.document.querySelector('#app-background'));
+render((
+  <Provider store={store}>
+    <Background/>
+  </Provider>
+), window.document.querySelector('#app-background'));
