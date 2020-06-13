@@ -16,8 +16,9 @@ const initialValue = {
   remember: false,
 };
 
-const Login = (props) => {
+const Login = ({ login, ...props }) => {
   const classes = useStyles();
+
   return (
     <Fragment>
       <div className={classes.logoContainer}>
@@ -25,14 +26,14 @@ const Login = (props) => {
       </div>
       <Formik initialValues={initialValue} onSubmit={(values, formikHelpers) => {
         formikHelpers.setSubmitting(true);
-
+        chrome.runtime.sendMessage({ type: 'LOGIN', payload: values });
       }} validationSchema={schemaValidation}>
         {(formikBag) => (
           <Form>
             <TextFieldCustom label="Usuario" fullWidth errors={formikBag.errors} isSubmitting={formikBag.isSubmitting}
-                             name="username" id="username"/>
+                             name="username" id="username" autoFocus next={document.querySelector('#password')}/>
             <TextFieldCustom label="Contraseña" fullWidth errors={formikBag.errors}
-                             isSubmitting={formikBag.isSubmitting}
+                             isSubmitting={formikBag.isSubmitting} submitAction={formikBag.submitForm}
                              name="password" id="password" type="password"/>
 
             <div className={classes.buttonsContainer}>

@@ -12,12 +12,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TextFieldCustom = ({ label, id, type = undefined, fullWidth, errors, ...props }) => {
+const TextFieldCustom = ({
+                           label, id, type = undefined, fullWidth, errors, isSubmitting,
+                           next = undefined, submitAction = undefined, ...props
+                         }) => {
   const classes = useStyles();
   const [field] = useField(props);
   return (
-    <TextField className={classes.field} {...field} disabled={props.isSubmitting} error={!!errors[field.name]}
-               variant="outlined" size="small"
+    <TextField {...props} className={classes.field} {...field} disabled={isSubmitting} error={!!errors[field.name]}
+               variant="outlined" size="small" fullWidth={fullWidth} label={label} id={id} type={type}
+               onKeyPress={event => {
+                 if (event.key === 'Enter' && !!next) {
+                   event.preventDefault();
+                   next.focus();
+                 } else if (event.key === 'Enter' && !!submitAction) {
+                   event.preventDefault();
+                   submitAction();
+                 }
+               }}
                InputProps={errors[field.name] ? {
                  endAdornment: (
                    <InputAdornment position="end">
@@ -26,7 +38,7 @@ const TextFieldCustom = ({ label, id, type = undefined, fullWidth, errors, ...pr
                      </Tooltip>
                    </InputAdornment>
                  ),
-               } : null} fullWidth={fullWidth} label={label} id={id} type={type}/>
+               } : null}/>
   );
 };
 export default TextFieldCustom;

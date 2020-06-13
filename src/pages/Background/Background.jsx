@@ -4,8 +4,16 @@ import loginAction from '../../actions/loginAction';
 
 const Background = ({ login, loginAction, ...props }) => {
   useEffect(() => {
-    console.log('in background init time is', new Date().getTime());
-    loginAction('usus', 'pppsps')
+    chrome.runtime.onMessage.addListener(
+      function(request, sender, sendResponse) {
+        switch (request.type) {
+          case 'LOGIN':
+            loginAction(request.payload.username, request.payload.password, request.payload.remember);
+            break;
+        }
+      },
+    );
+
   }, []);
   return (
     <Fragment/>

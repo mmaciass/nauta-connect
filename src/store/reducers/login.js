@@ -1,6 +1,5 @@
 const initialState = {
-  isLogging: false,
-  tipo: '',
+  state: 'none',
   username: '',
   ATTRIBUTE_UUID: '',
 };

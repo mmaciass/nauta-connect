@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { Tooltip, Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import {
   EmailIcon,
@@ -25,42 +25,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ShareButtons = ({ className, ...props }) => {
+const shareUrl = 'http://github.com/mmaciass';
+const title = 'GitHub Marcos Macias Sánchez';
+
+export const ShareSocialBtn = ({ Btn, Icon, tooltip, ...props }) => {
   const classes = useStyles();
-
-  const shareUrl = 'http://github.com/mmaciass';
-  const title = 'GitHub Marcos Macias Sánchez';
-
   return (
-    <Box className={className}>
+    <Tooltip title={tooltip}>
+      <Btn quote={title} url={shareUrl} className={classes.icons} {...props}>
+        <Icon size={32} round={true}/>
+      </Btn>
+    </Tooltip>
+  );
+};
+
+const ShareButtons = ({ className, ...props }) => {
+  return (
+    <Box className={className} {...props}>
       <Typography align="left">Compartir extensión por:</Typography>
-      <FacebookShareButton quote={title} url={shareUrl} className={classes.icons}>
-        <FacebookIcon size={32} round={true}/>
-      </FacebookShareButton>
-
-      <FacebookMessengerShareButton quote={title} url={shareUrl} className={classes.icons}>
-        <FacebookMessengerIcon size={32} round={true}/>
-      </FacebookMessengerShareButton>
-
-      <WhatsappShareButton quote={title} url={shareUrl} className={classes.icons}>
-        <WhatsappIcon size={32} round={true}/>
-      </WhatsappShareButton>
-
-      <TwitterShareButton quote={title} url={shareUrl} className={classes.icons}>
-        <TwitterIcon size={32} round={true}/>
-      </TwitterShareButton>
-
-      <TelegramShareButton quote={title} url={shareUrl} className={classes.icons}>
-        <TelegramIcon size={32} round={true}/>
-      </TelegramShareButton>
-
-      <LinkedinShareButton quote={title} url={shareUrl} className={classes.icons}>
-        <LinkedinIcon size={32} round={true}/>
-      </LinkedinShareButton>
-
-      <EmailShareButton quote={title} url={shareUrl} className={classes.icons}>
-        <EmailIcon size={32} round={true}/>
-      </EmailShareButton>
+      <ShareSocialBtn Btn={FacebookShareButton} Icon={FacebookIcon} tooltip="Facebook"/>
+      <ShareSocialBtn Btn={FacebookMessengerShareButton} Icon={FacebookMessengerIcon} tooltip="Messenger"/>
+      <ShareSocialBtn Btn={WhatsappShareButton} Icon={WhatsappIcon} tooltip="Whatsapp"/>
+      <ShareSocialBtn Btn={TwitterShareButton} Icon={TwitterIcon} tooltip="Twitter"/>
+      <ShareSocialBtn Btn={TelegramShareButton} Icon={TelegramIcon} tooltip="Telegram"/>
+      <ShareSocialBtn Btn={LinkedinShareButton} Icon={LinkedinIcon} tooltip="Linkedin"/>
+      <ShareSocialBtn Btn={EmailShareButton} Icon={EmailIcon} tooltip="Enviar por correo"/>
     </Box>
   );
 };
