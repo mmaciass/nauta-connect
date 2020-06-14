@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonsContainer: {
     marginTop: 20,
-    marginBottom: 20,
   },
   ShareButtons: {
     marginTop: 20,

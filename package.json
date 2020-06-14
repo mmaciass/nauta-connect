@@ -1,7 +1,7 @@
 {
   "name": "nauta-connect",
   "version": "0.1.0",
-  "description": "Extension de Google Chrome para conectarse en la red nauta de etecsa",
+  "description": "Extension de Google Chrome para conectarse en la red nauta de etecsa.",
   "license": "MIT",
   "esversion": 6,
   "scripts": {
@@ -15,19 +15,23 @@
     "@material-ui/icons": "^4.9.1",
     "@types/chrome": "0.0.104",
     "@types/react": "^16.9.26",
+    "cheerio": "^1.0.0-rc.3",
     "fontsource-roboto": "^2.1.4",
     "formik": "^2.1.4",
+    "moment": "^2.26.0",
     "react": "^16.13.1",
     "react-chrome-redux": "^2.0.0-alpha.5",
+    "react-countdown": "^2.2.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.20",
     "react-redux": "^7.2.0",
     "react-share": "^4.2.0",
+    "react-timecode": "^1.1.23",
+    "react-timer-wrapper": "^0.4.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "typeface-roboto": "^0.0.75",
-    "yup": "^0.29.1",
-    "cheerio": "^1.0.0-rc.3"
+    "yup": "^0.29.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

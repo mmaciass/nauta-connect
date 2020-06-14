@@ -10,6 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { Store } from 'react-chrome-redux';
 import { Provider } from 'react-redux';
+import { loginInitialState } from '../../store/reducers/login';
 
 const theme = createMuiTheme({
   palette: {
@@ -20,7 +21,9 @@ const theme = createMuiTheme({
 });
 
 const proxyStore = new Store({
-  state:{},
+  state: {
+    login: loginInitialState,
+  },
   portName: 'nauta-connect',
 });
 

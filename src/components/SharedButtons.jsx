@@ -31,7 +31,7 @@ const title = 'GitHub Marcos Macias Sánchez';
 export const ShareSocialBtn = ({ Btn, Icon, tooltip, ...props }) => {
   const classes = useStyles();
   return (
-    <Tooltip title={tooltip}>
+    <Tooltip title={tooltip} arrow>
       <Btn quote={title} url={shareUrl} className={classes.icons} {...props}>
         <Icon size={32} round={true}/>
       </Btn>
@@ -49,7 +49,7 @@ const ShareButtons = ({ className, ...props }) => {
       <ShareSocialBtn Btn={TwitterShareButton} Icon={TwitterIcon} tooltip="Twitter"/>
       <ShareSocialBtn Btn={TelegramShareButton} Icon={TelegramIcon} tooltip="Telegram"/>
       <ShareSocialBtn Btn={LinkedinShareButton} Icon={LinkedinIcon} tooltip="Linkedin"/>
-      <ShareSocialBtn Btn={EmailShareButton} Icon={EmailIcon} tooltip="Enviar por correo"/>
+      <ShareSocialBtn Btn={EmailShareButton} Icon={EmailIcon} tooltip="Enviar URL por correo"/>
     </Box>
   );
 };

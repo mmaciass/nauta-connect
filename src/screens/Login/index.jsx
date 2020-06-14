@@ -1,18 +1,19 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Form, Formik } from 'formik';
-import logo from '../../assets/img/icon-128.png';
 import Button from '@material-ui/core/Button';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import TextFieldCustom from '../../components/TextFieldCustom';
-import ShareButtons from '../../components/SharedButtons';
 import schemaValidation from './schemaValidation';
-import useStyles from './useStyles';
+import useStyles from '../useStyles';
+import Timer from 'react-timer-wrapper';
+import Timecode from 'react-timecode';
+import Typography from '@material-ui/core/Typography';
 
 const initialValue = {
-  username: '',
-  password: '',
+  username: 'roniel.lopez@nauta.co.cu',
+  password: 'EskjEH97',
   remember: false,
 };
 
@@ -21,33 +22,37 @@ const Login = ({ login, ...props }) => {
 
   return (
     <Fragment>
-      <div className={classes.logoContainer}>
-        <img src={logo} alt="logo" className={classes.logo}/>
-      </div>
+      <Typography>
+      {/*<Timer active duration={null} time={50000}>*/}
+      {/*  <Timecode format="HH:mm:ss"/>*/}
+      {/*</Timer>*/}
+      </Typography>
       <Formik initialValues={initialValue} onSubmit={(values, formikHelpers) => {
-        formikHelpers.setSubmitting(true);
         chrome.runtime.sendMessage({ type: 'LOGIN', payload: values });
       }} validationSchema={schemaValidation}>
-        {(formikBag) => (
-          <Form>
-            <TextFieldCustom label="Usuario" fullWidth errors={formikBag.errors} isSubmitting={formikBag.isSubmitting}
-                             name="username" id="username" autoFocus next={document.querySelector('#password')}/>
-            <TextFieldCustom label="Contraseña" fullWidth errors={formikBag.errors}
-                             isSubmitting={formikBag.isSubmitting} submitAction={formikBag.submitForm}
-                             name="password" id="password" type="password"/>
+        {(formikBag) => {
+          useEffect(() => {
+            formikBag.setSubmitting(login.state === 'loading');
+          }, [login.state]);
+          return (
+            <Form>
+              <TextFieldCustom label="Usuario" fullWidth errors={formikBag.errors} isSubmitting={formikBag.isSubmitting}
+                               name="username" id="username" autoFocus next={document.querySelector('#password')}
+                               submitted={formikBag.submitCount > 0}/>
+              <TextFieldCustom label="Contraseña" fullWidth errors={formikBag.errors}
+                               isSubmitting={formikBag.isSubmitting} submitAction={formikBag.submitForm}
+                               name="password" id="password" type="password" submitted={formikBag.submitCount > 0}/>
 
-            <div className={classes.buttonsContainer}>
-              <Button fullWidth variant="contained" color="primary" onClick={formikBag.submitForm}
-                      startIcon={formikBag.isSubmitting
-                        ? <CircularProgress color="inherit" size={20}/> : <ExitToAppIcon/>}>
-                Iniciar Sesión
-              </Button>
-              <ShareButtons className={classes.ShareButtons} fullWidth={true} variant="text" color="secondary"
-                            size="small"/>
-            </div>
-            {/*{JSON.stringify(props.login, null, 2)}*/}
-          </Form>
-        )}
+              <div className={classes.buttonsContainer}>
+                <Button fullWidth variant="contained" color="primary" onClick={formikBag.submitForm} size="small"
+                        startIcon={formikBag.isSubmitting
+                          ? <CircularProgress color="inherit" size={20}/> : <ExitToAppIcon/>}>
+                  Iniciar Sesión
+                </Button>
+              </div>
+            </Form>
+          );
+        }}
       </Formik>
     </Fragment>
   );
