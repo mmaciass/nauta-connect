@@ -12,7 +12,6 @@ export const loginInitialState = {
 };
 
 const login = (state = loginInitialState, { type, payload }) => {
-  console.log('disp', type);
   switch (type) {
     case 'LOGIN_BEGIN':
       return { ...payload };

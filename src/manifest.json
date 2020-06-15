@@ -2,7 +2,8 @@
   "name": "nauta-connect",
   "options_page": "options.html",
   "background": {
-    "page": "background.html"
+    "page": "background.html",
+    "persistent": true
   },
   "browser_action": {
     "default_popup": "popup.html",
@@ -13,6 +14,9 @@
   "icons": {
     "128": "icon-128.png"
   },
+  "permissions": [
+    "https://secure.etecsa.net/*"
+  ],
   "content_scripts": [
     {
       "matches": [
