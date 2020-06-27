@@ -5,7 +5,6 @@ import Divider from '@material-ui/core/Divider';
 import * as moment from 'moment';
 import useStyles from '../useStyles';
 import Button from '@material-ui/core/Button';
-import updateTimeLeftAction from '../../actions/timeAction';
 
 const formatoTime = (ms) => {
   let mili = ms % 1000;
@@ -25,7 +24,7 @@ const formatoTime = (ms) => {
 
 const Connect = ({ login, dispatch, ...props }) => {
   const [time, setTime] = useState('--:--:--');
-  const [restante, setRestante] = useState('--:--:--');
+  const [restante, setRestante] = useState(login.lastTimeLeft);
   const classes = useStyles();
   const logout = () => {
     chrome.runtime.sendMessage({ type: 'LOGOUT' });
@@ -55,6 +54,7 @@ const Connect = ({ login, dispatch, ...props }) => {
   return (
     <Fragment>
       <Typography>Usted se encuentra conectado.</Typography>
+      <Typography>Usuario: {login.username}</Typography>
       <Divider/>
       <Typography>Tiempo restante: {restante}</Typography>
       <Typography>Tiempo conectado: {time}</Typography>

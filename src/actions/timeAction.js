@@ -17,13 +17,11 @@ const updateTimeLeftAction = (reintentos = 0) => {
         return value.text();
       })
       .then(value => {
-        debugger
         if (value.includes('errorop'))
           throw new Error('Error de operacion.');
         dispatch({ type: 'UPDATE_TIME_SUCCESS', payload: { lastTimeLeft: value } });
       })
       .catch(reason => {
-        debugger
         if (reason.message === 'Failed to fetch')
           chrome.runtime.sendMessage({ type: 'LOGIN_ERROR', payload: 'Ha ocurrido un error con la conexión de red.' });
         dispatch({ type: 'UPDATE_TIME_FAILURE' });

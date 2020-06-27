@@ -1,6 +1,7 @@
 import dataWrapper from '../../utils/htmlWrapper';
 import fetchCustom from '../../utils/fetch';
 import updateTimeLeftAction from './timeAction';
+import forceUpdateAction from './forceUpdateAction';
 
 const loginAction = (username, password, remember = false) => {
   return (dispatch) => {
@@ -30,6 +31,7 @@ const loginAction = (username, password, remember = false) => {
           const resp = dataWrapper(value);
           dispatch(updateTimeLeftAction());
           dispatch({ type: 'LOGIN_SUCCESS', payload: { state: 'connected', ...resp } });
+          dispatch(forceUpdateAction());
         }
       })
       .catch(reason => {
