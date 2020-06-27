@@ -11,6 +11,7 @@ import Container from '@material-ui/core/Container';
 import { Store } from 'react-chrome-redux';
 import { Provider } from 'react-redux';
 import { loginInitialState } from '../../store/reducers/login';
+import Button from '@material-ui/core/Button';
 
 const theme = createMuiTheme({
   palette: {

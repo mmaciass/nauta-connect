@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 
 export const loginInitialState = {
-  updateInstance: parseInt((Math.random()*100000000).toFixed()),
+  updateInstance: parseInt((Math.random() * 100000000).toFixed()),
   state: 'disconected', // 'disconected' | "loading" | "connected" | "error"
   // username: '',
   // ATTRIBUTE_UUID: '',
@@ -29,11 +29,11 @@ const login = (state = loginInitialState, { type, payload }) => {
     case 'LOGOUT_BEGIN':
       return state;
     case 'LOGOUT_SUCCESS':
-      return { ...state, state: 'disconected' };
+      return { state: 'disconected' };
     case 'LOGOUT_FAILURE':
       return state;
     case 'FORCE_UPDATE_ACTION':
-      return { ...state, updateInstance: parseInt((Math.random()*100000000).toFixed()) }
+      return { ...state, updateInstance: parseInt((Math.random() * 100000000).toFixed()) };
     default:
       return state;
   }

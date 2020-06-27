@@ -5,22 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import * as moment from 'moment';
 import useStyles from '../useStyles';
 import Button from '@material-ui/core/Button';
-
-const formatoTime = (ms) => {
-  let mili = ms % 1000;
-  ms -= mili;
-  ms /= 1000;
-  let segs = ms % 60;
-  ms -= segs;
-  ms /= 60;
-  let mins = ms % 60;
-  ms -= mins;
-  ms /= 60;
-  let horas = ms;
-  return `${(horas + '').length == 1 ? '0' + horas : horas}:${
-    (mins + '').length == 1 ? '0' + mins : mins
-  }:${(segs + '').length == 1 ? '0' + segs : segs}`;
-};
+import { formatTime } from '../../../utils/timeUtil';
 
 const Connect = ({ login, dispatch, ...props }) => {
   const [time, setTime] = useState('--:--:--');
@@ -32,14 +17,16 @@ const Connect = ({ login, dispatch, ...props }) => {
 
   const tiempoConectado = () => {
     let ms = moment().diff(moment(login.lastUpdateTime));
-    setTime(formatoTime(ms));
+    setTime(formatTime(ms));
     if (!!login.lastTimeLeft) {
       let trestante = login.lastTimeLeft.split(':');
       let milTRestante =
         parseInt(trestante[0]) * 60 * 60 * 1000 +
         parseInt(trestante[1]) * 60 * 1000 +
         parseInt(trestante[2]) * 1000;
-      setRestante(formatoTime(milTRestante - ms));
+      if ((milTRestante - ms) <= 0)
+        chrome.runtime.sendMessage({ type: 'FORCE_LOGOUT' });
+      setRestante(formatTime(milTRestante - ms));
     }
   };
 
@@ -53,7 +40,8 @@ const Connect = ({ login, dispatch, ...props }) => {
 
   return (
     <Fragment>
-      <Typography>Usted se encuentra conectado.</Typography>
+      <Typography style={{textAlign: "center", marginBottom: 15}}>Usted se encuentra conectado.</Typography>
+
       <Typography>Usuario: {login.username}</Typography>
       <Divider/>
       <Typography>Tiempo restante: {restante}</Typography>

@@ -1,42 +1,34 @@
-import React, {Fragment, useEffect} from "react";
-import {Form, Formik} from "formik";
-import Button from "@material-ui/core/Button";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import {connect} from "react-redux";
-import TextFieldCustom from "../../components/TextFieldCustom";
-import schemaValidation from "./schemaValidation";
-import useStyles from "../useStyles";
-import Timer from "react-timer-wrapper";
-import Timecode from "react-timecode";
-import Typography from "@material-ui/core/Typography";
+import React, { Fragment, useEffect } from 'react';
+import { Form, Formik } from 'formik';
+import Button from '@material-ui/core/Button';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { connect } from 'react-redux';
+import TextFieldCustom from '../../components/TextFieldCustom';
+import schemaValidation from './schemaValidation';
+import useStyles from '../useStyles';
 
 const initialValue = {
-  username: "",
-  password: "",
+  username: '',
+  password: '',
   remember: false,
 };
 
-const Login = ({login, ...props}) => {
+const Login = ({ login, ...props }) => {
   const classes = useStyles();
 
   return (
     <Fragment>
-      <Typography>
-        {/*<Timer active duration={null} time={50000}>*/}
-        {/*  <Timecode format="HH:mm:ss"/>*/}
-        {/*</Timer>*/}
-      </Typography>
       <Formik
         initialValues={initialValue}
         onSubmit={(values, formikHelpers) => {
-          chrome.runtime.sendMessage({type: "LOGIN", payload: values});
+          chrome.runtime.sendMessage({ type: 'LOGIN', payload: values });
         }}
         validationSchema={schemaValidation}
       >
         {(formikBag) => {
           useEffect(() => {
-            formikBag.setSubmitting(login.state === "loading");
+            formikBag.setSubmitting(login.state === 'loading');
           }, [login.state]);
           return (
             <Form>
@@ -48,7 +40,7 @@ const Login = ({login, ...props}) => {
                 name="username"
                 id="username"
                 autoFocus
-                next={document.querySelector("#password")}
+                next={document.querySelector('#password')}
                 submitted={formikBag.submitCount > 0}
               />
               <TextFieldCustom
@@ -72,9 +64,9 @@ const Login = ({login, ...props}) => {
                   size="small"
                   startIcon={
                     formikBag.isSubmitting ? (
-                      <CircularProgress color="inherit" size={20} />
+                      <CircularProgress color="inherit" size={20}/>
                     ) : (
-                      <ExitToAppIcon />
+                      <ExitToAppIcon/>
                     )
                   }
                 >

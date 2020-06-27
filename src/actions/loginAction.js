@@ -12,7 +12,10 @@ const loginAction = (username, password, remember = false) => {
         return value.text();
       })
       .then(value => {
-        if (value.includes('El usuario ya está conectado.')) {
+        if (value.includes('Entre el nombre de usuario y contraseña correctos.' || value.includes('No se pudo autorizar al usuario.'))) {
+          chrome.runtime.sendMessage({ type: 'LOGIN_ERROR', payload: 'El usuario o la contraseña son incorrectos.' });
+          dispatch({ type: 'LOGIN_FAILURE', payload: { state: 'error' } });
+        } else if (value.includes('El usuario ya está conectado.')) {
           chrome.runtime.sendMessage({ type: 'LOGIN_ERROR', payload: 'Ya se encuentra un usuario conectado.' });
           dispatch({ type: 'LOGIN_FAILURE', payload: { state: 'error' } });
         } else if (value.includes('Usted ha realizado muchos intentos.')) {
