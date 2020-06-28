@@ -1,4 +1,4 @@
-import fetchCustom from '../../utils/fetch';
+import fetchCustom from '../utils/fetch';
 
 const updateTimeLeftAction = (reintentos = 0) => {
   return (dispatch, getState) => {

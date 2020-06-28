@@ -1,5 +1,5 @@
-import dataWrapper from '../../utils/htmlWrapper';
-import fetchCustom from '../../utils/fetch';
+import dataWrapper from '../utils/htmlWrapper';
+import fetchCustom from '../utils/fetch';
 import updateTimeLeftAction from './timeAction';
 import forceUpdateAction from './forceUpdateAction';
 

@@ -20,3 +20,4 @@
 secrets.*.js
 .crx
 .pem
+.env

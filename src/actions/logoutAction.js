@@ -1,4 +1,4 @@
-import fetchCustom from '../../utils/fetch';
+import fetchCustom from '../utils/fetch';
 
 const logoutAction = () => {
   return (dispatch, getState) => {

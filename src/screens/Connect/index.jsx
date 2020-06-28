@@ -5,7 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import * as moment from 'moment';
 import useStyles from '../useStyles';
 import Button from '@material-ui/core/Button';
-import { formatTime } from '../../../utils/timeUtil';
+import { formatTime } from '../../utils/timeUtil';
 
 const Connect = ({ login, dispatch, ...props }) => {
   const [time, setTime] = useState('--:--:--');
