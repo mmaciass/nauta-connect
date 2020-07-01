@@ -1,7 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { render } from 'react-dom';
-
-import Popup from './Popup';
 import './index.css';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { blue, indigo } from '@material-ui/core/colors';
@@ -11,7 +9,8 @@ import Container from '@material-ui/core/Container';
 import { Store } from 'react-chrome-redux';
 import { Provider } from 'react-redux';
 import { loginInitialState } from '../../store/reducers/login';
-import Button from '@material-ui/core/Button';
+import FirstScreen from '../../screens/Splash/FirstScreen';
+import Popup from './Popup';
 
 const theme = createMuiTheme({
   palette: {
@@ -29,13 +28,23 @@ const proxyStore = new Store({
 });
 
 const App = (props) => {
+  const [splash, setSplash] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setSplash(false);
+    }, 200);
+  }, []);
+
   return (
     <Provider store={proxyStore}>
       <ThemeProvider theme={theme}>
         <CssBaseline/>
-        <Container>
-          <Popup/>
-        </Container>
+        {splash ? <FirstScreen/>
+          : (
+            <Container>
+              <Popup/>
+            </Container>
+          )}
       </ThemeProvider>
     </Provider>
   );

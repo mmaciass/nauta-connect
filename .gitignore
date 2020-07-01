@@ -21,3 +21,4 @@ secrets.*.js
 .crx
 .pem
 .env
+src/utils/env.js

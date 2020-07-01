@@ -2,8 +2,12 @@ import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import loginAction from '../../actions/loginAction';
 import logoutAction, { forceLogoutAction } from '../../actions/logoutAction';
+import { loadUserAction } from '../../actions/userStorageAction';
 
-const Background = ({ login, loginAction, logoutAction, forceLogoutAction, ...props }) => {
+const Background = ({ login, loginAction, logoutAction, forceLogoutAction, loadUserAction, ...props }) => {
+  if (process.env.NODE_ENV === 'development')
+    console.log('chrome instance', chrome);
+
   useEffect(() => {
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
@@ -16,6 +20,9 @@ const Background = ({ login, loginAction, logoutAction, forceLogoutAction, ...pr
             break;
           case 'FORCE_LOGOUT':
             forceLogoutAction();
+            break;
+          case 'LOAD_USER_STORE':
+            loadUserAction(request.payload.username);
             break;
         }
       },
@@ -37,6 +44,7 @@ const mapDispatchToProps = {
   loginAction,
   logoutAction,
   forceLogoutAction,
+  loadUserAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);

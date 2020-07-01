@@ -2,6 +2,7 @@ import dataWrapper from '../utils/htmlWrapper';
 import fetchCustom from '../utils/fetch';
 import updateTimeLeftAction from './timeAction';
 import forceUpdateAction from './forceUpdateAction';
+import { saveUserAction } from './userStorageAction';
 
 const loginAction = (username, password, remember = false) => {
   return (dispatch) => {
@@ -12,8 +13,9 @@ const loginAction = (username, password, remember = false) => {
         return value.text();
       })
       .then(value => {
-        if (value.includes('Entre el nombre de usuario y contraseña correctos.' || value.includes('No se pudo autorizar al usuario.'))) {
-          chrome.runtime.sendMessage({ type: 'LOGIN_ERROR', payload: 'El usuario o la contraseña son incorrectos.' });
+        if (value.includes('Entre el nombre de usuario y contraseña correctos.' || value.includes('No se pudo autorizar al usuario.'
+          || value.includes('El nombre de usuario o contraseña son incorrectos.')))) {
+          chrome.runtime.sendMessage({ type: 'LOGIN_ERROR', payload: 'El nombre de usuario o contraseña son incorrectos.' });
           dispatch({ type: 'LOGIN_FAILURE', payload: { state: 'error' } });
         } else if (value.includes('El usuario ya está conectado.')) {
           chrome.runtime.sendMessage({ type: 'LOGIN_ERROR', payload: 'Ya se encuentra un usuario conectado.' });
@@ -34,6 +36,7 @@ const loginAction = (username, password, remember = false) => {
           const resp = dataWrapper(value);
           dispatch(updateTimeLeftAction());
           dispatch({ type: 'LOGIN_SUCCESS', payload: { state: 'connected', ...resp } });
+          if (remember) dispatch(saveUserAction(username, password));
           dispatch(forceUpdateAction());
         }
       })

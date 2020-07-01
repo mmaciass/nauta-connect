@@ -15,7 +15,8 @@
     "128": "icon-128.png"
   },
   "permissions": [
-    "https://secure.etecsa.net/*"
+    "https://secure.etecsa.net/*",
+    "storage"
   ],
   "content_scripts": [
     {

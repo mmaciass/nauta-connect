@@ -12,6 +12,7 @@ const Connect = ({ login, dispatch, ...props }) => {
   const [restante, setRestante] = useState(login.lastTimeLeft);
   const classes = useStyles();
   const logout = () => {
+    debugger
     chrome.runtime.sendMessage({ type: 'LOGOUT' });
   };
 
@@ -40,11 +41,11 @@ const Connect = ({ login, dispatch, ...props }) => {
 
   return (
     <Fragment>
-      <Typography style={{textAlign: "center", marginBottom: 15}}>Usted se encuentra conectado.</Typography>
+      <Typography style={{ textAlign: 'center', marginBottom: 15 }}>Usted se encuentra conectado.</Typography>
 
       <Typography>Usuario: {login.username}</Typography>
       <Divider/>
-      <Typography>Tiempo restante: {restante}</Typography>
+      <Typography>{time === '--:--:--' ? 'Tiempo inicial:' : 'Tiempo restante:'} {restante}</Typography>
       <Typography>Tiempo conectado: {time}</Typography>
 
       <div className={classes.buttonsContainer}>

@@ -14,6 +14,7 @@
     "@material-ui/core": "^4.10.2",
     "@material-ui/icons": "^4.9.1",
     "cheerio": "^1.0.0-rc.3",
+    "crypto-js": "^4.0.0",
     "fontsource-roboto": "^2.1.4",
     "formik": "^2.1.4",
     "moment": "^2.26.0",
@@ -33,12 +34,12 @@
     "yup": "^0.29.1"
   },
   "devDependencies": {
-    "@types/chrome": "0.0.104",
-    "@types/react": "^16.9.26",
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
+    "@types/chrome": "0.0.104",
+    "@types/react": "^16.9.26",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "^9.1.2",

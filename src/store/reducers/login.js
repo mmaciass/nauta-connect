@@ -2,7 +2,7 @@ import * as moment from 'moment';
 
 export const loginInitialState = {
   updateInstance: parseInt((Math.random() * 100000000).toFixed()),
-  state: 'disconected', // 'disconected' | "loading" | "connected" | "error"
+  status: 'disconected', // 'disconected' | "loading" | "connected" | "error"
   // username: '',
   // ATTRIBUTE_UUID: '',
   // CSRFHW: '',

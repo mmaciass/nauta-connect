@@ -1,12 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
 import { Form, Formik } from 'formik';
-import Button from '@material-ui/core/Button';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import TextFieldCustom from '../../components/TextFieldCustom';
 import schemaValidation from './schemaValidation';
 import useStyles from '../useStyles';
+import CheckBoxCustom from '../../components/CheckBoxCustom';
+import ButtonCustom from '../../components/ButtonCustom';
 
 const initialValue = {
   username: '',
@@ -14,7 +13,7 @@ const initialValue = {
   remember: false,
 };
 
-const Login = ({ login, ...props }) => {
+const Login = ({ login, userStorage, ...props }) => {
   const classes = useStyles();
 
   return (
@@ -30,6 +29,11 @@ const Login = ({ login, ...props }) => {
           useEffect(() => {
             formikBag.setSubmitting(login.state === 'loading');
           }, [login.state]);
+          useEffect(() => {
+            if (!!userStorage.password)
+              formikBag.setFieldValue('password', userStorage.password);
+          }, [userStorage.password]);
+
           return (
             <Form>
               <TextFieldCustom
@@ -55,23 +59,10 @@ const Login = ({ login, ...props }) => {
                 submitted={formikBag.submitCount > 0}
               />
 
+              <CheckBoxCustom label="Guardar contraseña" name="remember" id="remember"/>
+
               <div className={classes.buttonsContainer}>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  onClick={formikBag.submitForm}
-                  size="small"
-                  startIcon={
-                    formikBag.isSubmitting ? (
-                      <CircularProgress color="inherit" size={20}/>
-                    ) : (
-                      <ExitToAppIcon/>
-                    )
-                  }
-                >
-                  Iniciar Sesión
-                </Button>
+                <ButtonCustom formikBag={formikBag} text="CONECTARSE" onClick={formikBag.submitForm}/>
               </div>
             </Form>
           );
@@ -84,6 +75,7 @@ const Login = ({ login, ...props }) => {
 const mapStateToProps = (state) => {
   return {
     login: state.login,
+    userStorage: state.userStorage,
   };
 };
 
