@@ -15,7 +15,8 @@ const Popup = ({ login, ...props }) => {
         <img src={logo} alt="logo" className={classes.logo}/>
       </div>
       {login.state === 'connected' && login.lastTimeLeft && login.lastUpdateTime ? <Connect/> : <Login/>}
-      <ShareButtons className={classes.ShareButtons}/>
+      {/*<ShareButtons className={classes.ShareButtons}/>*/}
+      <div style={{marginBottom: 15}}/>
       <NotifierMessenger/>
     </Fragment>
   );

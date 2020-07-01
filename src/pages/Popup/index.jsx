@@ -32,7 +32,7 @@ const App = (props) => {
   useEffect(() => {
     setTimeout(() => {
       setSplash(false);
-    }, 200);
+    }, 1000 * 2);
   }, []);
 
   return (
