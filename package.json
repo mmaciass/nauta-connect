@@ -1,7 +1,7 @@
 {
   "name": "nauta-connect",
-  "version": "0.3.1",
-  "description": "Extension de Google Chrome para conectarse en la red nauta de etecsa.",
+  "version": "0.4.1",
+  "description": "Conectarse a la red Nauta de ETECSA de forma sencilla y rápida.",
   "license": "MIT",
   "esversion": 6,
   "scripts": {

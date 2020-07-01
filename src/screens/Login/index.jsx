@@ -6,6 +6,8 @@ import schemaValidation from './schemaValidation';
 import useStyles from '../useStyles';
 import CheckBoxCustom from '../../components/CheckBoxCustom';
 import ButtonCustom from '../../components/ButtonCustom';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const initialValue = {
   username: '',
@@ -62,7 +64,13 @@ const Login = ({ login, userStorage, ...props }) => {
               <CheckBoxCustom label="Guardar contraseña" name="remember" id="remember"/>
 
               <div className={classes.buttonsContainer}>
-                <ButtonCustom formikBag={formikBag} text="CONECTARSE" onClick={formikBag.submitForm}/>
+                <ButtonCustom onClick={formikBag.submitForm} startIcon={
+                  formikBag.isSubmitting ? (
+                    <CircularProgress color="inherit" size={20}/>
+                  ) : (
+                    <ExitToAppIcon/>
+                  )
+                }>CONECTARSE</ButtonCustom>
               </div>
             </Form>
           );

@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import useStyles from '../useStyles';
 import Button from '@material-ui/core/Button';
 import { formatTime } from '../../utils/timeUtil';
+import ButtonCustom from '../../components/ButtonCustom';
 
 const Connect = ({ login, dispatch, ...props }) => {
   const [time, setTime] = useState('--:--:--');
@@ -49,17 +50,8 @@ const Connect = ({ login, dispatch, ...props }) => {
       <Typography>Tiempo conectado: {time}</Typography>
 
       <div className={classes.buttonsContainer}>
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          size="small"
-          onClick={logout}
-        >
-          Desconectarse
-        </Button>
+        <ButtonCustom onClick={logout}>DESCONECTARSE</ButtonCustom>
       </div>
-      <Divider/>
     </Fragment>
   );
 };

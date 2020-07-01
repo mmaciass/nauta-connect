@@ -9,27 +9,12 @@
     "default_popup": "popup.html",
     "default_icon": "icon-34.png"
   },
-  "chrome_url_overrides": {
-  },
   "icons": {
     "128": "icon-128.png"
   },
   "permissions": [
-    "https://secure.etecsa.net/*",
-    "storage"
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "https://secure.etecsa.net/*"
-      ],
-      "js": [
-        "contentScript.bundle.js"
-      ],
-      "css": [
-        "content.styles.css"
-      ]
-    }
+    "storage",
+    "https://secure.etecsa.net/*"
   ],
   "web_accessible_resources": [
     "content.styles.css",

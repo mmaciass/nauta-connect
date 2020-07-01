@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const ButtonCustom = ({formikBag, fullWidth = true, text, onClick, ...props }) => {
+const ButtonCustom = ({fullWidth = true, onClick, children, ...props }) => {
   const classes = useStyles();
   return (
     <Button
@@ -21,16 +21,9 @@ const ButtonCustom = ({formikBag, fullWidth = true, text, onClick, ...props }) =
       color="primary"
       onClick={onClick}
       size="small"
-      startIcon={
-        formikBag.isSubmitting ? (
-          <CircularProgress color="inherit" size={20}/>
-        ) : (
-          <ExitToAppIcon/>
-        )
-      }
       {...props}
     >
-      {text}
+      {children}
     </Button>
   );
 };
