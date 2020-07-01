@@ -3,7 +3,7 @@ import './Options.css';
 
 class Options extends Component {
   render() {
-    return <div className="OptionsContainer">Options Page</div>;
+    return <div className="OptionsContainer">Configuraciones (EN DESARROLLO)</div>;
   }
 }
 
