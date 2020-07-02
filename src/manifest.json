@@ -1,6 +1,5 @@
 {
   "name": "nauta-connect",
-  "options_page": "options.html",
   "background": {
     "page": "background.html",
     "persistent": true
