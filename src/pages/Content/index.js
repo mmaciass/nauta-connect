@@ -1,3 +1,4 @@
 import { printLine } from './modules/print';
 
-printLine("Using the 'printLine' function from the Print Module");
+printLine('Este modulo NO se tiene previsto usarlo, por motivos de seguridad, ' +
+  'para que el usuario no tenga la necesidad de aprobar el permiso de content script');

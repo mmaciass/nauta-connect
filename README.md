@@ -27,3 +27,8 @@ Extensión de código fuente abierto, publicado en Github en el enlace `mmaciass
 
 ##### Para compilar la extension en modo de producción debe ejecutar el comando `yarn build` o `npm run build`.
 
+### Funciones aún faltan por implementar:
+- Nueva pesta que muestre el tiempo de conexión restante.
+- Nueva pestaña con noticias del ambito de Cuba, tomadas de sitios oficiales como Cudebate y otros sitios de prensa cubana.
+- Página de configuración de la extensión (configuraciones como tema, limpiar contraseñas guardadas, etc...).
+
