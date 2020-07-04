@@ -29,8 +29,8 @@ const Login = ({ login, userStorage, ...props }) => {
       >
         {(formikBag) => {
           useEffect(() => {
-            formikBag.setSubmitting(login.state === 'loading');
-          }, [login.state]);
+            formikBag.setSubmitting(login.status === 'loading');
+          }, [login.status]);
           useEffect(() => {
             if (!!userStorage.password)
               formikBag.setFieldValue('password', userStorage.password);

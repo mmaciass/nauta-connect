@@ -3,7 +3,7 @@ import login from './reducers/login';
 import userStorage from './reducers/userStorage';
 import configs from './reducers/configs';
 
-const allReducers = {
+export const allReducers = {
   login, userStorage, configs,
 };
 

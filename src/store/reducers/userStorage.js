@@ -1,4 +1,4 @@
-const userStorageInitial = {
+export const userStorageInitial = {
   status: 'none', // "loaded" || "cleared" || "saved"
   username: '',
   password: '',
