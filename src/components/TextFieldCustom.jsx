@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TextFieldCustom = ({
-                           label, id, type = undefined, fullWidth, errors, isSubmitting,
+                           label, id, type = undefined, fullWidth = true, errors, isSubmitting,
                            next = undefined, submitAction = undefined, submitted, ...props
                          }) => {
   const classes = useStyles();

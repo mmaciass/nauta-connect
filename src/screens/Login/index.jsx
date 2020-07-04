@@ -40,7 +40,6 @@ const Login = ({ login, userStorage, ...props }) => {
             <Form>
               <TextFieldCustom
                 label="Usuario"
-                fullWidth
                 errors={formikBag.errors}
                 isSubmitting={formikBag.isSubmitting}
                 name="username"
@@ -51,7 +50,6 @@ const Login = ({ login, userStorage, ...props }) => {
               />
               <TextFieldCustom
                 label="Contraseña"
-                fullWidth
                 errors={formikBag.errors}
                 isSubmitting={formikBag.isSubmitting}
                 submitAction={formikBag.submitForm}

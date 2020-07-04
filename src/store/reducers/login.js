@@ -29,7 +29,7 @@ const login = (state = loginInitialState, { type, payload }) => {
     case 'LOGOUT_BEGIN':
       return state;
     case 'LOGOUT_SUCCESS':
-      return { state: 'disconected' };
+      return { status: 'disconected' };
     case 'LOGOUT_FAILURE':
       return state;
     case 'FORCE_UPDATE_ACTION':
