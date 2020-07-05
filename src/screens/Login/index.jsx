@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { connect } from 'react-redux';
 import TextFieldCustom from '../../components/TextFieldCustom';
@@ -8,6 +8,8 @@ import CheckBoxCustom from '../../components/CheckBoxCustom';
 import ButtonCustom from '../../components/ButtonCustom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { Box } from '@material-ui/core';
+import { clog } from '../../utils/shorters';
 
 const initialValue = {
   username: '',
@@ -17,9 +19,12 @@ const initialValue = {
 
 const Login = ({ login, userStorage, ...props }) => {
   const classes = useStyles();
+  useEffect(() => {
+    chrome.runtime.sendMessage({ type: 'FORM_OVER_ALL' });
+  }, []);
 
   return (
-    <Fragment>
+    <Box>
       <Formik
         initialValues={initialValue}
         onSubmit={(values, formikHelpers) => {
@@ -44,7 +49,6 @@ const Login = ({ login, userStorage, ...props }) => {
                 isSubmitting={formikBag.isSubmitting}
                 name="username"
                 id="username"
-                autoFocus
                 next={document.querySelector('#password')}
                 submitted={formikBag.submitCount > 0}
               />
@@ -74,7 +78,7 @@ const Login = ({ login, userStorage, ...props }) => {
           );
         }}
       </Formik>
-    </Fragment>
+    </Box>
   );
 };
 

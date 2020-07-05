@@ -23,7 +23,7 @@ const theme = createMuiTheme({
 const proxyStore = new Store({
   state: {
     login: loginInitialState,
-    configs: { ...configInitialState, showSplash: false },
+    configs: configInitialState,
     userStorage: userStorageInitial,
   },
   portName: 'nauta-connect',
@@ -35,7 +35,7 @@ const App = (props) => {
     <Provider store={proxyStore}>
       <ThemeProvider theme={theme}>
         <CssBaseline/>
-        <Popup/>
+        <Popup style={{height: 368, width: 300}}/>
       </ThemeProvider>
     </Provider>
   );

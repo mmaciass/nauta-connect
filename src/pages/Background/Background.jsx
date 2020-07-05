@@ -49,7 +49,7 @@ const mapDispatchToProps = {
   logoutAction,
   forceLogoutAction,
   loadUserAction,
-  hideSplash
+  hideSplash,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);

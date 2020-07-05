@@ -1,34 +1,33 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Login from '../../screens/Login';
 import NotifierMessenger from '../../components/NotifierMessenger';
 import { connect } from 'react-redux';
 import Connect from '../../screens/Connect';
-import logo from '../../assets/img/icon-128.png';
 import useStyles from '../../screens/useStyles';
 import Container from '@material-ui/core/Container';
-import FirstScreen from '../../screens/Splash/FirstScreen';
+import Splash from '../../screens/Splash';
+import { Box } from '@material-ui/core';
 // import ShareButtons from '../../components/SharedButtons';
 
 const Popup = ({ login, configs, ...props }) => {
   const classes = useStyles();
-  useEffect(()=>{
-    chrome.runtime.sendMessage({ type: 'HIDE_SPLASH'});
-  }, [])
+  useEffect(() => {
+    setTimeout(() => {
+      chrome.runtime.sendMessage({ type: 'HIDE_SPLASH' });
+    }, 1000 * 2);
+  }, []);
 
   return (
-    <Fragment>
-      {configs.showSplash ? <FirstScreen/>
-        : <Container>
-          <div className={classes.logoContainer}>
-            <img src={logo} alt="logo" className={classes.logo}/>
-          </div>
-          {login.status === 'connected' && login.lastTimeLeft && login.lastUpdateTime ? <Connect/> : <Login/>}
-          {/*<ShareButtons className={classes.ShareButtons}/>*/}
-          <div style={{ marginBottom: 15 }}/>
-          <NotifierMessenger/>
-        </Container>
-      }
-    </Fragment>
+    <Box {...props}>
+      <Splash/>
+      <div style={{ paddingTop: 100 }}/>
+      <Container>
+        {login.status === 'connected' && login.lastTimeLeft && login.lastUpdateTime ? <Connect/> : <Login/>}
+        {/*<ShareButtons className={classes.ShareButtons}/>*/}
+        <div style={{ marginBottom: 15 }}/>
+        <NotifierMessenger/>
+      </Container>
+    </Box>
   );
 };
 

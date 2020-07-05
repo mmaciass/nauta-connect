@@ -1,0 +1,52 @@
+.boxSplashInit {
+    position: absolute;
+}
+
+.boxSplashInit.overAll {
+    z-index: 1000;
+}
+
+.boxSplashInit > * {
+    position: absolute;
+}
+
+.rectUp {
+    top: -82px;
+}
+
+.rectDown {
+    top: 184px;
+}
+
+.bordUp {
+    top: -153px;
+    left: -202px;
+}
+
+.bordDown {
+    top: 277px;
+    left: 55px;
+}
+
+.logo {
+    height: 158px;
+    width: 158px;
+    top: 105px;
+    left: 71px;
+}
+
+.name {
+    font-size: 20px;
+    width: 300px;
+    text-align: center;
+    top: 81px;
+    color: white;
+}
+
+.slogan {
+    font-size: 14px;
+    width: 300px;
+    text-align: center;
+    top: 268px;
+    color: white;
+}

@@ -1,0 +1,50 @@
+.logo.animFluid {
+    animation: logoAnim 1s ease-in-out forwards;
+}
+
+.logo.animStatic {
+    animation: logoAnim 0s ease-in-out forwards;
+}
+
+@keyframes logoAnim {
+    50% {
+        transform: translate(0px, 0px) scale(1)
+    }
+    100% {
+        transform: translate(100px, -140px) scale(0.40);
+    }
+}
+
+.name.animFluid {
+    animation: nameAnim 1s ease-in-out forwards;
+}
+
+.name.animStatic {
+    animation: nameAnim 0s ease-in-out forwards;
+}
+
+@keyframes nameAnim {
+    50% {
+        transform: translate(0px, 0px) scale(1);
+    }
+    100% {
+        transform: translate(-57px, -58px) scale(1.2);
+    }
+}
+
+.slogan.animFluid {
+    animation: sloganAnim 1s ease-in-out forwards;
+}
+
+.slogan.animStatic {
+    animation: sloganAnim 0s ease-in-out forwards;
+}
+
+@keyframes sloganAnim {
+    50% {
+        transform: translateY(0px) scale(1);
+    }
+    100% {
+        transform: translateY(78px) scale(0.9);
+    }
+}

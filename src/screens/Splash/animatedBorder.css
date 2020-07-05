@@ -1,0 +1,64 @@
+.rectUp.animFluid {
+    animation: rectUpAnim 1s ease-in-out forwards;
+}.rectUp.animStatic {
+    animation: rectUpAnim 0s ease-in-out forwards;
+}
+
+@keyframes rectUpAnim {
+    50% {
+        transform: translateY(0px)
+    }
+    100% {
+        transform: translateY(-130px);
+    }
+}
+
+.rectDown.animFluid {
+    animation: rectDownAnim 1s ease-in-out forwards;
+}
+.rectDown.animStatic {
+    animation: rectDownAnim 0s ease-in-out forwards;
+}
+
+@keyframes rectDownAnim {
+    50% {
+        transform: translateY(0px)
+    }
+    100% {
+        transform: translateY(126px);
+    }
+}
+
+.bordUp.animFluid {
+    animation: bordUpAnim 1s ease-in-out forwards;
+}
+
+.bordUp.animStatic {
+    animation: bordUpAnim 0s ease-in-out forwards;
+}
+
+@keyframes bordUpAnim {
+    50% {
+        transform: rotate(0) translate(0, 0);
+    }
+    100% {
+        transform: rotate(60deg) translate(-62px, -15px);
+    }
+}
+
+.bordDown.animFluid {
+    animation: bordDownAnim 1s ease-in-out forwards;
+}
+
+.bordDown.animStatic {
+    animation: bordDownAnim 0s ease-in-out forwards;
+}
+
+@keyframes bordDownAnim {
+    50% {
+        transform: rotate(0) translate(0, 0);
+    }
+    100% {
+        transform: rotate(60deg) translate(72px, 15px);
+    }
+}
