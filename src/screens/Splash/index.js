@@ -7,7 +7,8 @@ import rectDown from '../../assets/vector/rect-down.svg';
 import logo from '../../assets/vector/logo.svg';
 import './staticsStyles.css';
 import './animatedBorder.css';
-import './animatedObjects.css';
+import './animatedObjectsIn.css';
+import './animatedObjectsOut.css';
 import { connect } from 'react-redux';
 
 const Splash = ({ configs, ...props }) => {

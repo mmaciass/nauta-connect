@@ -23,6 +23,7 @@ const Popup = ({ login, configs, ...props }) => {
       <div style={{ paddingTop: 100 }}/>
       <Container>
         {login.status === 'connected' && login.lastTimeLeft && login.lastUpdateTime ? <Connect/> : <Login/>}
+        {/*<Connect/>*/}
         {/*<ShareButtons className={classes.ShareButtons}/>*/}
         <div style={{ marginBottom: 15 }}/>
         <NotifierMessenger/>
