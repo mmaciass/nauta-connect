@@ -19,6 +19,7 @@ const loginAction = (username, password, remember = false) => {
           dispatch({ type: 'LOGIN_FAILURE', payload: { status: 'error' } });
         } else if (value.includes('El usuario ya está conectado.')) {
           chrome.runtime.sendMessage({ type: 'LOGIN_ERROR', payload: 'Ya se encuentra un usuario conectado.' });
+          if (remember) dispatch(saveUserAction(username, password));
           dispatch({ type: 'LOGIN_FAILURE', payload: { status: 'error' } });
         } else if (value.includes('Usted ha realizado muchos intentos.')) {
           chrome.runtime.sendMessage({
