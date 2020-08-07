@@ -6,8 +6,8 @@ import { loadUserAction } from '../../actions/userStorageAction';
 import { hideSplash } from '../../actions/splashAction';
 
 const Background = ({ login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash, ...props }) => {
-  if (process.env.NODE_ENV === 'development')
-    console.log('chrome instance', chrome);
+  // if (process.env.NODE_ENV === 'development')
+  //   console.log('chrome instance', chrome);
 
   useEffect(() => {
     chrome.runtime.onMessage.addListener(

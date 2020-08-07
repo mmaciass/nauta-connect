@@ -9,6 +9,7 @@ import ButtonCustom from '../../components/ButtonCustom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Container from '@material-ui/core/Container';
+import AutoCompleteFieldCustom from '../../components/AutoCompleteFieldCustom';
 
 const initialValue = {
   username: '',
@@ -42,10 +43,11 @@ const Login = ({ login, userStorage, configs, ...props }) => {
 
           return (
             <Form>
-              <TextFieldCustom
+              <AutoCompleteFieldCustom
                 label="Usuario"
                 errors={formikBag.errors}
                 isSubmitting={formikBag.isSubmitting}
+                formikBag = {formikBag}
                 name="username"
                 id="username"
                 next={document.querySelector('#password')}
