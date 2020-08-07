@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Form, Formik } from 'formik';
 import { connect } from 'react-redux';
 import TextFieldCustom from '../../components/TextFieldCustom';
@@ -8,8 +8,7 @@ import CheckBoxCustom from '../../components/CheckBoxCustom';
 import ButtonCustom from '../../components/ButtonCustom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { Box } from '@material-ui/core';
-import { clog } from '../../utils/shorters';
+import Container from '@material-ui/core/Container';
 
 const initialValue = {
   username: '',
@@ -17,14 +16,14 @@ const initialValue = {
   remember: false,
 };
 
-const Login = ({ login, userStorage, ...props }) => {
+const Login = ({ login, userStorage, configs, ...props }) => {
   const classes = useStyles();
   useEffect(() => {
     chrome.runtime.sendMessage({ type: 'FORM_OVER_ALL' });
   }, []);
 
   return (
-    <Box>
+    <Container style={{ zIndex: -1000, position: configs.animSplashInit ? 'absolute' : 'unset' }}>
       <Formik
         initialValues={initialValue}
         onSubmit={(values, formikHelpers) => {
@@ -78,7 +77,7 @@ const Login = ({ login, userStorage, ...props }) => {
           );
         }}
       </Formik>
-    </Box>
+    </Container>
   );
 };
 
@@ -86,6 +85,7 @@ const mapStateToProps = (state) => {
   return {
     login: state.login,
     userStorage: state.userStorage,
+    configs: state.configs,
   };
 };
 

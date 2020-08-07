@@ -30,12 +30,11 @@ const proxyStore = new Store({
 });
 
 const App = (props) => {
-
   return (
     <Provider store={proxyStore}>
       <ThemeProvider theme={theme}>
         <CssBaseline/>
-        <Popup style={{height: 368, width: 300}}/>
+        <Popup/>
       </ThemeProvider>
     </Provider>
   );

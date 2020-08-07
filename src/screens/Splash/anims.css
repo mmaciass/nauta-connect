@@ -1,0 +1,357 @@
+:root {
+    --fill-mode: forwards;
+    --delay-time: 0.5s;
+    --duration-time: 0.5s;
+
+    --rectUp-init-y: -82px;
+    --rectUp-login-y: -212px;
+
+    --rectDown-init-y: 184px;
+    --rectDown-login-y: 310px;
+
+    --bordUp-init-x: -202px;
+    --bordUp-init-y: -153px;
+    --bordUp-init-rotate: 0deg;
+    --bordUp-login-x: -220px;
+    --bordUp-login-y: -220px;
+    --bordUp-login-rotate: 60deg;
+    --bordUp-connect-x: -220px;
+    --bordUp-connect-y: -220px;
+    --bordUp-connect-rotate: 60deg;
+
+    --bordDown-init-x: 55px;
+    --bordDown-init-y: 277px;
+    --bordDown-init-rotate: 0deg;
+    --bordDown-login-x: 95px;
+    --bordDown-login-y: 350px;
+    --bordDown-login-rotate: 60deg;
+    --bordDown-connect-x: 95px;
+    --bordDown-connect-y: 350px;
+    --bordDown-connect-rotate: 60deg;
+
+    --name-init-x: 0px;
+    --name-init-y: 81px;
+    --name-init-scale: 1;
+    --name-login-x: -55px;
+    --name-login-y: 23px;
+    --name-login-scale: 1.1;
+
+    --logo-init-x: 71px;
+    --logo-init-y: 105px;
+    --logo-init-scale: 1;
+    --logo-login-x: 180px;
+    --logo-login-y: -35px;
+    --logog-login-scale: 0.4;
+    --logo-connect-x: 71px;
+    --logo-connect-y: -20px;
+    --logo-connect-scale: 0.4;
+
+    --slogan-init-y: 269px;
+    --slogan-all-y: 345px;
+}
+
+/* ANIMATIONS TO RECT UP */
+.rectUp.animOpen {
+    animation: rectUpAnimOpen var(--duration-time) var(--delay-time) var(--fill-mode);
+}
+
+.rectUp.staticOpen {
+    animation: rectUpAnimOpen 0s var(--fill-mode);
+}
+
+@keyframes rectUpAnimOpen {
+    from {
+        transform: translateY(var(--rectUp-init-y));
+    }
+    to {
+        transform: translateY(var(--rectUp-login-y));
+    }
+}
+
+.rectUp.animConnect {
+    animation: rectUpAnimConnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes rectUpAnimConnect {
+    from {
+        transform: translateY(var(--rectUp-login-y));
+    }
+    to {
+        transform: translateY(var(--rectUp-init-y));
+    }
+}
+
+.rectUp.animDisconnect {
+    animation: rectUpAnimDisconnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes rectUpAnimDisconnect {
+    from {
+        transform: translateY(var(--rectUp-init-y));
+    }
+    to {
+        transform: translateY(var(--rectUp-login-y));
+    }
+}
+
+/* ANIMATIONS TO RECT DOWN */
+.rectDown.animOpen {
+    animation: rectDownAnimOpen var(--duration-time) var(--delay-time) var(--fill-mode);
+}
+.rectDown.staticOpen {
+    animation: rectDownAnimOpen 0s var(--fill-mode);
+}
+
+@keyframes rectDownAnimOpen {
+    from {
+        transform: translateY(var(--rectDown-init-y));
+    }
+    to {
+        transform: translateY(var(--rectDown-login-y));
+    }
+}
+
+.rectDown.animConnect {
+    animation: rectDownAnimConnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes rectDownAnimConnect {
+    from {
+        transform: translateY(var(--rectDown-login-y));
+    }
+    to {
+        transform: translateY(var(--rectDown-init-y));
+    }
+}
+
+.rectDown.animDisconnect {
+    animation: rectDownAnimDisconnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes rectDownAnimDisconnect {
+    from {
+        transform: translateY(var(--rectDown-init-y));
+    }
+    to {
+        transform: translateY(var(--rectDown-login-y));
+    }
+}
+
+/* ANIMATIONS TO BORDER UP */
+.bordUp.animOpen {
+    animation: bordUpAnimOpen var(--duration-time) var(--delay-time) var(--fill-mode);
+}
+.bordUp.staticOpen {
+    animation: bordUpAnimOpen 0s var(--fill-mode);
+}
+
+@keyframes bordUpAnimOpen {
+    from {
+        transform: translate(var(--bordUp-init-x), var(--bordUp-init-y)) rotate(var(--bordUp-init-rotate));
+    }
+    to {
+        transform: translate(var(--bordUp-login-x), var(--bordUp-login-y)) rotate(var(--bordUp-login-rotate));
+    }
+}
+
+.bordUp.animConnect {
+    animation: bordUpAnimConnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes bordUpAnimConnect {
+    from {
+        transform: translate(var(--bordUp-login-x), var(--bordUp-login-y)) rotate(var(--bordUp-login-rotate));
+    }
+    to {
+        transform: translate(var(--bordUp-connect-x), var(--bordUp-connect-y)) rotate(var(--bordUp-connect-rotate));
+    }
+}
+
+.bordUp.animDisconnect {
+    animation: bordUpAnimDisconnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes bordUpAnimDisconnect {
+    from {
+        transform: translate(var(--bordUp-login-x), var(--bordUp-login-y)) rotate(var(--bordUp-login-rotate));
+    }
+    to {
+        transform: translate(var(--bordUp-connect-x), var(--bordUp-connect-y)) rotate(var(--bordUp-connect-rotate));
+    }
+}
+
+/* ANIMATIONS TO BORDER DOWN */
+.bordDown.animOpen {
+    animation: bordDownAnimOpen var(--duration-time) var(--delay-time) var(--fill-mode);
+}
+.bordDown.staticOpen {
+    animation: bordDownAnimOpen 0s var(--fill-mode);
+}
+
+@keyframes bordDownAnimOpen {
+    from {
+        transform: translate(var(--bordDown-init-x), var(--bordDown-init-y)) rotate(var(--bordDown-init-rotate));
+    }
+    to {
+        transform: translate(var(--bordDown-login-x), var(--bordDown-login-y)) rotate(var(--bordDown-login-rotate));
+    }
+}
+
+.bordDown.animConnect {
+    animation: bordDownAnimConnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes bordDownAnimConnect {
+    from {
+        transform: translate(var(--bordDown-login-x), var(--bordDown-login-y)) rotate(var(--bordDown-login-rotate));
+    }
+    to {
+        transform: translate(var(--bordDown-connect-x), var(--bordDown-connect-y)) rotate(var(--bordDown-connect-rotate));
+    }
+}
+
+.bordDown.animDisconnect {
+    animation: bordDownAnimDisconnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes bordDownAnimDisconnect {
+    from {
+        transform: translate(var(--bordDown-login-x), var(--bordDown-login-y)) rotate(var(--bordDown-login-rotate));
+    }
+    to {
+        transform: translate(var(--bordDown-connect-x), var(--bordDown-connect-y)) rotate(var(--bordDown-connect-rotate));
+    }
+}
+
+/* ANIMATIONS TO NAME */
+.name.animOpen {
+    animation: nameAnimOpen var(--duration-time) var(--delay-time) var(--fill-mode);
+}
+.name.staticOpen {
+    animation: nameAnimOpen 0s  var(--fill-mode);
+}
+
+@keyframes nameAnimOpen {
+    from {
+        transform: translate(var(--name-init-x), var(--name-init-y)) scale(var(--name-init-scale));
+    }
+    to {
+        transform: translate(var(--name-login-x), var(--name-login-y)) scale(var(--name-login-scale));
+    }
+}
+
+.name.animConnect {
+    animation: nameAnimConnect calc(var(--duration-time) * 0.5) var(--fill-mode);
+}
+
+@keyframes nameAnimConnect {
+    from {
+        transform: translate(var(--name-login-x), var(--name-login-y)) scale(var(--name-login-scale));
+        opacity: 1;
+    }
+    to {
+        transform: translate(var(--name-login-x), var(--name-login-y)) scale(var(--name-login-scale));
+        opacity: 0;
+    }
+}
+
+.name.animDisconnect {
+    animation: nameAnimDisconnect calc(var(--duration-time) * 0.5) var(--fill-mode);
+}
+
+@keyframes nameAnimDisconnect {
+    from {
+        transform: translate(var(--name-login-x), var(--name-login-y)) scale(var(--name-login-scale));
+        opacity: 0;
+    }
+    to {
+        transform: translate(var(--name-login-x), var(--name-login-y)) scale(var(--name-login-scale));
+        opacity: 1;
+    }
+}
+
+/* ANIMATIONS TO LOGO */
+.logo.animOpen {
+    animation: logoAnimOpen var(--duration-time) var(--delay-time) var(--fill-mode);
+}
+.logo.staticOpen {
+    animation: logoAnimOpen 0s var(--fill-mode);
+}
+
+@keyframes logoAnimOpen {
+    from {
+        transform: translate(var(--logo-init-x), var(--logo-init-y)) scale(var(--logo-init-scale));
+    }
+    to {
+        transform: translate(var(--logo-login-x), var(--logo-login-y)) scale(var(--logog-login-scale));
+    }
+}
+
+.logo.animConnect {
+    animation: logoAnimConnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes logoAnimConnect {
+    from {
+        transform: translate(var(--logo-login-x), var(--logo-login-y)) scale(var(--logog-login-scale));
+    }
+    to {
+        transform: translate(var(--logo-connect-x), var(--logo-connect-y)) scale(var(--logo-connect-scale));
+    }
+}
+
+.logo.animDisconnect {
+    animation: logoAnimDisconnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes logoAnimDisconnect {
+    from {
+        transform: translate(var(--logo-connect-x), var(--logo-connect-y)) scale(var(--logo-connect-scale));
+    }
+    to {
+        transform: translate(var(--logo-login-x), var(--logo-login-y)) scale(var(--logog-login-scale));
+    }
+}
+
+/* ANIMATIONS TO SLOGAN */
+.slogan.animOpen {
+    animation: sloganAnimOpen var(--duration-time) var(--delay-time) var(--fill-mode);
+}
+.slogan.staticOpen {
+    animation: sloganAnimOpen 0s var(--fill-mode);
+}
+
+@keyframes sloganAnimOpen {
+    from {
+        transform: translateY(var(--slogan-init-y));
+    }
+    to {
+        transform: translateY(var(--slogan-all-y));
+    }
+}
+
+.slogan.animConnect {
+    animation: sloganAnimConnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes sloganAnimConnect {
+    from {
+        transform: translateY(var(--slogan-all-y));
+    }
+    to {
+        transform: translateY(var(--slogan-all-y));
+    }
+}
+
+.slogan.animDisconnect {
+    animation: sloganAnimDisconnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes sloganAnimDisconnect {
+    from {
+        transform: translateY(var(--slogan-all-y));
+    }
+    to {
+        transform: translateY(var(--slogan-all-y));
+    }
+}

@@ -6,15 +6,22 @@ import rectUp from '../../assets/vector/rect-up.svg';
 import rectDown from '../../assets/vector/rect-down.svg';
 import logo from '../../assets/vector/logo.svg';
 import './staticsStyles.css';
-import './animatedBorder.css';
-import './animatedObjectsIn.css';
-import './animatedObjectsOut.css';
+import './anims.css';
 import { connect } from 'react-redux';
 
-const Splash = ({ configs, ...props }) => {
-  const animClass = configs.animSplashInit ? 'animFluid' : 'animStatic';
+const Splash = ({ configs, login, ...props }) => {
+
+  const animClass =
+    (login.status === 'connected')
+      // (true)
+      ? 'animConnect'
+      : (login.status === 'disconected')
+      ? 'animDisconnect'
+      : (configs.animSplashInit)
+        ? 'animOpen'
+        : 'staticOpen';
   return (
-    <Box className={`boxSplashInit ${configs.animSplashInit ? "overAll" : null}`} {...props}>
+    <Box className={`boxSplashInit`} {...props}>
       <img className={`rectUp ${animClass}`} src={rectUp} alt="rect-up"/>
       <img className={`rectDown ${animClass}`} src={rectDown} alt="rect-down"/>
       <img className={`bordUp ${animClass}`} src={bordUp} alt="bord-up"/>
@@ -29,6 +36,7 @@ const Splash = ({ configs, ...props }) => {
 const mapStateToProps = (state) => {
   return {
     configs: state.configs,
+    login: state.login,
   };
 };
 

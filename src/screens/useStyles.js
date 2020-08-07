@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   buttonsContainer: {
-    marginTop: 20,
+    marginTop: 30,
   },
   ShareButtons: {
     marginTop: 20,

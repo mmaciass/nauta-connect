@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -6,14 +6,24 @@ import * as moment from 'moment';
 import useStyles from '../useStyles';
 import { formatTime } from '../../utils/timeUtil';
 import ButtonCustom from '../../components/ButtonCustom';
+import CancelIcon from '@material-ui/icons/Cancel';
+import Container from '@material-ui/core/Container';
+import './anims.css';
+import ReplyIcon from '@material-ui/icons/Reply';
 
-const Connect = ({ login, dispatch, ...props }) => {
+const Connect = ({ login, ...props }) => {
   const [time, setTime] = useState('--:--:--');
+  const [showForce, setShowForce] = useState(false);
   const [restante, setRestante] = useState(login.lastTimeLeft);
   const classes = useStyles();
   const logout = () => {
-    debugger
     chrome.runtime.sendMessage({ type: 'LOGOUT' });
+    setTimeout(() => {
+      setShowForce(true);
+    }, 3.5 * 1000);
+  };
+  const forceLogout = () => {
+    chrome.runtime.sendMessage({ type: 'FORCE_LOGOUT' });
   };
 
   const tiempoConectado = () => {
@@ -26,7 +36,7 @@ const Connect = ({ login, dispatch, ...props }) => {
         parseInt(trestante[1]) * 60 * 1000 +
         parseInt(trestante[2]) * 1000;
       if ((milTRestante - ms) <= 0)
-        chrome.runtime.sendMessage({ type: 'FORCE_LOGOUT' });
+        forceLogout();
       setRestante(formatTime(milTRestante - ms));
     }
   };
@@ -40,18 +50,28 @@ const Connect = ({ login, dispatch, ...props }) => {
   }, []);
 
   return (
-    <Fragment>
-      <Typography style={{ textAlign: 'center', marginBottom: 15 }}>Usted se encuentra conectado.</Typography>
-
-      <Typography>Usuario: {login.username}</Typography>
+    <Container className="containerConnect">
+      <Typography>Usted se encuentra conectado</Typography>
+      <Typography>{login.username ? login.username : '@nauta'}</Typography>
       <Divider/>
-      <Typography>{time === '--:--:--' ? 'Tiempo inicial:' : 'Tiempo restante:'} {restante}</Typography>
-      <Typography>Tiempo conectado: {time}</Typography>
+      <Typography>{time === '--:--:--' ? 'Tiempo inicial:' : 'Tiempo restante:'}</Typography>
+      <Typography>{restante ? restante : '--:--:--'}</Typography>
+      <Typography>Tiempo conectado:</Typography>
+      <Typography>{time}</Typography>
 
       <div className={classes.buttonsContainer}>
-        <ButtonCustom onClick={logout}>DESCONECTARSE</ButtonCustom>
+        <ButtonCustom color="inherit" onClick={logout} style={{ backgroundColor: 'white', color: '#3f51b5' }}
+                      startIcon={<CancelIcon/>}>DESCONECTARSE</ButtonCustom>
+        {showForce
+          ? <ButtonCustom fullWidth={false} color="inherit" onClick={forceLogout} style={{
+            backgroundColor: 'white', color: '#3f51b5', position: 'absolute', right: 10, bottom: 25,
+          }} startIcon={<ReplyIcon/>} children="Forzar"/>
+          : null
+        }
+
       </div>
-    </Fragment>
+
+    </Container>
   );
 };
 

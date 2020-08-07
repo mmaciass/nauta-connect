@@ -4,7 +4,6 @@ import NotifierMessenger from '../../components/NotifierMessenger';
 import { connect } from 'react-redux';
 import Connect from '../../screens/Connect';
 import useStyles from '../../screens/useStyles';
-import Container from '@material-ui/core/Container';
 import Splash from '../../screens/Splash';
 import { Box } from '@material-ui/core';
 // import ShareButtons from '../../components/SharedButtons';
@@ -21,13 +20,11 @@ const Popup = ({ login, configs, ...props }) => {
     <Box {...props}>
       <Splash/>
       <div style={{ paddingTop: 100 }}/>
-      <Container>
-        {login.status === 'connected' && login.lastTimeLeft && login.lastUpdateTime ? <Connect/> : <Login/>}
+        {login.status === 'connected' ? <Connect/> : <Login/>}
         {/*<Connect/>*/}
         {/*<ShareButtons className={classes.ShareButtons}/>*/}
-        <div style={{ marginBottom: 15 }}/>
+        {/*<div style={{ marginBottom: 15 }}/>*/}
         <NotifierMessenger/>
-      </Container>
     </Box>
   );
 };

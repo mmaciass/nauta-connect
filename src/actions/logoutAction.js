@@ -30,7 +30,9 @@ export const forceLogoutAction = () => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
     const bodyData = bodyDataConstructor(getState());
     fetchCustom('https://secure.etecsa.net:8443/LogoutServlet', bodyData)
-      .finally(() => {
+      .then(() => {
+      })
+      .catch(() => {
       });
   };
 };

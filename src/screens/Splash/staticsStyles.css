@@ -1,9 +1,9 @@
 .boxSplashInit {
     position: absolute;
-}
-
-.boxSplashInit.overAll {
-    z-index: 1000;
+    width: 300px;
+    height: 368px;
+    margin: 0;
+    z-index: 0;
 }
 
 .boxSplashInit > * {
@@ -11,42 +11,35 @@
 }
 
 .rectUp {
-    top: -82px;
+    transform: translateY(-82px);
 }
 
 .rectDown {
-    top: 184px;
+    transform: translateY(184px);
 }
 
 .bordUp {
-    top: -153px;
-    left: -202px;
+    transform: translate(-202px, -153px);
 }
 
 .bordDown {
-    top: 277px;
-    left: 55px;
+    transform: translate(55px, 277px);
 }
 
 .logo {
-    height: 158px;
-    width: 158px;
-    top: 105px;
-    left: 71px;
+    transform: translate(71px, 105px);
 }
 
 .name {
     font-size: 20px;
-    width: 300px;
+    transform: translateY(81px);
+    width: inherit;
     text-align: center;
-    top: 81px;
-    color: white;
 }
 
 .slogan {
-    font-size: 14px;
-    width: 300px;
+    width: inherit;
     text-align: center;
-    top: 268px;
-    color: white;
+    font-size: 14px;
+    transform: translateY(269px);
 }

@@ -1,0 +1,13 @@
+.containerConnect {
+    z-index: 1000;
+    position: absolute;
+    text-align: center;
+    opacity: 0;
+    animation: dataAnim 0.3s 0.3s forwards;
+}
+
+@keyframes dataAnim {
+    to {
+        opacity: 1;
+    }
+}
