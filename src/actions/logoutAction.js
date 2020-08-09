@@ -1,4 +1,5 @@
 import fetchCustom from '../utils/fetch';
+import { disconnectSplash } from './splashAction';
 
 const logoutAction = () => {
   return (dispatch, getState) => {
@@ -13,6 +14,7 @@ const logoutAction = () => {
           dispatch({ type: 'LOGOUT_FAILURE' });
         else
           dispatch({ type: 'LOGOUT_SUCCESS' });
+          dispatch(disconnectSplash());
       })
       .catch(reason => {
         if (reason.message === 'Failed to fetch')
@@ -28,6 +30,7 @@ export default logoutAction;
 export const forceLogoutAction = () => {
   return (dispatch, getState) => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
+    dispatch(disconnectSplash());
     const bodyData = bodyDataConstructor(getState());
     fetchCustom('https://secure.etecsa.net:8443/LogoutServlet', bodyData)
       .then(() => {

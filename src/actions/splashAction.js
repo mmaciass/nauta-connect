@@ -5,3 +5,12 @@ export const hideSplash = (deltaTime = 1000 * 0.01) => {
     }, deltaTime);
   };
 };
+
+export const disconnectSplash = (timeEnd = 500) => {
+  return (dispatch) => {
+    dispatch({ type: 'DISCONNECT_SPLASH' });
+    setTimeout(() => {
+      dispatch({ type: 'DISCONNECT_SPLASH_END' });
+    }, timeEnd);
+  };
+};

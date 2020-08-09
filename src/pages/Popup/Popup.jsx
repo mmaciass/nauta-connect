@@ -13,18 +13,18 @@ const Popup = ({ login, configs, ...props }) => {
   useEffect(() => {
     setTimeout(() => {
       chrome.runtime.sendMessage({ type: 'HIDE_SPLASH' });
-    }, 1000 * 2);
+    }, 1000);
   }, []);
 
   return (
     <Box {...props}>
       <Splash/>
       <div style={{ paddingTop: 100 }}/>
-        {login.status === 'connected' ? <Connect/> : <Login/>}
-        {/*<Connect/>*/}
-        {/*<ShareButtons className={classes.ShareButtons}/>*/}
-        {/*<div style={{ marginBottom: 15 }}/>*/}
-        <NotifierMessenger/>
+      {login.status === 'connected' ? <Connect/> : <Login/>}
+      {/*<Connect/>*/}
+      {/*<ShareButtons className={classes.ShareButtons}/>*/}
+      {/*<div style={{ marginBottom: 15 }}/>*/}
+      <NotifierMessenger/>
     </Box>
   );
 };

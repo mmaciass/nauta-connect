@@ -24,7 +24,7 @@ const Login = ({ login, userStorage, configs, ...props }) => {
   }, []);
 
   return (
-    <Container style={{ zIndex: -1000, position: configs.animSplashInit ? 'absolute' : 'unset' }}>
+    <Container style={{ zIndex: -1000, position: configs.animSplashInit ? 'absolute' : configs.animSplashDisconnect ? 'absolute' : 'unset' }}>
       <Formik
         initialValues={initialValue}
         onSubmit={(values, formikHelpers) => {

@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import loginAction from '../../actions/loginAction';
 import logoutAction, { forceLogoutAction } from '../../actions/logoutAction';
 import { loadUserAction } from '../../actions/userStorageAction';
-import { hideSplash } from '../../actions/splashAction';
+import { disconnectSplash, hideSplash } from '../../actions/splashAction';
 
-const Background = ({ login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash, ...props }) => {
+const Background = ({ login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash, disconnectSplash, ...props }) => {
   // if (process.env.NODE_ENV === 'development')
   //   console.log('chrome instance', chrome);
 
@@ -50,6 +50,7 @@ const mapDispatchToProps = {
   forceLogoutAction,
   loadUserAction,
   hideSplash,
+  disconnectSplash,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);
