@@ -4,6 +4,7 @@
     text-align: center;
     opacity: 0;
     animation: dataAnim 0.3s 0.3s forwards;
+    color: white;
 }
 
 @keyframes dataAnim {

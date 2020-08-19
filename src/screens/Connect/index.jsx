@@ -11,7 +11,7 @@ const connectController = (props) => {
     }, 1000 * 1.3);
     return (
       <Container style={{ textAlign: 'center', marginTop: 100 }}>
-        <CircularProgress color="inherit"/>
+        <CircularProgress style={{color: 'white'}}/>
       </Container>
     );
   }
