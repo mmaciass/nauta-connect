@@ -1,4 +1,5 @@
 import CryptoJS from 'crypto-js';
+// TODO: IMPORTANT sustituir el archivo ".env.example" por ".env" antes de realizar el release
 import { REACT_APP_KEY_PROTECT } from '../utils/env.example';
 
 export const saveUserAction = (username, password) => {
