@@ -8,8 +8,24 @@ import logo from '../../assets/vector/logo.svg';
 import './staticsStyles.css';
 import './anims.css';
 import { connect } from 'react-redux';
+import IconButton from '@material-ui/core/IconButton';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import BrightnessAutoIcon from '@material-ui/icons/BrightnessAuto';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 
 const Splash = ({ configs, login, ...props }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const animClass =
     (login.status === 'connected')
@@ -29,6 +45,42 @@ const Splash = ({ configs, login, ...props }) => {
       <img className={`logo ${animClass}`} src={logo} alt="logo"/>
       <Typography className={`name ${animClass}`}>Nauta Connect</Typography>
       <Typography className={`slogan ${animClass}`}>Conectarse nunca fue tan simple ...</Typography>
+
+      <IconButton aria-label="opciones" style={{ position: 'absolute', zIndex: 2000, top: 20, right: 19 }}
+                  onClick={handleClick}>
+        <MoreVertIcon/>
+      </IconButton>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={() => {
+          chrome.runtime.sendMessage({ type: 'NEXT_THEME' });
+        }}>
+          <ListItemIcon>
+            {configs.theme === 'auto'
+              ? <BrightnessAutoIcon fontSize="small"/>
+              : configs.theme === 'dark'
+                ? <Brightness4Icon fontSize="small"/>
+                : <Brightness7Icon fontSize="small"/>}
+          </ListItemIcon>
+
+          {configs.theme === 'auto'
+            ? <Typography children="Modo Automático"/>
+            : configs.theme === 'dark'
+              ? <Typography children="Modo Oscuro"/>
+              : <Typography children="Modo Claro"/>}
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+            <AccountCircleIcon fontSize="small"/>
+          </ListItemIcon>
+          <Typography>Ver Cuentas</Typography>
+        </MenuItem>
+      </Menu>
     </Box>
   );
 };

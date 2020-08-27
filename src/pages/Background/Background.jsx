@@ -4,8 +4,9 @@ import loginAction from '../../actions/loginAction';
 import logoutAction, { forceLogoutAction } from '../../actions/logoutAction';
 import { loadUserAction } from '../../actions/userStorageAction';
 import { disconnectSplash, hideSplash } from '../../actions/splashAction';
+import { nextTheme } from '../../actions/themeAction';
 
-const Background = ({ login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash, disconnectSplash, ...props }) => {
+const Background = ({ login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash, disconnectSplash, nextTheme, ...props }) => {
   // if (process.env.NODE_ENV === 'development')
   //   console.log('chrome instance', chrome);
 
@@ -27,6 +28,9 @@ const Background = ({ login, loginAction, logoutAction, forceLogoutAction, loadU
             break;
           case 'HIDE_SPLASH':
             hideSplash();
+            break;
+          case 'NEXT_THEME':
+            nextTheme();
             break;
         }
       },
@@ -51,6 +55,7 @@ const mapDispatchToProps = {
   loadUserAction,
   hideSplash,
   disconnectSplash,
+  nextTheme,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);

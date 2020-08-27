@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Login from '../../screens/Login';
 import NotifierMessenger from '../../components/NotifierMessenger';
 import { connect } from 'react-redux';
@@ -12,15 +12,9 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { blue, indigo } from '@material-ui/core/colors';
 // import ShareButtons from '../../components/SharedButtons';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: indigo,
-    secondary: blue,
-    type: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
-  },
-});
 
 const Popup = ({ login, configs, ...props }) => {
+  let [theme, setTheme] = useState(null);
   const classes = useStyles();
   useEffect(() => {
     setTimeout(() => {
@@ -28,8 +22,22 @@ const Popup = ({ login, configs, ...props }) => {
     }, 1000);
   }, []);
 
-  return (
+  useEffect(() => {
+    const themeNew = createMuiTheme({
+      palette: {
+        primary: indigo,
+        secondary: blue,
+        type: configs.theme === 'auto'
+          ? window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          : configs.theme,
+      }, props: {
+        MuiMenuItem: { dense: true },
+      },
+    });
+    setTheme(themeNew);
+  }, [configs.theme]);
 
+  return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
       <Box {...props}>
