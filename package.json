@@ -1,6 +1,6 @@
 {
   "name": "nauta-connect",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Extensión para conectarse a la red Nauta de ETECSA de forma rápida, fácil y segura.",
   "license": "MIT",
   "esversion": 6,

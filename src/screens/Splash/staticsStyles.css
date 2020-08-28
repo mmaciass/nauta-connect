@@ -45,3 +45,12 @@
     transform: translateY(269px);
     color: white;
 }
+
+.optionBtn {
+    position: absolute !important;
+    color: white !important;
+    z-index: 2000;
+    top: 20px;
+    right: 19px;
+    transform: scale(0) rotate(270deg);
+}

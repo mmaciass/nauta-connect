@@ -48,6 +48,13 @@
 
     --slogan-init-y: 269px;
     --slogan-all-y: 345px;
+
+    --btn-menu-init-rotate: 270deg;
+    --btn-menu-login-rotate: 0deg;
+    --btn-menu-connect-rotate: 270deg;
+    --btn-menu-init-scale: 0;
+    --btn-menu-login-scale: 1;
+    --btn-menu-connect-scale: 0;
 }
 
 /* ANIMATIONS TO RECT UP */
@@ -353,5 +360,48 @@
     }
     to {
         transform: translateY(var(--slogan-all-y));
+    }
+}
+
+/* ANIMATIONS TO BTN Menu */
+.optionBtn.animOpen {
+    animation: optionBtnAnimOpen var(--duration-time) var(--delay-time) var(--fill-mode);
+}
+.optionBtn.staticOpen {
+    animation: optionBtnAnimOpen 0s var(--fill-mode);
+}
+
+@keyframes optionBtnAnimOpen {
+    from {
+        transform: scale(var(--btn-menu-init-scale)) rotate(var(--btn-menu-init-rotate));
+    }
+    to {
+        transform: scale(var(--btn-menu-login-scale)) rotate(var(--btn-menu-login-rotate));
+    }
+}
+
+.optionBtn.animConnect {
+    animation: optionBtnAnimConnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes optionBtnAnimConnect {
+    from {
+        transform: scale(var(--btn-menu-login-scale)) rotate(var(--btn-menu-login-rotate));
+    }
+    to {
+        transform: scale(var(--btn-menu-connect-scale)) rotate(var(--btn-menu-connect-rotate));
+    }
+}
+
+.optionBtn.animDisconnect {
+    animation: optionBtnAnimDisconnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes optionBtnAnimDisconnect {
+    from {
+        transform: scale(var(--btn-menu-connect-scale)) rotate(var(--btn-menu-connect-rotate));
+    }
+    to {
+        transform: scale(var(--btn-menu-login-scale)) rotate(var(--btn-menu-login-rotate));
     }
 }

@@ -40,8 +40,7 @@ const Splash = ({ configs, login, ...props }) => {
       <Typography className={`name ${animClass}`}>Nauta Connect</Typography>
       <Typography className={`slogan ${animClass}`}>Conectarse nunca fue tan simple ...</Typography>
 
-      <IconButton aria-label="opciones" style={{ position: 'absolute', zIndex: 2000, top: 20, right: 19 }}
-                  onClick={handleClick}>
+      <IconButton aria-label="opciones" className={`optionBtn ${animClass}`} onClick={handleClick}>
         <MoreVertIcon/>
       </IconButton>
       <MenuOptionsCustom anchorEl={anchorEl} handleClose={handleClose} theme={configs.theme}/>
