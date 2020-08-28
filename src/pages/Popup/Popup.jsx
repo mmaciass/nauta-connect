@@ -14,7 +14,18 @@ import { blue, indigo } from '@material-ui/core/colors';
 
 
 const Popup = ({ login, configs, ...props }) => {
-  let [theme, setTheme] = useState(null);
+  let [theme, setTheme] = useState(createMuiTheme({
+    palette: {
+      primary: indigo,
+      secondary: blue,
+      type: configs.theme === 'auto'
+        ? window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        : (configs.theme || 'light'),
+    }, props: {
+      MuiMenuItem: { dense: true },
+      MuiListItem: {dense: true}
+    },
+  }));
   const classes = useStyles();
   useEffect(() => {
     setTimeout(() => {
@@ -29,9 +40,10 @@ const Popup = ({ login, configs, ...props }) => {
         secondary: blue,
         type: configs.theme === 'auto'
           ? window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-          : configs.theme,
+          : (configs.theme || 'light'),
       }, props: {
         MuiMenuItem: { dense: true },
+        MuiListItem: {dense: true}
       },
     });
     setTheme(themeNew);

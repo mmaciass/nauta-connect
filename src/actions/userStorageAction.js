@@ -43,6 +43,22 @@ export const loadUserAction = (username = '') => {
   };
 };
 
+export const removeUserAction = (username) => {
+  return (dispatch) => {
+    chrome.storage.sync.get(['users'], ({ users }) => {
+      if (users) {
+        let index = users.findIndex(user => user.username === username);
+        if (index >= 0) {
+          users.splice(index, 1);
+          chrome.storage.sync.set({ users }, () => {
+            dispatch({ type: 'REMOVE_USER_STORE' });
+          });
+        }
+      }
+    });
+  };
+};
+
 export const clearUserInTimeDeltaAction = (timeDelta = 1000 * 2) => {
   return (dispatch) => {
     setTimeout(() => {

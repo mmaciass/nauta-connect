@@ -6,6 +6,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Error } from '@material-ui/icons';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   field: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AutoCompleteFieldCustom = ({
-                                   label, id, type = undefined, fullWidth = true, errors, isSubmitting,
+                                   label, id, type = undefined, fullWidth = true, errors, isSubmitting, userStorage,
                                    next = undefined, submitAction = undefined, submitted, formikBag, ...props
                                  }) => {
   const classes = useStyles();
@@ -30,7 +31,7 @@ const AutoCompleteFieldCustom = ({
         setUsers(users);
       }
     });
-  }, []);
+  }, [userStorage.lastUpdate]);
 
   return (
     <Autocomplete freeSolo {...props}
@@ -81,4 +82,11 @@ const AutoCompleteFieldCustom = ({
   );
 };
 
-export default AutoCompleteFieldCustom;
+
+const mapStateToProps = (state) => {
+  return {
+    userStorage: state.userStorage,
+  };
+};
+
+export default connect(mapStateToProps)(AutoCompleteFieldCustom);

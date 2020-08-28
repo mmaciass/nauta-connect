@@ -2,6 +2,7 @@ export const configInitialState = {
   theme: 'auto', // 'auto' || 'dark' || 'light'
   animSplashInit: true,
   animSplashDisconnect: false,
+  openDialogUsers: false
 };
 
 
@@ -22,6 +23,10 @@ const configs = (state = configInitialState, { type, payload }) => {
             ? 'light'
             : 'auto',
       };
+    case 'OPEN_DIALOG_USERS':
+      return { ...state, openDialogUsers: true };
+    case 'CLOSE_DIALOG_USERS':
+      return { ...state, openDialogUsers: false };
     default:
       return state;
   }
