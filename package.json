@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Extensión para conectarse a la red Nauta de ETECSA de forma rápida, fácil y segura.",
   "license": "MIT",
+  "keywords": ["nauta hogar", "nauta", "etecsa", "cuba", "wifi", "conectarse"],
   "esversion": 6,
   "scripts": {
     "build": "node utils/build.js",
