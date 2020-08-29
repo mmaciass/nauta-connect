@@ -8,6 +8,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import DialogUsersCustom from './DialogUsersCustom';
+// import InfoIcon from '@material-ui/icons/Info';
+// import Divider from '@material-ui/core/Divider';
 
 const MenuOptionsCustom = ({ anchorEl, handleClose, theme, ...props }) => {
   return (
@@ -37,7 +39,6 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, ...props }) => {
               : <Typography children="Modo Claro"/>}
         </MenuItem>
         <MenuItem onClick={() => {
-          debugger
           chrome.runtime.sendMessage({ type: 'OPEN_DIALOG_USERS' });
         }}>
           <ListItemIcon>
@@ -45,6 +46,14 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, ...props }) => {
           </ListItemIcon>
           <Typography>Ver Cuentas</Typography>
         </MenuItem>
+        {/*<Divider />*/}
+        {/*<MenuItem onClick={() => {*/}
+        {/*}}>*/}
+        {/*  <ListItemIcon>*/}
+        {/*    <InfoIcon fontSize="small"/>*/}
+        {/*  </ListItemIcon>*/}
+        {/*  <Typography>Acerca de...</Typography>*/}
+        {/*</MenuItem>*/}
       </Menu>
       <DialogUsersCustom/>
     </Fragment>
