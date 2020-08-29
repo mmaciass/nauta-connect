@@ -2,7 +2,7 @@ export const configInitialState = {
   theme: 'auto', // 'auto' || 'dark' || 'light'
   animSplashInit: true,
   animSplashDisconnect: false,
-  openDialogUsers: false
+  openDialogUsers: false,
 };
 
 
@@ -15,13 +15,14 @@ const configs = (state = configInitialState, { type, payload }) => {
     case 'DISCONNECT_SPLASH_END':
       return { ...state, animSplashInit: false };
     case 'NEXT_THEME':
+      const nextTheme = state.theme === 'auto'
+        ? 'dark'
+        : state.theme === 'dark'
+          ? 'light'
+          : 'auto';
       return {
         ...state,
-        theme: state.theme === 'auto'
-          ? 'dark'
-          : state.theme === 'dark'
-            ? 'light'
-            : 'auto',
+        theme: nextTheme,
       };
     case 'OPEN_DIALOG_USERS':
       return { ...state, openDialogUsers: true };

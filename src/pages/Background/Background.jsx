@@ -6,10 +6,12 @@ import { loadUserAction, removeUserAction } from '../../actions/userStorageActio
 import { disconnectSplash, hideSplash } from '../../actions/splashAction';
 import { nextTheme } from '../../actions/themeAction';
 import { closeDialogUsers, openDialogUsers } from '../../actions/dialogUsersAction';
+import { loadSessionFromStorage } from '../../actions/storeSessionAction';
 
 const Background = ({
                       login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash,
-                      disconnectSplash, nextTheme, openDialogUsers, closeDialogUsers, removeUserAction, ...props
+                      disconnectSplash, nextTheme, openDialogUsers, closeDialogUsers, removeUserAction,
+                      loadSessionFromStorage, ...props
                     }) => {
   // if (process.env.NODE_ENV === 'development')
   //   console.log('chrome instance', chrome);
@@ -46,6 +48,9 @@ const Background = ({
           case 'CLOSE_DIALOG_USERS':
             closeDialogUsers();
             break;
+          case 'LOAD_SESSION_FROM_STORAGE':
+            loadSessionFromStorage();
+            break;
         }
       },
     );
@@ -73,6 +78,7 @@ const mapDispatchToProps = {
   openDialogUsers,
   closeDialogUsers,
   removeUserAction,
+  loadSessionFromStorage
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);

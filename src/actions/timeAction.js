@@ -1,4 +1,6 @@
 import fetchCustom from '../utils/fetch';
+import { saveSessionInStorage } from './storeSessionAction';
+import * as moment from 'moment';
 
 const updateTimeLeftAction = (reintentos = 0) => {
   return (dispatch, getState) => {
@@ -19,7 +21,9 @@ const updateTimeLeftAction = (reintentos = 0) => {
       .then(value => {
         if (value.includes('errorop'))
           throw new Error('Error de operacion.');
-        dispatch({ type: 'UPDATE_TIME_SUCCESS', payload: { lastTimeLeft: value } });
+        const lastUpdateTime =  moment().toISOString();
+        dispatch({ type: 'UPDATE_TIME_SUCCESS', payload: { lastTimeLeft: value, lastUpdateTime } });
+        dispatch(saveSessionInStorage({ lastTimeLeft: value, lastUpdateTime }));
       })
       .catch(reason => {
         if (reason.message === 'Failed to fetch')

@@ -34,6 +34,8 @@ const login = (state = loginInitialState, { type, payload }) => {
       return state;
     case 'FORCE_UPDATE_ACTION':
       return { ...state, updateInstance: parseInt((Math.random() * 100000000).toFixed()) };
+    case 'LOAD_SESSION_FROM_STORAGE':
+      return { ...state, ...payload, status: 'connected' };
     default:
       return state;
   }

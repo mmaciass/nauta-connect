@@ -1,5 +1,6 @@
 import fetchCustom from '../utils/fetch';
 import { disconnectSplash } from './splashAction';
+import { clearSessionInStorage } from './storeSessionAction';
 
 const logoutAction = () => {
   return (dispatch, getState) => {
@@ -12,9 +13,11 @@ const logoutAction = () => {
       .then(value => {
         if (value.includes('logoutcallback(\'FAILURE\')'))
           dispatch({ type: 'LOGOUT_FAILURE' });
-        else
+        else {
           dispatch({ type: 'LOGOUT_SUCCESS' });
+          dispatch(clearSessionInStorage());
           dispatch(disconnectSplash());
+        }
       })
       .catch(reason => {
         if (reason.message === 'Failed to fetch')

@@ -8,8 +8,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import DialogUsersCustom from './DialogUsersCustom';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 // import InfoIcon from '@material-ui/icons/Info';
-// import Divider from '@material-ui/core/Divider';
+import Divider from '@material-ui/core/Divider';
 
 const MenuOptionsCustom = ({ anchorEl, handleClose, theme, ...props }) => {
   return (
@@ -45,6 +46,16 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, ...props }) => {
             <AccountCircleIcon fontSize="small"/>
           </ListItemIcon>
           <Typography>Ver Cuentas</Typography>
+        </MenuItem>
+        <Divider/>
+        <MenuItem onClick={() => {
+          chrome.runtime.sendMessage({ type: 'LOAD_SESSION_FROM_STORAGE' });
+          handleClose();
+        }}>
+          <ListItemIcon>
+            <RotateLeftIcon fontSize="small"/>
+          </ListItemIcon>
+          <Typography>Recuperar sesión</Typography>
         </MenuItem>
         {/*<Divider />*/}
         {/*<MenuItem onClick={() => {*/}
