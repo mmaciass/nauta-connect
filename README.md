@@ -4,19 +4,17 @@
 
 ![Logo](./images/ux.gif "User eXperience")
 
-Pasos:
-
-- Animación de entrada de la app.
-- Animación de conexión exitosa.
-- Animación de desconexión.
-
 ---
 
-### Extensión para conectarse a la red Nauta de ETECSA de forma rápida y sencilla.
+### Extensión para conectarse a la red Nauta de ETECSA de forma rápida, fácil y segura.
 
 #### Toda colaboración al proyecto es bienvenida.
 
 Extensión de código fuente abierto, publicado en Github en el enlace [mmaciass/nauta-connect](https://github.com/mmaciass/nauta-connect)
+
+#### Ya puedes instalarlo en tu navegador.
+- Para Google Chrome, desde el enalce de  [Google/nauta-connect](https://chrome.google.com/webstore/detail/nauta-connect/ppopcmgfgajciikdmipmmpffkpccinep).
+- Para Mozilla Firefox, desde el enalce de  [Firefox/nauta-connect](https://addons.mozilla.org/es/firefox/addon/nauta-connect/).
 
 #### Tecnologías y herramientas utilizadas en el proceso de desarrollo:
 
@@ -25,6 +23,7 @@ Extensión de código fuente abierto, publicado en Github en el enlace [mmaciass
 - Node ^v13.12.0
 - Yarn ^1.22.4
 - NPM ^6.14.5
+- Otras
 
 #### Navegador en que se ha probado satisfactoriamente
 
@@ -44,4 +43,4 @@ Para compilar la extension en modo de producción debe ejecutar el comando `yarn
 
 ### Funciones que aún faltan por implementar:
 
-- Se debe guardar el tema configurado para cuando se cierre y vuelva a abrir el navegador
+- Por el momento se me acabaron las ideas... AHORA ES CUANDO CUALQUIER IDEA ES BIENVENIDA 🎉 📬

@@ -20,9 +20,15 @@ const configs = (state = configInitialState, { type, payload }) => {
         : state.theme === 'dark'
           ? 'light'
           : 'auto';
+      chrome.storage.local.set({ theme: nextTheme });
       return {
         ...state,
         theme: nextTheme,
+      };
+    case 'SET_THEME':
+      return {
+        ...state,
+        theme: payload,
       };
     case 'OPEN_DIALOG_USERS':
       return { ...state, openDialogUsers: true };

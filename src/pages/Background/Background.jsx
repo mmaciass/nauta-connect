@@ -4,19 +4,21 @@ import loginAction from '../../actions/loginAction';
 import logoutAction, { forceLogoutAction } from '../../actions/logoutAction';
 import { loadUserAction, removeUserAction } from '../../actions/userStorageAction';
 import { disconnectSplash, hideSplash } from '../../actions/splashAction';
-import { nextTheme } from '../../actions/themeAction';
+import { nextTheme, restoreLastTheme } from '../../actions/themeAction';
 import { closeDialogUsers, openDialogUsers } from '../../actions/dialogUsersAction';
 import { loadSessionFromStorage } from '../../actions/storeSessionAction';
 
 const Background = ({
                       login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash,
                       disconnectSplash, nextTheme, openDialogUsers, closeDialogUsers, removeUserAction,
-                      loadSessionFromStorage, ...props
+                      loadSessionFromStorage, restoreLastTheme, ...props
                     }) => {
   // if (process.env.NODE_ENV === 'development')
   //   console.log('chrome instance', chrome);
 
   useEffect(() => {
+    restoreLastTheme()
+
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
         switch (request.type) {
@@ -78,7 +80,8 @@ const mapDispatchToProps = {
   openDialogUsers,
   closeDialogUsers,
   removeUserAction,
-  loadSessionFromStorage
+  loadSessionFromStorage,
+  restoreLastTheme,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);
