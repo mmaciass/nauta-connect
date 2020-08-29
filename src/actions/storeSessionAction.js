@@ -5,6 +5,7 @@ export const saveSessionInStorage = (session) => {
     });
   };
 };
+
 export const clearSessionInStorage = () => {
   return (dispatch) => {
     chrome.storage.local.remove([
@@ -24,6 +25,10 @@ export const loadSessionFromStorage = () => {
     ], (sc) => {
       if (sc.username && sc.ATTRIBUTE_UUID && sc.CSRFHW && sc.lastUpdateTime && sc.lastTimeLeft)
         dispatch({ type: 'LOAD_SESSION_FROM_STORAGE', payload: sc });
+      else chrome.runtime.sendMessage({
+        type: 'SHOW_MESSAGE_ERROR',
+        payload: 'No se ha encontrado ninguna sesión para restablecer.',
+      });
     });
   };
 };
