@@ -11,9 +11,10 @@ const logoutAction = () => {
         return value.text();
       })
       .then(value => {
-        if (value.includes('logoutcallback(\'FAILURE\')'))
+        if (value.includes('logoutcallback(\'FAILURE\')')) {
+          chrome.runtime.sendMessage({ type: 'LOGIN_ERROR', payload: 'No se ha podido cerrar la sesión.' });
           dispatch({ type: 'LOGOUT_FAILURE' });
-        else {
+        } else {
           dispatch({ type: 'LOGOUT_SUCCESS' });
           dispatch(clearSessionInStorage());
           dispatch(disconnectSplash());
