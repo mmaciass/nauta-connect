@@ -41,6 +41,7 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, ...props }) => {
         </MenuItem>
         <MenuItem onClick={() => {
           chrome.runtime.sendMessage({ type: 'OPEN_DIALOG_USERS' });
+          handleClose();
         }}>
           <ListItemIcon>
             <AccountCircleIcon fontSize="small"/>
