@@ -44,4 +44,4 @@ Para compilar la extension en modo de producción debe ejecutar el comando `yarn
 
 ### Funciones que aún faltan por implementar:
 
-- Configuración (cambiar tema, limpiar contraseñas guardadas, etc...).
+- Se debe guardar el tema configurado para cuando se cierre y vuelva a abrir el navegador
