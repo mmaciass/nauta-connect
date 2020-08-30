@@ -11,6 +11,10 @@ import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MenuOptionsCustom from '../../components/MenuOptionsCustom';
+import Tooltip from '@material-ui/core/Tooltip';
+import DialogUsersCustom from '../../components/DialogUsersCustom';
+import AboutDialogCustom from '../../components/AboutDialogCustom';
+import InfoIcon from '@material-ui/icons/Info';
 
 const Splash = ({ configs, login, ...props }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -40,10 +44,23 @@ const Splash = ({ configs, login, ...props }) => {
       <Typography className={`name ${animClass}`}>Nauta Connect</Typography>
       <Typography className={`slogan ${animClass}`}>Conectarse nunca fue tan simple ...</Typography>
 
-      <IconButton aria-label="opciones" className={`optionBtn ${animClass}`} onClick={handleClick}>
-        <MoreVertIcon/>
-      </IconButton>
+      <Tooltip title="Opciones" placement="left">
+        <IconButton aria-label="opciones" className={`optionBtn ${animClass}`} onClick={handleClick}>
+          <MoreVertIcon/>
+        </IconButton>
+      </Tooltip>
+
+      <Tooltip title="Acerca de..." placement="left">
+        <IconButton aria-label="acerca de..." className={`aboutBtn ${animClass}`} onClick={() => {
+          chrome.runtime.sendMessage({ type: 'OPEN_DIALOG_ABOUT' });
+        }}>
+          <InfoIcon/>
+        </IconButton>
+      </Tooltip>
+
       <MenuOptionsCustom anchorEl={anchorEl} handleClose={handleClose} theme={configs.theme}/>
+      <DialogUsersCustom/>
+      <AboutDialogCustom/>
     </Box>
   );
 };

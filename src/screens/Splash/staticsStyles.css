@@ -54,3 +54,13 @@
     right: 19px;
     transform: scale(0) rotate(270deg);
 }
+
+
+.aboutBtn {
+    position: absolute !important;
+    color: white !important;
+    z-index: 2000;
+    top: 4px;
+    right: 4px;
+    transform: scale(0) rotate(270deg);
+}

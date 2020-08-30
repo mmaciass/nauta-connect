@@ -50,11 +50,18 @@
     --slogan-all-y: 345px;
 
     --btn-menu-init-rotate: 270deg;
-    --btn-menu-login-rotate: 0deg;
+    --btn-menu-login-rotate: 15deg;
     --btn-menu-connect-rotate: 270deg;
     --btn-menu-init-scale: 0;
     --btn-menu-login-scale: 1;
     --btn-menu-connect-scale: 0;
+
+    --btn-about-init-rotate: 270deg;
+    --btn-about-login-rotate: 270deg;
+    --btn-about-connect-rotate: 0deg;
+    --btn-about-init-scale: 0;
+    --btn-about-login-scale: 0;
+    --btn-about-connect-scale: 1;
 }
 
 /* ANIMATIONS TO RECT UP */
@@ -403,5 +410,48 @@
     }
     to {
         transform: scale(var(--btn-menu-login-scale)) rotate(var(--btn-menu-login-rotate));
+    }
+}
+
+/* ANIMATIONS TO BTN About */
+.aboutBtn.animOpen {
+    animation: aboutBtnAnimOpen var(--duration-time) var(--delay-time) var(--fill-mode);
+}
+.aboutBtn.staticOpen {
+    animation: aboutBtnAnimOpen 0s var(--fill-mode);
+}
+
+@keyframes aboutBtnAnimOpen {
+    from {
+        transform: scale(var(--btn-about-init-scale)) rotate(var(--btn-about-init-rotate));
+    }
+    to {
+        transform: scale(var(--btn-about-login-scale)) rotate(var(--btn-about-login-rotate));
+    }
+}
+
+.aboutBtn.animConnect {
+    animation: aboutBtnAnimConnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes aboutBtnAnimConnect {
+    from {
+        transform: scale(var(--btn-about-login-scale)) rotate(var(--btn-about-login-rotate));
+    }
+    to {
+        transform: scale(var(--btn-about-connect-scale)) rotate(var(--btn-about-connect-rotate));
+    }
+}
+
+.aboutBtn.animDisconnect {
+    animation: aboutBtnAnimDisconnect var(--duration-time) var(--fill-mode);
+}
+
+@keyframes aboutBtnAnimDisconnect {
+    from {
+        transform: scale(var(--btn-about-connect-scale)) rotate(var(--btn-about-connect-rotate));
+    }
+    to {
+        transform: scale(var(--btn-about-login-scale)) rotate(var(--btn-about-login-rotate));
     }
 }

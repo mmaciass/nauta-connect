@@ -12,6 +12,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 import AlertDialogCustom from './AlertDialogCustom';
+import Typography from '@material-ui/core/Typography';
 
 const DialogUsersCustom = ({ configs, userStorage, ...props }) => {
   const [users, setUsers] = useState([]);
@@ -57,6 +58,7 @@ const DialogUsersCustom = ({ configs, userStorage, ...props }) => {
       <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={configs.openDialogUsers}>
         <DialogTitle id="simple-dialog-title">Cuentas Guardadas</DialogTitle>
         <List>
+          {users.length === 0 ? <Typography style={{margin: 10}} children="No existen cuentas guardadas."/> : null}
           {users.map((user) => (
             <ListItem button onClick={handleClick} key={user}>
               <Tooltip title={getTypeAccountDescription(user.username)} aria-label="descripcion">

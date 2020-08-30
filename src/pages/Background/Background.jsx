@@ -7,17 +7,21 @@ import { disconnectSplash, hideSplash } from '../../actions/splashAction';
 import { nextTheme, restoreLastTheme } from '../../actions/themeAction';
 import { closeDialogUsers, openDialogUsers } from '../../actions/dialogUsersAction';
 import { loadSessionFromStorage } from '../../actions/storeSessionAction';
+import { closeDialogAbout, openDialogAbout } from '../../actions/dialogAboutAction';
+import { detectNavigatorAction } from '../../actions/detectNavigatorAction';
 
 const Background = ({
                       login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash,
                       disconnectSplash, nextTheme, openDialogUsers, closeDialogUsers, removeUserAction,
-                      loadSessionFromStorage, restoreLastTheme, ...props
+                      loadSessionFromStorage, restoreLastTheme, openDialogAbout, closeDialogAbout,
+                      detectNavigatorAction, ...props
                     }) => {
   // if (process.env.NODE_ENV === 'development')
   //   console.log('chrome instance', chrome);
 
   useEffect(() => {
-    restoreLastTheme()
+    restoreLastTheme();
+    detectNavigatorAction();
 
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
@@ -49,6 +53,12 @@ const Background = ({
             break;
           case 'CLOSE_DIALOG_USERS':
             closeDialogUsers();
+            break;
+          case 'OPEN_DIALOG_ABOUT':
+            openDialogAbout();
+            break;
+          case 'CLOSE_DIALOG_ABOUT':
+            closeDialogAbout();
             break;
           case 'LOAD_SESSION_FROM_STORAGE':
             loadSessionFromStorage();
@@ -82,6 +92,9 @@ const mapDispatchToProps = {
   removeUserAction,
   loadSessionFromStorage,
   restoreLastTheme,
+  openDialogAbout,
+  closeDialogAbout,
+  detectNavigatorAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);

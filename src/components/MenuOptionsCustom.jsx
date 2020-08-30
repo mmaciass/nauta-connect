@@ -7,9 +7,8 @@ import BrightnessAutoIcon from '@material-ui/icons/BrightnessAuto';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
-import DialogUsersCustom from './DialogUsersCustom';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-// import InfoIcon from '@material-ui/icons/Info';
+import InfoIcon from '@material-ui/icons/Info';
 import Divider from '@material-ui/core/Divider';
 
 const MenuOptionsCustom = ({ anchorEl, handleClose, theme, ...props }) => {
@@ -39,6 +38,7 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, ...props }) => {
               ? <Typography children="Modo Oscuro"/>
               : <Typography children="Modo Claro"/>}
         </MenuItem>
+        <Divider/>
         <MenuItem onClick={() => {
           chrome.runtime.sendMessage({ type: 'OPEN_DIALOG_USERS' });
           handleClose();
@@ -48,7 +48,6 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, ...props }) => {
           </ListItemIcon>
           <Typography>Ver Cuentas</Typography>
         </MenuItem>
-        <Divider/>
         <MenuItem onClick={() => {
           chrome.runtime.sendMessage({ type: 'LOAD_SESSION_FROM_STORAGE' });
           handleClose();
@@ -58,16 +57,17 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, ...props }) => {
           </ListItemIcon>
           <Typography>Recuperar sesión</Typography>
         </MenuItem>
-        {/*<Divider />*/}
-        {/*<MenuItem onClick={() => {*/}
-        {/*}}>*/}
-        {/*  <ListItemIcon>*/}
-        {/*    <InfoIcon fontSize="small"/>*/}
-        {/*  </ListItemIcon>*/}
-        {/*  <Typography>Acerca de...</Typography>*/}
-        {/*</MenuItem>*/}
+        <Divider/>
+        <MenuItem onClick={() => {
+          chrome.runtime.sendMessage({ type: 'OPEN_DIALOG_ABOUT' });
+          handleClose();
+        }}>
+          <ListItemIcon>
+            <InfoIcon fontSize="small"/>
+          </ListItemIcon>
+          <Typography>Acerca de...</Typography>
+        </MenuItem>
       </Menu>
-      <DialogUsersCustom/>
     </Fragment>
   );
 };

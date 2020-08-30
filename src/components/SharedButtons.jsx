@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Tooltip, Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import {
-  EmailIcon,
-  EmailShareButton,
   FacebookIcon,
   FacebookMessengerIcon,
   FacebookMessengerShareButton,
@@ -18,6 +16,7 @@ import {
   WhatsappIcon,
   WhatsappShareButton,
 } from 'react-share';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   icons: {
@@ -25,10 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const shareUrl = 'http://github.com/mmaciass';
-const title = 'GitHub Marcos Macias Sánchez';
-
-export const ShareSocialBtn = ({ Btn, Icon, tooltip, ...props }) => {
+export const ShareSocialBtn = ({ Btn, Icon, tooltip, title, shareUrl, ...props }) => {
   const classes = useStyles();
   return (
     <Tooltip title={tooltip} arrow>
@@ -39,19 +35,34 @@ export const ShareSocialBtn = ({ Btn, Icon, tooltip, ...props }) => {
   );
 };
 
-const ShareButtons = ({ className, ...props }) => {
+const ShareButtons = ({ className, configs, ...props }) => {
+  const shareUrl = configs.urlShared;
+  const title = configs.navigator === 'firefox'
+  ? "Complemento de Mozilla Firefox para conectarse a la Red Nauta de ETECSA"
+  : "Extensión de Google Chrome para conectarse a la Red Nauta de ETECSA";
   return (
     <Box className={className} {...props}>
       <Typography align="left">Compartir extensión por:</Typography>
-      <ShareSocialBtn Btn={FacebookShareButton} Icon={FacebookIcon} tooltip="Facebook"/>
-      <ShareSocialBtn Btn={FacebookMessengerShareButton} Icon={FacebookMessengerIcon} tooltip="Messenger"/>
-      <ShareSocialBtn Btn={WhatsappShareButton} Icon={WhatsappIcon} tooltip="Whatsapp"/>
-      <ShareSocialBtn Btn={TwitterShareButton} Icon={TwitterIcon} tooltip="Twitter"/>
-      <ShareSocialBtn Btn={TelegramShareButton} Icon={TelegramIcon} tooltip="Telegram"/>
-      <ShareSocialBtn Btn={LinkedinShareButton} Icon={LinkedinIcon} tooltip="Linkedin"/>
-      <ShareSocialBtn Btn={EmailShareButton} Icon={EmailIcon} tooltip="Enviar URL por correo"/>
+      <ShareSocialBtn Btn={FacebookShareButton} Icon={FacebookIcon} tooltip="Facebook" title={title}
+                      shareUrl={shareUrl}/>
+      <ShareSocialBtn Btn={FacebookMessengerShareButton} Icon={FacebookMessengerIcon} tooltip="Messenger" title={title}
+                      shareUrl={shareUrl}/>
+      <ShareSocialBtn Btn={WhatsappShareButton} Icon={WhatsappIcon} tooltip="Whatsapp" title={title}
+                      shareUrl={shareUrl}/>
+      <ShareSocialBtn Btn={TwitterShareButton} Icon={TwitterIcon} tooltip="Twitter" title={title} shareUrl={shareUrl}/>
+      <ShareSocialBtn Btn={TelegramShareButton} Icon={TelegramIcon} tooltip="Telegram" title={title}
+                      shareUrl={shareUrl}/>
+      <ShareSocialBtn Btn={LinkedinShareButton} Icon={LinkedinIcon} tooltip="Linkedin" title={title}
+                      shareUrl={shareUrl}/>
+      {/*<ShareSocialBtn Btn={EmailShareButton} Icon={EmailIcon} tooltip="Enviar URL por correo"  title={title} shareUrl={shareUrl}/>*/}
     </Box>
   );
 };
 
-export default ShareButtons;
+const mapStateToProps = (state) => {
+  return {
+    configs: state.configs,
+  };
+};
+
+export default connect(mapStateToProps)(ShareButtons);
