@@ -75,6 +75,11 @@ const AboutDialogCustom = ({ configs, ...props }) => {
                 Código en Github
               </Link>
             </Typography>
+            <br/>
+            <br/>
+            <Typography variant="body2" align="center">
+              Marcos Macias Sánchez © 2020 ®
+            </Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
