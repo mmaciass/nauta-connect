@@ -76,9 +76,10 @@ const AboutDialogCustom = ({ configs, ...props }) => {
               </Link>
             </Typography>
             <br/>
-            <br/>
             <Typography variant="body2" align="center">
-              Marcos Macias Sánchez © 2020 ®
+              Roniel López Álvarez<br/>
+              Marcos Macias Sánchez<br/>
+              © 2020 ®
             </Typography>
           </DialogContentText>
         </DialogContent>
