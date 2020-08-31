@@ -8,3 +8,8 @@ window.browser = (function() {
     window.browser ||
     window.chrome;
 })();
+
+export const openInNewTab = (url) => {
+  var win = window.open(url, '_blank');
+  win.focus();
+};

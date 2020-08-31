@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import { openInNewTab } from '../../utils/shorters';
 
 export const configInitialState = {
   theme: 'auto', // 'auto' || 'dark' || 'light'
@@ -9,6 +9,8 @@ export const configInitialState = {
   urlShared: 'https://chrome.google.com/webstore/detail/nauta-connect/ppopcmgfgajciikdmipmmpffkpccinep',
   openDialogAbout: false,
   countConnect: 0,
+  qualified: false,
+  openDialogQualified: false,
 };
 
 export const urlsSharedNavigator = {
@@ -49,6 +51,14 @@ const configs = (state = configInitialState, { type, payload }) => {
       return { ...state, openDialogAbout: true };
     case 'CLOSE_DIALOG_ABOUT':
       return { ...state, openDialogAbout: false };
+    case 'OPEN_DIALOG_QUALIFIED':
+      return { ...state, openDialogQualified: true };
+    case 'CLOSE_DIALOG_QUALIFIED':
+      return { ...state, openDialogQualified: false };
+    case 'QUALIFIED_ACCEPTED':
+      openInNewTab(state.urlShared);
+      chrome.storage.local.set({ qualified: true });
+      return { ...state, qualified: true };
     case 'NAVIGATOR_RECOGNIZED':
       console.info('Navigator detected:', payload);
       const url = urlsSharedNavigator[payload] || urlsSharedNavigator['chrome'];
@@ -56,8 +66,12 @@ const configs = (state = configInitialState, { type, payload }) => {
       return { ...state, navigator: payload, urlShared: url };
     case 'SET_COUNT_CONNECT':
       return { ...state, countConnect: payload };
+    case 'SET_QUALIFIED':
+      return { ...state, qualified: payload };
     case 'LOGIN_SUCCESS':
       chrome.storage.local.set({ countConnect: state.countConnect + 1 });
+      if (!state.qualified && state.countConnect !== 0 && state.countConnect % 50 === 0)
+        return { ...state, countConnect: state.countConnect + 1, openDialogQualified: true };
       return { ...state, countConnect: state.countConnect + 1 };
     default:
       return state;

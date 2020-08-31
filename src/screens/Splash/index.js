@@ -15,6 +15,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DialogUsersCustom from '../../components/DialogUsersCustom';
 import AboutDialogCustom from '../../components/AboutDialogCustom';
 import InfoIcon from '@material-ui/icons/Info';
+import AlertDialogCustom from '../../components/AlertDialogCustom';
 
 const Splash = ({ configs, login, ...props }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -61,6 +62,20 @@ const Splash = ({ configs, login, ...props }) => {
       <MenuOptionsCustom anchorEl={anchorEl} handleClose={handleClose} theme={configs.theme}/>
       <DialogUsersCustom/>
       <AboutDialogCustom/>
+
+      <AlertDialogCustom title={`Calificar ${configs.navigator === 'firefox' ? 'el complemento' : 'la extensión'}`}
+                         description={`Le gustaría calificar que tan útil le ha resultado ${configs.navigator === 'firefox' ? 'este complemento' : 'esta extensión'} para usted.`}
+                         agreeText="Si" disagreeText="Más tarde" openInit={configs.openDialogQualified}
+                         disagreeClick={() => {
+                           chrome.runtime.sendMessage({ type: 'CLOSE_DIALOG_QUALIFIED' });
+                         }}
+                         handleClose={() => {
+                           chrome.runtime.sendMessage({ type: 'CLOSE_DIALOG_QUALIFIED' });
+                         }}
+                         agreeClick={() => {
+                           chrome.runtime.sendMessage({ type: 'QUALIFIED_ACCEPTED' });
+                           chrome.runtime.sendMessage({ type: 'CLOSE_DIALOG_QUALIFIED' });
+                         }}/>
     </Box>
   );
 };

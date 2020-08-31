@@ -9,21 +9,27 @@ import { closeDialogUsers, openDialogUsers } from '../../actions/dialogUsersActi
 import { loadSessionFromStorage } from '../../actions/storeSessionAction';
 import { closeDialogAbout, openDialogAbout } from '../../actions/dialogAboutAction';
 import { detectNavigatorAction } from '../../actions/detectNavigatorAction';
-import { loadCountConnect } from '../../actions/countConnectAction';
+import {
+  closeDialogQualified,
+  loadCountConnect,
+  loadQualifiedState,
+  openDialogQualified,
+  qualifiedAccepted,
+} from '../../actions/connectQualifiedAction';
 
 const Background = ({
                       login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash,
                       disconnectSplash, nextTheme, openDialogUsers, closeDialogUsers, removeUserAction,
                       loadSessionFromStorage, restoreLastTheme, openDialogAbout, closeDialogAbout,
-                      detectNavigatorAction, loadCountConnect, ...props
+                      detectNavigatorAction, loadCountConnect, openDialogQualified, closeDialogQualified,
+                      qualifiedAccepted, loadQualifiedState, ...props
                     }) => {
-  // if (process.env.NODE_ENV === 'development')
-  //   console.log('chrome instance', chrome);
 
   useEffect(() => {
     restoreLastTheme();
     detectNavigatorAction();
     loadCountConnect();
+    loadQualifiedState()
 
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
@@ -62,6 +68,15 @@ const Background = ({
           case 'CLOSE_DIALOG_ABOUT':
             closeDialogAbout();
             break;
+          case 'OPEN_DIALOG_QUALIFIED':
+            openDialogQualified();
+            break;
+          case 'CLOSE_DIALOG_QUALIFIED':
+            closeDialogQualified();
+            break;
+          case 'QUALIFIED_ACCEPTED':
+            qualifiedAccepted();
+            break;
           case 'LOAD_SESSION_FROM_STORAGE':
             loadSessionFromStorage();
             break;
@@ -98,6 +113,10 @@ const mapDispatchToProps = {
   closeDialogAbout,
   detectNavigatorAction,
   loadCountConnect,
+  openDialogQualified,
+  closeDialogQualified,
+  qualifiedAccepted,
+  loadQualifiedState,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);
