@@ -9,12 +9,13 @@ import { closeDialogUsers, openDialogUsers } from '../../actions/dialogUsersActi
 import { loadSessionFromStorage } from '../../actions/storeSessionAction';
 import { closeDialogAbout, openDialogAbout } from '../../actions/dialogAboutAction';
 import { detectNavigatorAction } from '../../actions/detectNavigatorAction';
+import { loadCountConnect } from '../../actions/countConnectAction';
 
 const Background = ({
                       login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash,
                       disconnectSplash, nextTheme, openDialogUsers, closeDialogUsers, removeUserAction,
                       loadSessionFromStorage, restoreLastTheme, openDialogAbout, closeDialogAbout,
-                      detectNavigatorAction, ...props
+                      detectNavigatorAction, loadCountConnect, ...props
                     }) => {
   // if (process.env.NODE_ENV === 'development')
   //   console.log('chrome instance', chrome);
@@ -22,6 +23,7 @@ const Background = ({
   useEffect(() => {
     restoreLastTheme();
     detectNavigatorAction();
+    loadCountConnect();
 
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
@@ -95,6 +97,7 @@ const mapDispatchToProps = {
   openDialogAbout,
   closeDialogAbout,
   detectNavigatorAction,
+  loadCountConnect,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);

@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export const configInitialState = {
   theme: 'auto', // 'auto' || 'dark' || 'light'
   animSplashInit: true,
@@ -6,7 +8,7 @@ export const configInitialState = {
   navigator: 'chrome', // 'chrome' || 'firefox' || 'opera' || 'unknown'
   urlShared: 'https://chrome.google.com/webstore/detail/nauta-connect/ppopcmgfgajciikdmipmmpffkpccinep',
   openDialogAbout: false,
-  firstUseTime: 0,
+  countConnect: 0,
 };
 
 export const urlsSharedNavigator = {
@@ -52,6 +54,11 @@ const configs = (state = configInitialState, { type, payload }) => {
       const url = urlsSharedNavigator[payload] || urlsSharedNavigator['chrome'];
       console.info('URL to Shared:', url);
       return { ...state, navigator: payload, urlShared: url };
+    case 'SET_COUNT_CONNECT':
+      return { ...state, countConnect: payload };
+    case 'LOGIN_SUCCESS':
+      chrome.storage.local.set({ countConnect: state.countConnect + 1 });
+      return { ...state, countConnect: state.countConnect + 1 };
     default:
       return state;
   }
