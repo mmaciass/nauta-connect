@@ -106,7 +106,7 @@ const Splash = ({ configs, login, timerConnection, ...props }) => {
                onClick={() => {
                  chrome.runtime.sendMessage({ type: 'STOP_TIMER_DISCONNECT' });
                }}>
-          <TimerIcon/>
+          <TimerIcon fontSize="small" style={{marginRight: 6}}/>
           {hmsTimer}
         </Fab>
         : null
