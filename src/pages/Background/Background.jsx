@@ -16,20 +16,27 @@ import {
   openDialogQualified,
   qualifiedAccepted,
 } from '../../actions/connectQualifiedAction';
+import {
+  closeDialogTimer,
+  openDialogTimer,
+  startTimerDisconnect,
+  stopTimerDisconnect,
+} from '../../actions/dialogTimerAction';
 
 const Background = ({
                       login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash,
                       disconnectSplash, nextTheme, openDialogUsers, closeDialogUsers, removeUserAction,
                       loadSessionFromStorage, restoreLastTheme, openDialogAbout, closeDialogAbout,
                       detectNavigatorAction, loadCountConnect, openDialogQualified, closeDialogQualified,
-                      qualifiedAccepted, loadQualifiedState, ...props
+                      qualifiedAccepted, loadQualifiedState, openDialogTimer, closeDialogTimer,
+                      startTimerDisconnect, stopTimerDisconnect, ...props
                     }) => {
 
   useEffect(() => {
     restoreLastTheme();
     detectNavigatorAction();
     loadCountConnect();
-    loadQualifiedState()
+    loadQualifiedState();
 
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
@@ -74,6 +81,19 @@ const Background = ({
           case 'CLOSE_DIALOG_QUALIFIED':
             closeDialogQualified();
             break;
+          case 'OPEN_DIALOG_TIMER':
+            openDialogTimer();
+            break;
+          case 'CLOSE_DIALOG_TIMER':
+            closeDialogTimer();
+            break;
+          case 'START_TIMER_DISCONNECT':
+            if (request.payload)
+              startTimerDisconnect(request.payload);
+            break;
+          case 'STOP_TIMER_DISCONNECT':
+            stopTimerDisconnect();
+            break;
           case 'QUALIFIED_ACCEPTED':
             qualifiedAccepted();
             break;
@@ -117,6 +137,10 @@ const mapDispatchToProps = {
   closeDialogQualified,
   qualifiedAccepted,
   loadQualifiedState,
+  openDialogTimer,
+  closeDialogTimer,
+  startTimerDisconnect,
+  stopTimerDisconnect,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);

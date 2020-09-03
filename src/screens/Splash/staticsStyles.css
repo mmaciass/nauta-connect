@@ -55,7 +55,6 @@
     transform: scale(0) rotate(270deg);
 }
 
-
 .aboutBtn {
     position: absolute !important;
     color: white !important;
@@ -63,4 +62,24 @@
     top: 4px;
     right: 4px;
     transform: scale(0) rotate(270deg);
+}
+
+.timerBtn {
+    position: absolute !important;
+    color: white !important;
+    z-index: 2000;
+    top: 50px;
+    right: 4px;
+    transform: scale(0) rotate(270deg);
+}
+
+.fabTimeDisconnect {
+    color: rgb(63, 81, 181) !important;
+    position: absolute !important;
+    right: 15px !important;
+    height: 30px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    background-color: white !important;
+    bottom: 26px !important;
 }

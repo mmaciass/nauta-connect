@@ -455,3 +455,23 @@
         transform: scale(var(--btn-about-login-scale)) rotate(var(--btn-about-login-rotate));
     }
 }
+
+/* ANIMATIONS TO BTN Timer */
+.timerBtn.animOpen {
+    animation: aboutBtnAnimOpen var(--duration-time) var(--delay-time) var(--fill-mode);
+}
+.timerBtn.staticOpen {
+    animation: aboutBtnAnimOpen 0s var(--fill-mode);
+}
+
+
+.timerBtn.animConnect {
+    animation: aboutBtnAnimConnect var(--duration-time) var(--fill-mode);
+}
+
+
+.timerBtn.animDisconnect {
+    animation: aboutBtnAnimDisconnect var(--duration-time) var(--fill-mode) !important;
+}
+
+

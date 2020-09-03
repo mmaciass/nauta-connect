@@ -49,8 +49,7 @@ const AboutDialogCustom = ({ configs, ...props }) => {
         fullScreen
         open={configs.openDialogAbout}
         onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
-      >
+        aria-labelledby="responsive-dialog-title">
         <DialogTitle id="responsive-dialog-title" onClose={handleClose}>Acerca de...</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -77,8 +76,8 @@ const AboutDialogCustom = ({ configs, ...props }) => {
             </Typography>
             <br/>
             <Typography variant="body2" align="center">
-              Roniel López Álvarez<br/>
-              Marcos Macias Sánchez<br/>
+              Ing. Roniel López Álvarez<br/>
+              Ing. Marcos Macias Sánchez<br/>
               2020
             </Typography>
           </DialogContentText>

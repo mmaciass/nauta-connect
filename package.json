@@ -1,6 +1,6 @@
 {
   "name": "nauta-connect",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Extensión para conectarse a la red Nauta de ETECSA de forma rápida, fácil y segura.",
   "license": "MIT",
   "keywords": ["nauta hogar", "nauta", "etecsa", "cuba", "wifi", "conectarse"],

@@ -7,12 +7,14 @@ import { loginInitialState } from '../../store/reducers/login';
 import Popup from './Popup';
 import { configInitialState } from '../../store/reducers/configs';
 import { userStorageInitial } from '../../store/reducers/userStorage';
+import { timeConnectionInitialState } from '../../store/reducers/timerConnection';
 
 const proxyStore = new Store({
   state: {
     login: loginInitialState,
     configs: configInitialState,
     userStorage: userStorageInitial,
+    timerConnection: timeConnectionInitialState,
   },
   portName: 'nauta-connect',
 });
