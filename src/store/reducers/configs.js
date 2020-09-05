@@ -75,8 +75,10 @@ const configs = (state = configInitialState, { type, payload }) => {
         return { ...state, countConnect: state.countConnect + 1, openDialogQualified: true };
       return { ...state, countConnect: state.countConnect + 1 };
     case 'PREVENT_SLEEP_CONNECTED':
+      chrome.storage.local.set({ preventSleepConnected: true });
       return { ...state, preventSleepConnected: true };
     case 'ALLOW_SLEEP_CONNECTED':
+      chrome.storage.local.set({ preventSleepConnected: false });
       return { ...state, preventSleepConnected: false };
     default:
       return state;

@@ -22,7 +22,11 @@ import {
   startTimerDisconnect,
   stopTimerDisconnect,
 } from '../../actions/dialogTimerAction';
-import { allowSleepConnected, preventSleepConnected } from '../../actions/connectedAction';
+import {
+  allowSleepConnected,
+  preventSleepConnected,
+  restorePreventSleepConnected,
+} from '../../actions/connectedAction';
 
 const Background = ({
                       login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash,
@@ -31,7 +35,7 @@ const Background = ({
                       detectNavigatorAction, loadCountConnect, openDialogQualified, closeDialogQualified,
                       qualifiedAccepted, loadQualifiedState, openDialogTimer, closeDialogTimer,
                       startTimerDisconnect, stopTimerDisconnect, timerConnection, configs,
-                      allowSleepConnected, preventSleepConnected, ...props
+                      allowSleepConnected, preventSleepConnected, restorePreventSleepConnected, ...props
                     }) => {
   const videoRef = useRef(null);
 
@@ -40,6 +44,7 @@ const Background = ({
     detectNavigatorAction();
     loadCountConnect();
     loadQualifiedState();
+    restorePreventSleepConnected();
 
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
@@ -171,7 +176,8 @@ const mapDispatchToProps = {
   startTimerDisconnect,
   stopTimerDisconnect,
   preventSleepConnected,
-  allowSleepConnected
+  allowSleepConnected,
+  restorePreventSleepConnected
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);
