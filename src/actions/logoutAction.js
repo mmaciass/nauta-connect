@@ -16,6 +16,9 @@ const logoutAction = () => {
           dispatch({ type: 'LOGOUT_FAILURE' });
         } else {
           dispatch({ type: 'LOGOUT_SUCCESS' });
+          setTimeout(() => {
+            dispatch({ type: 'RESTORE_NONE' });
+          }, 1000 * 1.5);
           dispatch(clearSessionInStorage());
           dispatch(disconnectSplash());
         }
@@ -35,6 +38,9 @@ export const forceLogoutAction = () => {
   return (dispatch, getState) => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
     dispatch(disconnectSplash());
+    setTimeout(() => {
+      dispatch({ type: 'RESTORE_NONE' });
+    }, 1000 * 1.5);
     const bodyData = bodyDataConstructor(getState());
     fetchCustom('https://secure.etecsa.net:8443/LogoutServlet', bodyData)
       .then(() => {
