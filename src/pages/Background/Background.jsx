@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import loginAction from '../../actions/loginAction';
 import logoutAction, { forceLogoutAction } from '../../actions/logoutAction';
@@ -22,6 +22,7 @@ import {
   startTimerDisconnect,
   stopTimerDisconnect,
 } from '../../actions/dialogTimerAction';
+import { allowSleepConnected, preventSleepConnected } from '../../actions/connectedAction';
 
 const Background = ({
                       login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash,
@@ -29,8 +30,10 @@ const Background = ({
                       loadSessionFromStorage, restoreLastTheme, openDialogAbout, closeDialogAbout,
                       detectNavigatorAction, loadCountConnect, openDialogQualified, closeDialogQualified,
                       qualifiedAccepted, loadQualifiedState, openDialogTimer, closeDialogTimer,
-                      startTimerDisconnect, stopTimerDisconnect, ...props
+                      startTimerDisconnect, stopTimerDisconnect, timerConnection, configs,
+                      allowSleepConnected, preventSleepConnected, ...props
                     }) => {
+  const videoRef = useRef(null);
 
   useEffect(() => {
     restoreLastTheme();
@@ -100,19 +103,45 @@ const Background = ({
           case 'LOAD_SESSION_FROM_STORAGE':
             loadSessionFromStorage();
             break;
+          case 'PREVENT_SLEEP_CONNECTED':
+            preventSleepConnected();
+            break;
+          case 'ALLOW_SLEEP_CONNECTED':
+            allowSleepConnected();
+            break;
         }
       },
     );
-
   }, []);
+
+  useEffect(() => {
+    if (configs.preventSleepConnected && login.status === 'connected') {
+      videoRef.current.play();
+      console.log('PREVENT SLEEP ACTIVE');
+    } else if (login.status === 'connected' && timerConnection.enabled) {
+      videoRef.current.play();
+      console.log('PREVENT SLEEP ACTIVE');
+    } else {
+      videoRef.current.pause();
+      console.log('PREVENT SLEEP STOPPED');
+    }
+  }, [login.status, configs.preventSleepConnected, timerConnection.enabled]);
+
   return (
-    <Fragment/>
+    <Fragment>
+      <video ref={videoRef} width="10" height="10" loop="loop" style={{ position: 'absolute', top: -10, left: -10 }}>
+        <source src="/muted-blank.mp4" type="video/mp4"/>
+        <source src="/muted-blank.ogv" type="video/ogg"/>
+      </video>
+    </Fragment>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
     login: state.login,
+    timerConnection: state.timerConnection,
+    configs: state.configs,
   };
 };
 
@@ -141,6 +170,8 @@ const mapDispatchToProps = {
   closeDialogTimer,
   startTimerDisconnect,
   stopTimerDisconnect,
+  preventSleepConnected,
+  allowSleepConnected
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);

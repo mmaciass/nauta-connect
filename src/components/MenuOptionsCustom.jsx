@@ -10,8 +10,10 @@ import Brightness7Icon from '@material-ui/icons/Brightness7';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import InfoIcon from '@material-ui/icons/Info';
 import Divider from '@material-ui/core/Divider';
+import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows';
+import DesktopAccessDisabledIcon from '@material-ui/icons/DesktopAccessDisabled';
 
-const MenuOptionsCustom = ({ anchorEl, handleClose, theme, ...props }) => {
+const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, ...props }) => {
   return (
     <Fragment>
       <Menu
@@ -21,6 +23,18 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, ...props }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        <MenuItem onClick={() => {
+          if (preventSleep) chrome.runtime.sendMessage({ type: 'ALLOW_SLEEP_CONNECTED' });
+          else chrome.runtime.sendMessage({ type: 'PREVENT_SLEEP_CONNECTED' });
+        }}>
+          <ListItemIcon>
+            {preventSleep
+              ? <DesktopWindowsIcon fontSize="small"/>
+              : <DesktopAccessDisabledIcon fontSize="small"/>}
+          </ListItemIcon>
+
+          <Typography>{preventSleep ? `Prevenir` : `Permitir`} Reposo</Typography>
+        </MenuItem>
         <MenuItem onClick={() => {
           chrome.runtime.sendMessage({ type: 'NEXT_THEME' });
         }}>

@@ -11,6 +11,7 @@ export const configInitialState = {
   countConnect: 0,
   qualified: false,
   openDialogQualified: false,
+  preventSleepConnected: false,
 };
 
 export const urlsSharedNavigator = {
@@ -73,6 +74,10 @@ const configs = (state = configInitialState, { type, payload }) => {
       if (!state.qualified && state.countConnect !== 0 && state.countConnect % 50 === 0)
         return { ...state, countConnect: state.countConnect + 1, openDialogQualified: true };
       return { ...state, countConnect: state.countConnect + 1 };
+    case 'PREVENT_SLEEP_CONNECTED':
+      return { ...state, preventSleepConnected: true };
+    case 'ALLOW_SLEEP_CONNECTED':
+      return { ...state, preventSleepConnected: false };
     default:
       return state;
   }

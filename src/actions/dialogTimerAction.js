@@ -19,14 +19,15 @@ export const startTimerDisconnect = (msDuration) => {
       dispatch({ type: 'STOP_TIMER_DISCONNECT' });
     const idTimeOut = setTimeout(() => {
       dispatch(logoutAction());
+      dispatch(stopTimerDisconnect());
     }, msDuration);
     dispatch({ type: 'START_TIMER_DISCONNECT', payload: { msDuration, idTimeOut } });
   };
 };
 
 
-export const stopTimerDisconnect = (msDuration) => {
-  return (dispatch, getState) => {
+export const stopTimerDisconnect = () => {
+  return (dispatch) => {
     dispatch({ type: 'STOP_TIMER_DISCONNECT' });
   };
 };

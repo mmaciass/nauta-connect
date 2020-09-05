@@ -28,7 +28,6 @@ const Splash = ({ configs, login, timerConnection, ...props }) => {
   const [idIntervalUpdate, setIdIntervalUpdate] = React.useState(null);
 
   useEffect(() => {
-    debugger
     if (!timerConnection.enabled) {
       clearInterval(idIntervalUpdate);
       setHmsTimer('--:--:--');
@@ -55,7 +54,6 @@ const Splash = ({ configs, login, timerConnection, ...props }) => {
 
   const animClass =
     (login.status === 'connected')
-      // (true)
       ? 'animConnect'
       : (login.status === 'disconected')
       ? 'animDisconnect'
@@ -96,19 +94,21 @@ const Splash = ({ configs, login, timerConnection, ...props }) => {
         </IconButton>
       </Tooltip>
 
-      <MenuOptionsCustom anchorEl={anchorEl} handleClose={handleClose} theme={configs.theme}/>
+      <MenuOptionsCustom anchorEl={anchorEl} handleClose={handleClose} theme={configs.theme} preventSleep={configs.preventSleepConnected}/>
       <DialogUsersCustom/>
       <AboutDialogCustom/>
       <TimerDialog/>
 
       {timerConnection.enabled && login.status === 'connected'
-        ? <Fab className="fabTimeDisconnect" variant="extended" size="small" color="inherit" aria-label="add"
+        ? <Tooltip title="Cancelar" placement="left">
+          <Fab className="fabTimeDisconnect" variant="extended" size="small" color="inherit" aria-label="add"
                onClick={() => {
                  chrome.runtime.sendMessage({ type: 'STOP_TIMER_DISCONNECT' });
                }}>
-          <TimerIcon fontSize="small" style={{marginRight: 6}}/>
-          {hmsTimer}
-        </Fab>
+            <TimerIcon fontSize="small" style={{ marginRight: 6 }}/>
+            {hmsTimer}
+          </Fab>
+        </Tooltip>
         : null
       }
 
