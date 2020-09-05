@@ -4,6 +4,7 @@ import updateTimeLeftAction from './timeAction';
 import forceUpdateAction from './forceUpdateAction';
 import { saveUserAction } from './userStorageAction';
 import { saveSessionInStorage } from './storeSessionAction';
+import { msToNextFirstDate, nextDate } from '../utils/timeUtil';
 
 const loginAction = (username, password, remember = false) => {
   return (dispatch) => {
@@ -42,6 +43,7 @@ const loginAction = (username, password, remember = false) => {
           dispatch(saveSessionInStorage(resp));
           dispatch(updateTimeLeftAction());
           dispatch({ type: 'LOGIN_SUCCESS', payload: { status: 'connected', ...resp } });
+          checkAndTaskNextUpdate(dispatch);
           if (remember) dispatch(saveUserAction(username, password));
           dispatch(forceUpdateAction());
         }
@@ -54,5 +56,15 @@ const loginAction = (username, password, remember = false) => {
       });
   };
 };
+
+export const checkAndTaskNextUpdate = (dispatch)=>{
+  let idNextUpdate;
+  if (nextDate() === 1) {
+    idNextUpdate = setTimeout(() => {
+      dispatch(updateTimeLeftAction());
+    }, msToNextFirstDate());
+  }
+  dispatch({ type: 'SET_ID_TIME_OUT_NEXT_UPDATE', payload: idNextUpdate });
+}
 
 export default loginAction;

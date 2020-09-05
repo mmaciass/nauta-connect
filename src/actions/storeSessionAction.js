@@ -1,3 +1,5 @@
+import { checkAndTaskNextUpdate } from './loginAction';
+
 export const saveSessionInStorage = (session) => {
   return (dispatch) => {
     chrome.storage.local.set(session, () => {
@@ -23,8 +25,10 @@ export const loadSessionFromStorage = () => {
       'username', 'ATTRIBUTE_UUID', 'CSRFHW', 'wlanuserip',
       'loggerId', 'lastUpdateTime', 'lastTimeLeft',
     ], (sc) => {
-      if (sc.username && sc.ATTRIBUTE_UUID && sc.CSRFHW && sc.lastUpdateTime && sc.lastTimeLeft)
+      if (sc.username && sc.ATTRIBUTE_UUID && sc.CSRFHW && sc.lastUpdateTime && sc.lastTimeLeft) {
         dispatch({ type: 'LOAD_SESSION_FROM_STORAGE', payload: sc });
+        checkAndTaskNextUpdate(dispatch);
+      }
       else chrome.runtime.sendMessage({
         type: 'SHOW_MESSAGE_ERROR',
         payload: 'No se ha encontrado ninguna sesión para restablecer.',
