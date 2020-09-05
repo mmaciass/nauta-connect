@@ -104,6 +104,11 @@ var options = {
           from: 'src/assets/img/',
           to: path.join(__dirname, 'build'),
           force: true
+        },
+        {
+          from: 'src/assets/video/',
+          to: path.join(__dirname, 'build'),
+          force: true
         }
       ],
       {
