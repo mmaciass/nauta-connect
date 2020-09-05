@@ -121,12 +121,15 @@ const Background = ({
 
   useEffect(() => {
     if (configs.preventSleepConnected && login.status === 'connected') {
+      videoRef.current.setAttribute('loop', 'loop');
       videoRef.current.play();
       console.log('PREVENT SLEEP ACTIVE');
     } else if (login.status === 'connected' && timerConnection.enabled) {
+      videoRef.current.setAttribute('loop', 'loop');
       videoRef.current.play();
       console.log('PREVENT SLEEP ACTIVE');
     } else {
+      videoRef.current.removeAttribute('loop');
       videoRef.current.pause();
       console.log('PREVENT SLEEP STOPPED');
     }
