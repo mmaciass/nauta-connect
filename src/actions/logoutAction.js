@@ -1,6 +1,7 @@
 import fetchCustom from '../utils/fetch';
 import { disconnectSplash } from './splashAction';
 import { clearSessionInStorage } from './storeSessionAction';
+import { basicNotification } from '../utils/shorters';
 
 const logoutAction = () => {
   return (dispatch, getState) => {
@@ -12,10 +13,11 @@ const logoutAction = () => {
       })
       .then(value => {
         if (value.includes('logoutcallback(\'FAILURE\')')) {
-          chrome.runtime.sendMessage({ type: 'LOGIN_ERROR', payload: 'No se ha podido cerrar la sesión.' });
+          basicNotification('No se ha podido cerrar la sesión.');
           dispatch({ type: 'LOGOUT_FAILURE' });
         } else {
           dispatch({ type: 'LOGOUT_SUCCESS' });
+          basicNotification('Se ha desconectado de forma satisfactoria.');
           setTimeout(() => {
             dispatch({ type: 'RESTORE_NONE' });
           }, 1000 * 1.5);
@@ -24,8 +26,12 @@ const logoutAction = () => {
         }
       })
       .catch(reason => {
-        if (reason.message === 'Failed to fetch')
-          chrome.runtime.sendMessage({ type: 'LOGIN_ERROR', payload: 'Ha ocurrido un error con la conexión de red.' });
+        if (reason.message === 'Failed to fetch') {
+          basicNotification('Ha ocurrido un error con la conexión de red. Por favor revise su conexión de red y asegúrese de no tener ningún VPN otra herramienta que filtre o manipule el tráfico de la red activa.');
+        } else {
+          console.log('Reason to error no notificated.', reason);
+          console.log('Message in reason to error no notificated.', reason.message);
+        }
         dispatch({ type: 'LOGOUT_FAILURE' });
         console.log(reason);
       });
@@ -46,6 +52,10 @@ export const forceLogoutAction = () => {
       .then(() => {
       })
       .catch(() => {
+        basicNotification('Se ha forzado el cierre de la sesión, esto no asegura que la conexión se haya cerrado, por favor cerciórese que su sesión termino correctamente.');
+        setTimeout(()=>{
+          basicNotification('Si necesita volver al estado anterior utilice la opción "Recuperar sesión" del menú de opciones.');
+        }, 4500)
       });
   };
 };

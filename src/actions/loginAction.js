@@ -5,6 +5,7 @@ import forceUpdateAction from './forceUpdateAction';
 import { saveUserAction } from './userStorageAction';
 import { saveSessionInStorage } from './storeSessionAction';
 import { msToNextFirstDate, nextDate } from '../utils/timeUtil';
+import { basicNotification } from '../utils/shorters';
 
 const loginAction = (username, password, remember = false) => {
   return (dispatch) => {
@@ -17,26 +18,17 @@ const loginAction = (username, password, remember = false) => {
       .then(value => {
         if (value.includes('Entre el nombre de usuario y contraseña correctos.' || value.includes('No se pudo autorizar al usuario.'
           || value.includes('El nombre de usuario o contraseña son incorrectos.')))) {
-          chrome.runtime.sendMessage({
-            type: 'LOGIN_ERROR',
-            payload: 'El nombre de usuario o contraseña son incorrectos.',
-          });
+          basicNotification('El nombre de usuario o contraseña son incorrectos.');
           dispatch({ type: 'LOGIN_FAILURE', payload: { status: 'error' } });
         } else if (value.includes('El usuario ya está conectado.')) {
-          chrome.runtime.sendMessage({ type: 'LOGIN_ERROR', payload: 'Ya se encuentra un usuario conectado.' });
+          basicNotification('Ya se encuentra un usuario conectado.');
           if (remember) dispatch(saveUserAction(username, password));
           dispatch({ type: 'LOGIN_FAILURE', payload: { status: 'error' } });
         } else if (value.includes('Usted ha realizado muchos intentos.')) {
-          chrome.runtime.sendMessage({
-            type: 'LOGIN_ERROR',
-            payload: 'Usted ha realizado muchos intentos. Por favor intente más tarde.',
-          });
+          basicNotification('Usted ha realizado muchos intentos. Por favor intente más tarde.');
           dispatch({ type: 'LOGIN_FAILURE', payload: { status: 'error' } });
         } else if (value.includes('Su tarjeta no tiene saldo disponible.')) {
-          chrome.runtime.sendMessage({
-            type: 'LOGIN_ERROR',
-            payload: 'Su cuenta no tiene saldo disponible.',
-          });
+          basicNotification('Su cuenta no tiene saldo disponible.');
           dispatch({ type: 'LOGIN_FAILURE', payload: { status: 'error' } });
         } else {
           const resp = dataWrapper(value);
@@ -46,18 +38,22 @@ const loginAction = (username, password, remember = false) => {
           checkAndTaskNextUpdate(dispatch);
           if (remember) dispatch(saveUserAction(username, password));
           dispatch(forceUpdateAction());
+          basicNotification('Usted se ha conectado satisfactoriamente, ahora puede comenzar a navegar.');
         }
       })
       .catch(reason => {
-        if (reason.message === 'Failed to fetch')
-          chrome.runtime.sendMessage({ type: 'LOGIN_ERROR', payload: 'Ha ocurrido un error con la conexión de red.' });
+        if (reason.message === 'Failed to fetch' || reason.message.includes('NetworkError')) {
+          basicNotification('Ha ocurrido un error con la conexión de red. Por favor revise su conexión de red y asegúrese de no tener ningún VPN o otra herramienta que filtre o manipule el tráfico de la red activa.');
+        } else {
+          console.log('Reason to error no notificated.', reason);
+          console.log('Message in reason to error no notificated.', reason.message);
+        }
         dispatch({ type: 'LOGIN_FAILURE', payload: { status: 'error' } });
-        console.log(reason);
       });
   };
 };
 
-export const checkAndTaskNextUpdate = (dispatch)=>{
+export const checkAndTaskNextUpdate = (dispatch) => {
   let idNextUpdate;
   if (nextDate() === 1) {
     idNextUpdate = setTimeout(() => {
@@ -65,6 +61,6 @@ export const checkAndTaskNextUpdate = (dispatch)=>{
     }, msToNextFirstDate());
   }
   dispatch({ type: 'SET_ID_TIME_OUT_NEXT_UPDATE', payload: idNextUpdate });
-}
+};
 
 export default loginAction;

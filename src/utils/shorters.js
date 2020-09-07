@@ -22,3 +22,12 @@ export const msToHMMSS = (time) => {
   const cantSegun = parseInt((restMinut / (1000)).toString());
   return `${cantHoras}:${cantMinut.toString().length > 1 ? cantMinut : '0' + cantMinut}:${cantSegun.toString().length > 1 ? cantSegun : '0' + cantSegun}`;
 };
+
+export const basicNotification = (message, notificationId = (Math.random() * 100000000000000000).toFixed(0)) => {
+  chrome.notifications.create(notificationId, {
+    type: 'basic',
+    iconUrl: 'icon-128.png',
+    title: 'Nauta Connect',
+    message: message,
+  });
+};

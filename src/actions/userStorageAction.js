@@ -1,12 +1,17 @@
 import CryptoJS from 'crypto-js';
 // TODO: IMPORTANT sustituir el archivo ".env.example" por ".env" antes de realizar el release
 import { REACT_APP_KEY_PROTECT } from '../utils/env.example';
+import { basicNotification } from '../utils/shorters';
 
 export const saveUserAction = (username, password) => {
   return (dispatch) => {
     const cipherPassword = CryptoJS.AES.encrypt(password, REACT_APP_KEY_PROTECT).toString();
     const callbackPre = () => {
       dispatch({ type: 'SAVE_USER_STORE', payload: { username, password } });
+      basicNotification(`La cuenta de usuario ha sido guardada satisfactoriamente.`);
+      setTimeout(() => {
+        basicNotification(`Puede administrar las cuentas guardadas en las Opciones de "Ver Cuentas".`);
+      }, 6500);
       dispatch(clearUserInTimeDeltaAction());
     };
 

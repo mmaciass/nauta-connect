@@ -16,6 +16,7 @@
   },
   "permissions": [
     "storage",
+    "notifications",
     "https://secure.etecsa.net/*"
   ],
   "manifest_version": 2,
