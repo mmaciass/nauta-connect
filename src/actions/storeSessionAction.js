@@ -1,4 +1,5 @@
 import { checkAndTaskNextUpdate } from './loginAction';
+import { basicNotification } from '../utils/shorters';
 
 export const saveSessionInStorage = (session) => {
   return (dispatch) => {
@@ -29,10 +30,13 @@ export const loadSessionFromStorage = () => {
         dispatch({ type: 'LOAD_SESSION_FROM_STORAGE', payload: sc });
         checkAndTaskNextUpdate(dispatch);
       }
-      else chrome.runtime.sendMessage({
-        type: 'SHOW_MESSAGE_ERROR',
-        payload: 'No se ha encontrado ninguna sesión para restablecer.',
-      });
+      else {
+        // chrome.runtime.sendMessage({
+        //   type: 'SHOW_MESSAGE_ERROR',
+        //   payload: 'No se ha encontrado ninguna sesión para restablecer.',
+        // });
+        basicNotification('No se ha encontrado ninguna sesión para restablecer.')
+      }
     });
   };
 };

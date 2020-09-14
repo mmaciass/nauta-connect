@@ -20,10 +20,10 @@ const Connect = ({ login, ...props }) => {
     chrome.runtime.sendMessage({ type: 'LOGOUT' });
     setTimeout(() => {
       setShowForce(true);
-    }, 2 * 1000);
+    }, 6 * 1000);
     setTimeout(() => {
       setShowForce(false);
-    }, 20 * 1000);
+    }, 25 * 1000);
   };
   const forceLogout = () => {
     chrome.runtime.sendMessage({ type: 'FORCE_LOGOUT' });

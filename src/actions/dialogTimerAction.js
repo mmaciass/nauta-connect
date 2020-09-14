@@ -1,5 +1,5 @@
 import logoutAction from './logoutAction';
-import { basicNotification } from '../utils/shorters';
+import { basicNotification, delayedNotification } from '../utils/shorters';
 import { formatTime } from '../utils/timeUtil';
 
 export const openDialogTimer = () => {
@@ -16,17 +16,16 @@ export const closeDialogTimer = () => {
 
 export const startTimerDisconnect = (msDuration) => {
   return (dispatch, getState) => {
-    const { timerConnection } = getState();
-    if (timerConnection.enabled)
+    const state = getState();
+    if (state.timerConnection.enabled)
       dispatch({ type: 'STOP_TIMER_DISCONNECT' });
     const idTimeOut = setTimeout(() => {
       dispatch(logoutAction());
       dispatch(stopTimerDisconnect());
     }, msDuration);
     basicNotification(`Su conexión se cerrara de forma automática pasado el tiempo de ${formatTime(msDuration)}.`);
-    setTimeout(()=>{
-      basicNotification('Asegúrese de no tener ningún VPN o otra herramienta que filtre o manipule el tráfico de la red activa, de lo contrario puede que la sesión no se cierre correctamente.')
-    }, 7500)
+    if (!state.configs.disableWarnings)
+      delayedNotification('Asegúrese de no tener ningún VPN o otra herramienta que filtre o manipule el tráfico de la red activa, de lo contrario puede que la sesión no se cierre correctamente.');
     dispatch({ type: 'START_TIMER_DISCONNECT', payload: { msDuration, idTimeOut } });
   };
 };

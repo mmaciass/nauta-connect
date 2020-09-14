@@ -1,12 +1,15 @@
 import fetchCustom from '../utils/fetch';
 import { disconnectSplash } from './splashAction';
 import { clearSessionInStorage } from './storeSessionAction';
-import { basicNotification } from '../utils/shorters';
+import { basicNotification, delayedNotification } from '../utils/shorters';
+import Log from '../utils/log';
 
 const logoutAction = () => {
   return (dispatch, getState) => {
+    const state = getState();
+
     dispatch({ type: 'LOGOUT_BEGIN' });
-    const bodyData = bodyDataConstructor(getState());
+    const bodyData = bodyDataConstructor(state);
     fetchCustom('https://secure.etecsa.net:8443/LogoutServlet', bodyData)
       .then(value => {
         return value.text();
@@ -26,14 +29,11 @@ const logoutAction = () => {
         }
       })
       .catch(reason => {
-        if (reason.message === 'Failed to fetch') {
-          basicNotification('Ha ocurrido un error con la conexión de red. Por favor revise su conexión de red y asegúrese de no tener ningún VPN otra herramienta que filtre o manipule el tráfico de la red activa.');
-        } else {
-          console.log('Reason to error no notificated.', reason);
-          console.log('Message in reason to error no notificated.', reason.message);
-        }
+        Log.Debug('error reason >>', reason);
+        basicNotification('Ha ocurrido un error con la conexión de red.');
+        if (!state.configs.disableWarnings)
+          delayedNotification('Por favor revise su conexión de red y asegúrese de no tener ningún VPN o otra herramienta que filtre o manipule el tráfico de la red activa.');
         dispatch({ type: 'LOGOUT_FAILURE' });
-        console.log(reason);
       });
   };
 };
@@ -42,20 +42,20 @@ export default logoutAction;
 
 export const forceLogoutAction = () => {
   return (dispatch, getState) => {
+    const state = getState();
     dispatch({ type: 'LOGOUT_SUCCESS' });
     dispatch(disconnectSplash());
     setTimeout(() => {
       dispatch({ type: 'RESTORE_NONE' });
     }, 1000 * 1.5);
-    const bodyData = bodyDataConstructor(getState());
+    const bodyData = bodyDataConstructor(state);
     fetchCustom('https://secure.etecsa.net:8443/LogoutServlet', bodyData)
       .then(() => {
       })
       .catch(() => {
         basicNotification('Se ha forzado el cierre de la sesión, esto no asegura que la conexión se haya cerrado, por favor cerciórese que su sesión termino correctamente.');
-        setTimeout(()=>{
-          basicNotification('Si necesita volver al estado anterior utilice la opción "Recuperar sesión" del menú de opciones.');
-        }, 4500)
+        if (!state.configs.disableWarnings)
+          delayedNotification('Si necesita volver al estado anterior utilice la opción "Recuperar sesión" del menú de opciones.');
       });
   };
 };

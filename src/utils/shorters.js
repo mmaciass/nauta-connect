@@ -31,3 +31,14 @@ export const basicNotification = (message, notificationId = (Math.random() * 100
     message: message,
   });
 };
+
+export const delayedNotification = (message, delay = 5000, notificationId = (Math.random() * 100000000000000000).toFixed(0)) => {
+  setTimeout(() => {
+    chrome.notifications.create(notificationId, {
+      type: 'basic',
+      iconUrl: 'icon-128.png',
+      title: 'Nauta Connect',
+      message: message,
+    });
+  }, delay);
+};

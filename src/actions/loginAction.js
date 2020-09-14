@@ -5,10 +5,13 @@ import forceUpdateAction from './forceUpdateAction';
 import { saveUserAction } from './userStorageAction';
 import { saveSessionInStorage } from './storeSessionAction';
 import { msToNextFirstDate, nextDate } from '../utils/timeUtil';
-import { basicNotification } from '../utils/shorters';
+import { basicNotification, delayedNotification } from '../utils/shorters';
+import Log from '../utils/log';
 
 const loginAction = (username, password, remember = false) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const state = getState();
+
     dispatch({ type: 'LOGIN_BEGIN', payload: { status: 'loading', username } });
     const bodyData = { username, password };
     fetchCustom('https://secure.etecsa.net:8443//LoginServlet', bodyData)
@@ -30,6 +33,9 @@ const loginAction = (username, password, remember = false) => {
         } else if (value.includes('Su tarjeta no tiene saldo disponible.')) {
           basicNotification('Su cuenta no tiene saldo disponible.');
           dispatch({ type: 'LOGIN_FAILURE', payload: { status: 'error' } });
+        } else if (value.includes('esta siendo usada')) {
+          basicNotification('Su cuenta esta siendo usada.');
+          dispatch({ type: 'LOGIN_FAILURE', payload: { status: 'error' } });
         } else {
           const resp = dataWrapper(value);
           dispatch(saveSessionInStorage(resp));
@@ -42,12 +48,10 @@ const loginAction = (username, password, remember = false) => {
         }
       })
       .catch(reason => {
-        if (reason.message === 'Failed to fetch' || reason.message.includes('NetworkError')) {
-          basicNotification('Ha ocurrido un error con la conexión de red. Por favor revise su conexión de red y asegúrese de no tener ningún VPN o otra herramienta que filtre o manipule el tráfico de la red activa.');
-        } else {
-          console.log('Reason to error no notificated.', reason);
-          console.log('Message in reason to error no notificated.', reason.message);
-        }
+        Log.Debug('error reason >>', reason);
+        basicNotification('Ha ocurrido un error con la conexión de red.');
+        if (!state.configs.disableWarnings)
+          delayedNotification('Por favor revise su conexión de red y asegúrese de no tener ningún VPN o otra herramienta que filtre o manipule el tráfico de la red activa.');
         dispatch({ type: 'LOGIN_FAILURE', payload: { status: 'error' } });
       });
   };

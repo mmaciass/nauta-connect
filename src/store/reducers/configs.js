@@ -12,6 +12,7 @@ export const configInitialState = {
   qualified: false,
   openDialogQualified: false,
   preventSleepConnected: false,
+  disableWarnings: false,
 };
 
 export const urlsSharedNavigator = {
@@ -80,6 +81,12 @@ const configs = (state = configInitialState, { type, payload }) => {
     case 'ALLOW_SLEEP_CONNECTED':
       chrome.storage.local.set({ preventSleepConnected: false });
       return { ...state, preventSleepConnected: false };
+    case 'DISABLE_WARNINGS':
+      chrome.storage.local.set({ disableWarnings: true });
+      return { ...state, disableWarnings: true };
+    case 'ENABLE_WARNINGS':
+      chrome.storage.local.set({ disableWarnings: false });
+      return { ...state, disableWarnings: false };
     default:
       return state;
   }

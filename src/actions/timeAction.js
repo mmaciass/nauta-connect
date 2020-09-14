@@ -22,14 +22,13 @@ const updateTimeLeftAction = (reintentos = 0) => {
       .then(value => {
         if (value.includes('errorop'))
           throw new Error('Error de operacion.');
-        const lastUpdateTime =  moment().toISOString();
-        basicNotification(`Su tiempo restante de navegación es de ${value}.`)
+        const lastUpdateTime = moment().toISOString();
+        basicNotification(`Su tiempo restante de navegación es de ${value}.`);
         dispatch({ type: 'UPDATE_TIME_SUCCESS', payload: { lastTimeLeft: value, lastUpdateTime } });
         dispatch(saveSessionInStorage({ lastTimeLeft: value, lastUpdateTime }));
       })
       .catch(reason => {
-        if (reason.message === 'Failed to fetch')
-          chrome.runtime.sendMessage({ type: 'LOGIN_ERROR', payload: 'Ha ocurrido un error con la conexión de red.' });
+        basicNotification('Ha ocurrido un error con la conexión de red al obtener el tiempo disponible.');
         dispatch({ type: 'UPDATE_TIME_FAILURE' });
         if (reintentos < 2)
           dispatch(updateTimeLeftAction(++reintentos));
