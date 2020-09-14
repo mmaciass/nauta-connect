@@ -27,6 +27,7 @@ import {
   preventSleepConnected,
   restorePreventSleepConnected,
 } from '../../actions/connectedAction';
+import { disableWarnings, enableWarnings, restoreDisableWarning } from '../../actions/notificationAction';
 
 const Background = ({
                       login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash,
@@ -35,7 +36,8 @@ const Background = ({
                       detectNavigatorAction, loadCountConnect, openDialogQualified, closeDialogQualified,
                       qualifiedAccepted, loadQualifiedState, openDialogTimer, closeDialogTimer,
                       startTimerDisconnect, stopTimerDisconnect, timerConnection, configs,
-                      allowSleepConnected, preventSleepConnected, restorePreventSleepConnected, ...props
+                      allowSleepConnected, preventSleepConnected, restorePreventSleepConnected,
+                      disableWarnings, enableWarnings, restoreDisableWarning, ...props
                     }) => {
   const videoRef = useRef(null);
 
@@ -45,6 +47,7 @@ const Background = ({
     loadCountConnect();
     loadQualifiedState();
     restorePreventSleepConnected();
+    restoreDisableWarning();
 
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
@@ -114,6 +117,12 @@ const Background = ({
           case 'ALLOW_SLEEP_CONNECTED':
             allowSleepConnected();
             break;
+          case 'DISABLE_WARNINGS':
+            disableWarnings();
+            break;
+          case 'ENABLE_WARNINGS':
+            enableWarnings();
+            break;
         }
       },
     );
@@ -180,7 +189,10 @@ const mapDispatchToProps = {
   stopTimerDisconnect,
   preventSleepConnected,
   allowSleepConnected,
-  restorePreventSleepConnected
+  restorePreventSleepConnected,
+  disableWarnings,
+  enableWarnings,
+  restoreDisableWarning,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);

@@ -94,7 +94,8 @@ const Splash = ({ configs, login, timerConnection, ...props }) => {
         </IconButton>
       </Tooltip>
 
-      <MenuOptionsCustom anchorEl={anchorEl} handleClose={handleClose} theme={configs.theme} preventSleep={configs.preventSleepConnected}/>
+      <MenuOptionsCustom anchorEl={anchorEl} handleClose={handleClose} theme={configs.theme}
+                         preventSleep={configs.preventSleepConnected} disableWarnings={configs.disableWarnings}/>
       <DialogUsersCustom/>
       <AboutDialogCustom/>
       <TimerDialog/>

@@ -12,8 +12,10 @@ import InfoIcon from '@material-ui/icons/Info';
 import Divider from '@material-ui/core/Divider';
 import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows';
 import DesktopAccessDisabledIcon from '@material-ui/icons/DesktopAccessDisabled';
+import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 
-const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, ...props }) => {
+const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disableWarnings, ...props }) => {
   return (
     <Fragment>
       <Menu
@@ -51,6 +53,21 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, ...prop
             : theme === 'dark'
               ? <Typography children="Modo Oscuro"/>
               : <Typography children="Modo Claro"/>}
+        </MenuItem>
+        <MenuItem onClick={() => {
+          if (disableWarnings)
+            chrome.runtime.sendMessage({ type: 'ENABLE_WARNINGS' });
+          else chrome.runtime.sendMessage({ type: 'DISABLE_WARNINGS' });
+        }}>
+          <ListItemIcon>
+            {disableWarnings
+              ? <NotificationsOffIcon fontSize="small"/>
+              : <NotificationsActiveIcon fontSize="small"/>}
+          </ListItemIcon>
+
+          {disableWarnings
+            ? <Typography children="Ocultar Advertencias"/>
+            : <Typography children="Mostrar Advertencias"/>}
         </MenuItem>
         <Divider/>
         <MenuItem onClick={() => {
