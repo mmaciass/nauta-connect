@@ -28,7 +28,7 @@ const updateTimeLeftAction = (reintentos = 0) => {
         dispatch(saveSessionInStorage({ lastTimeLeft: value, lastUpdateTime }));
       })
       .catch(reason => {
-        basicNotification('Ha ocurrido un error con la conexión de red al obtener el tiempo disponible.');
+        // basicNotification('Ha ocurrido un error con la conexión de red al obtener el tiempo disponible.');
         dispatch({ type: 'UPDATE_TIME_FAILURE' });
         if (reintentos < 2)
           dispatch(updateTimeLeftAction(++reintentos));
