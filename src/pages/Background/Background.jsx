@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import loginAction from '../../actions/loginAction';
-import logoutAction, { forceLogoutAction } from '../../actions/logoutAction';
+import logoutAction, { endTimeToLogout, forceLogoutAction } from '../../actions/logoutAction';
 import { loadUserAction, removeUserAction } from '../../actions/userStorageAction';
 import { disconnectSplash, hideSplash } from '../../actions/splashAction';
 import { nextTheme, restoreLastTheme } from '../../actions/themeAction';
@@ -37,7 +37,7 @@ const Background = ({
                       qualifiedAccepted, loadQualifiedState, openDialogTimer, closeDialogTimer,
                       startTimerDisconnect, stopTimerDisconnect, timerConnection, configs,
                       allowSleepConnected, preventSleepConnected, restorePreventSleepConnected,
-                      disableWarnings, enableWarnings, restoreDisableWarning, ...props
+                      disableWarnings, enableWarnings, restoreDisableWarning, endTimeToLogout, ...props
                     }) => {
   const videoRef = useRef(null);
 
@@ -123,6 +123,9 @@ const Background = ({
           case 'ENABLE_WARNINGS':
             enableWarnings();
             break;
+          case 'END_TIME_TO_LOGOUT':
+            endTimeToLogout();
+            break;
         }
       },
     );
@@ -193,6 +196,7 @@ const mapDispatchToProps = {
   disableWarnings,
   enableWarnings,
   restoreDisableWarning,
+  endTimeToLogout,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);

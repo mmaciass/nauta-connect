@@ -3,6 +3,7 @@ import { disconnectSplash } from './splashAction';
 import { clearSessionInStorage } from './storeSessionAction';
 import { basicNotification, delayedNotification } from '../utils/shorters';
 import Log from '../utils/log';
+import updateTimeLeftAction from './timeAction';
 
 const logoutAction = () => {
   return (dispatch, getState) => {
@@ -56,6 +57,27 @@ export const forceLogoutAction = () => {
         basicNotification('Se ha forzado el cierre de la sesión, esto no asegura que la conexión se haya cerrado, por favor cerciórese que su sesión termino correctamente.');
         if (!state.configs.disableWarnings)
           delayedNotification('Si necesita volver al estado anterior utilice la opción "Recuperar sesión" del menú de opciones.');
+      });
+  };
+};
+
+export const endTimeToLogout = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    dispatch(updateTimeLeftAction());
+    dispatch({ type: 'LOGOUT_SUCCESS' });
+    dispatch(disconnectSplash());
+    setTimeout(() => {
+      dispatch({ type: 'RESTORE_NONE' });
+    }, 1000 * 1.5);
+    const bodyData = bodyDataConstructor(state);
+    fetchCustom('https://secure.etecsa.net:8443/LogoutServlet', bodyData)
+      .then(() => {
+      })
+      .catch(() => {
+        basicNotification('Su tiempo de conexión disponible se ha agotado.');
+        // if (!state.configs.disableWarnings)
+        //   delayedNotification('Si necesita volver al estado anterior utilice la opción "Recuperar sesión" del menú de opciones.');
       });
   };
 };

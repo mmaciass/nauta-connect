@@ -29,6 +29,10 @@ const Connect = ({ login, ...props }) => {
     chrome.runtime.sendMessage({ type: 'FORCE_LOGOUT' });
   };
 
+  const endTimeToLogout = () => {
+    chrome.runtime.sendMessage({ type: 'END_TIME_TO_LOGOUT' });
+  };
+
   const tiempoConectado = () => {
     let ms = moment().diff(moment(login.lastUpdateTime));
     setTime(formatTime(ms));
@@ -39,7 +43,7 @@ const Connect = ({ login, ...props }) => {
         parseInt(trestante[1]) * 60 * 1000 +
         parseInt(trestante[2]) * 1000;
       if ((milTRestante - ms) <= 0)
-        forceLogout();
+        endTimeToLogout();
       setRestante(formatTime(milTRestante - ms));
     }
   };
