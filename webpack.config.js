@@ -36,6 +36,7 @@ var options = {
   entry: {
     popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.jsx'),
     background: path.join(__dirname, 'src', 'pages', 'Background', 'index.jsx'),
+    license: path.join(__dirname, 'src', 'pages', 'License', 'index.jsx'),
   },
   chromeExtensionBoilerplate: {
     notHotReload: ['contentScript'],
@@ -65,7 +66,7 @@ var options = {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-      }
+      },
     ],
   },
   resolve: {
@@ -89,45 +90,50 @@ var options = {
           from: 'src/manifest.json',
           to: path.join(__dirname, 'build'),
           force: true,
-          transform: function (content, path) {
+          transform: function(content, path) {
             // generates the manifest file using the package.json informations
             return Buffer.from(
               JSON.stringify({
                 description: process.env.npm_package_description,
                 version: process.env.npm_package_version,
                 ...JSON.parse(content.toString()),
-              })
+              }),
             );
           },
         },
         {
           from: 'src/assets/img/',
           to: path.join(__dirname, 'build'),
-          force: true
+          force: true,
         },
         {
           from: 'src/assets/video/',
           to: path.join(__dirname, 'build'),
-          force: true
-        }
+          force: true,
+        },
       ],
       {
         logLevel: 'info',
         copyUnmodified: true,
-      }
+      },
     ),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Popup', 'index.html'),
+      template: path.join(
+        __dirname, 'src', 'pages', 'Popup', 'index.html',
+      ),
       filename: 'popup.html',
       chunks: ['popup'],
     }),
     new HtmlWebpackPlugin({
       template: path.join(
-        __dirname,
-        'src',
-        'pages',
-        'Background',
-        'index.html'
+        __dirname, 'src', 'pages', 'License', 'index.html',
+      ),
+      filename: 'license.html',
+      chunks: ['license'],
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(
+        __dirname, 'src', 'pages', 'Background', 'index.html',
       ),
       filename: 'background.html',
       chunks: ['background'],

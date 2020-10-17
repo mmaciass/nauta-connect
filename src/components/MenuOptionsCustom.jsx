@@ -14,6 +14,7 @@ import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows';
 import DesktopAccessDisabledIcon from '@material-ui/icons/DesktopAccessDisabled';
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import BusinessIcon from '@material-ui/icons/Business';
 
 const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disableWarnings, ...props }) => {
   return (
@@ -90,14 +91,23 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
         </MenuItem>
         <Divider/>
         <MenuItem onClick={() => {
-          chrome.runtime.sendMessage({ type: 'OPEN_DIALOG_ABOUT' });
+          const w = window.open('/license.html');
+          w.focus();
           handleClose();
         }}>
           <ListItemIcon>
-            <InfoIcon fontSize="small"/>
+            <BusinessIcon fontSize="small"/>
           </ListItemIcon>
-          <Typography>Acerca de...</Typography>
-        </MenuItem>
+          <Typography>Licencia</Typography>
+        </MenuItem><MenuItem onClick={() => {
+        chrome.runtime.sendMessage({ type: 'OPEN_DIALOG_ABOUT' });
+        handleClose();
+      }}>
+        <ListItemIcon>
+          <InfoIcon fontSize="small"/>
+        </ListItemIcon>
+        <Typography>Acerca de...</Typography>
+      </MenuItem>
       </Menu>
     </Fragment>
   );
