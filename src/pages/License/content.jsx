@@ -108,6 +108,10 @@ const Content = ({ ...props }) => {
         <Typography>
           Licencia anual: <b>$ {prices.byYears.toFixed(2)}</b> CUP por año (1 - 5 años)
         </Typography>
+        <Typography variant="subtitle2">
+          IMPORTANTE: TENIENDO EN CUENTA EL INMINENTE CAMBIO DEL VALOR DEL CUP POR EL MOMENTO SOLO SE EMITIRÁN LICENCIAS
+          CON DOS MESES DE DURACIÓN MAXIMO.
+        </Typography>
       </Paper>
       <Paper className={classes.paper}>
         <Grid container className={classes.root} spacing={2}>

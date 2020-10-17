@@ -32,7 +32,9 @@ const identityGenerator = (store) => (next) => (action) => {
 
 const protectActions = (store) => (next) => (action) => {
   const { type, payload } = action;
-  const listTypesProtected = ['OPEN_DIALOG_TIMER', 'START_TIMER_DISCONNECT'];
+  const listTypesProtected = [
+    'OPEN_DIALOG_TIMER', 'START_TIMER_DISCONNECT',
+  ];
   const result = listTypesProtected.find(value => value === type);
   if (result) {
     chrome.storage.sync.get(['token', 'identity'], (v) => {
