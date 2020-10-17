@@ -96,7 +96,7 @@ const Content = ({ ...props }) => {
           <b>Estimado usuario.</b>
         </Typography>
         <Typography>
-          Esta extensión es parcialmente gratuita, si desea adquirir nuevas funcionalidades, usted debe comprar una
+          Esta extensión es parcialmente gratuita, si desea activar todas funcionalidades, usted debe comprar una
           licencia.
         </Typography>
         <Typography>
