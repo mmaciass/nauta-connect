@@ -28,6 +28,7 @@ import {
   restorePreventSleepConnected,
 } from '../../actions/connectedAction';
 import { disableWarnings, enableWarnings, restoreDisableWarning } from '../../actions/notificationAction';
+import { autoProxy } from '../../actions/proxyAutoAction';
 
 const Background = ({
                       login, loginAction, logoutAction, forceLogoutAction, loadUserAction, hideSplash,
@@ -37,7 +38,8 @@ const Background = ({
                       qualifiedAccepted, loadQualifiedState, openDialogTimer, closeDialogTimer,
                       startTimerDisconnect, stopTimerDisconnect, timerConnection, configs,
                       allowSleepConnected, preventSleepConnected, restorePreventSleepConnected,
-                      disableWarnings, enableWarnings, restoreDisableWarning, endTimeToLogout, ...props
+                      disableWarnings, enableWarnings, restoreDisableWarning, endTimeToLogout,
+                      autoProxy, ...props
                     }) => {
   const videoRef = useRef(null);
 
@@ -126,6 +128,12 @@ const Background = ({
           case 'END_TIME_TO_LOGOUT':
             endTimeToLogout();
             break;
+          case 'AUTO_ENABLE_PROXY':
+            autoProxy(true);
+            break;
+          case 'MANUAL_ENABLE_PROXY':
+            autoProxy(false);
+            break;
         }
       },
     );
@@ -197,6 +205,7 @@ const mapDispatchToProps = {
   enableWarnings,
   restoreDisableWarning,
   endTimeToLogout,
+  autoProxy,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background);

@@ -22,7 +22,7 @@ import Fab from '@material-ui/core/Fab';
 import TimerIcon from '@material-ui/icons/Timer';
 import { msToHMMSS } from '../../utils/shorters';
 
-const Splash = ({ configs, login, timerConnection, ...props }) => {
+const Splash = ({ configs, login, timerConnection, proxy, ...props }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [hmsTimer, setHmsTimer] = React.useState('--:--:--');
   const [idIntervalUpdate, setIdIntervalUpdate] = React.useState(null);
@@ -95,7 +95,8 @@ const Splash = ({ configs, login, timerConnection, ...props }) => {
       </Tooltip>
 
       <MenuOptionsCustom anchorEl={anchorEl} handleClose={handleClose} theme={configs.theme}
-                         preventSleep={configs.preventSleepConnected} disableWarnings={configs.disableWarnings}/>
+                         preventSleep={configs.preventSleepConnected} disableWarnings={configs.disableWarnings}
+                         autoProxy={proxy.automatic}/>
       <DialogUsersCustom/>
       <AboutDialogCustom/>
       <TimerDialog/>
@@ -131,10 +132,12 @@ const Splash = ({ configs, login, timerConnection, ...props }) => {
 };
 
 const mapStateToProps = (state) => {
+  debugger
   return {
     configs: state.configs,
     login: state.login,
     timerConnection: state.timerConnection,
+    proxy: state.proxy,
   };
 };
 

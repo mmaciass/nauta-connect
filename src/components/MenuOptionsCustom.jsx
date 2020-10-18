@@ -15,8 +15,10 @@ import DesktopAccessDisabledIcon from '@material-ui/icons/DesktopAccessDisabled'
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import BusinessIcon from '@material-ui/icons/Business';
+import VpnLockIcon from '@material-ui/icons/VpnLock';
+import PersonPinCircleIcon from '@material-ui/icons/PersonPinCircle';
 
-const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disableWarnings, ...props }) => {
+const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disableWarnings, autoProxy, ...props }) => {
   return (
     <Fragment>
       <Menu
@@ -26,6 +28,18 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        <MenuItem onClick={() => {
+          if (autoProxy) chrome.runtime.sendMessage({ type: 'MANUAL_ENABLE_PROXY' });
+          else chrome.runtime.sendMessage({ type: 'AUTO_ENABLE_PROXY' });
+        }}>
+          <ListItemIcon>
+            {autoProxy
+              ? <VpnLockIcon fontSize="small"/>
+              : <PersonPinCircleIcon fontSize="small"/>}
+          </ListItemIcon>
+
+          <Typography>Proxy {autoProxy ? `Automático` : `Manual`}</Typography>
+        </MenuItem>
         <MenuItem onClick={() => {
           if (preventSleep) chrome.runtime.sendMessage({ type: 'ALLOW_SLEEP_CONNECTED' });
           else chrome.runtime.sendMessage({ type: 'PREVENT_SLEEP_CONNECTED' });

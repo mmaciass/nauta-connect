@@ -55,36 +55,33 @@ const Content = ({ ...props }) => {
     }, secondsTimeWait * 1000);
   };
 
-  const checkLicense = (event, token = license) => {
-    chrome.storage.sync.get(['identity'], (v) => {
-      debugger
-      const { id, timeCheck, client } = v.identity;
-      setId(id);
-      setTimeCheck(timeCheck);
-      setClient(client);
-      try {
-        const identityCheck = jwt.verify(token, PUBLIC_KEY, { algorithms: ['RS256'] });
-        if (parseInt(identityCheck.id) !== id || parseInt(identityCheck.timeCheck) !== timeCheck
-          || identityCheck.client.toLowerCase() !== client.toLowerCase()) {
-          setMsgLicense('Su licencia no es válida o ya se ha vencido. Solicite una nueva licencia.');
-          return;
-        }
-        setMsgLicense(`Su licencia de Nauta Connect es válida hasta el ${new Date(identityCheck.exp * 1000).toLocaleString()}.`);
-        chrome.storage.sync.set({ token }, () => {
-        });
-      } catch (e) {
+  const checkLicense = (event, token = license, i = { id, timeCheck, client }) => {
+    try {
+      const identityCheck = jwt.verify(token, PUBLIC_KEY, { algorithms: ['RS256'] });
+      if (parseInt(identityCheck.id) !== i.id || parseInt(identityCheck.timeCheck) !== i.timeCheck
+        || identityCheck.client.toLowerCase() !== i.client.toLowerCase()) {
         setMsgLicense('Su licencia no es válida o ya se ha vencido. Solicite una nueva licencia.');
-        resetMsg();
+        return;
       }
-    });
-
+      setMsgLicense(`Su licencia de Nauta Connect es válida hasta el ${new Date(identityCheck.exp * 1000).toLocaleString()}.`);
+      chrome.storage.sync.set({ token }, () => {
+      });
+    } catch (e) {
+      setMsgLicense('Su licencia no es válida o ya se ha vencido. Solicite una nueva licencia.');
+      resetMsg();
+    }
   };
 
   useEffect(() => {
-    chrome.storage.sync.get(['token'], (v) => {
+    chrome.storage.sync.get(['token', 'identity'], (v) => {
       if (v.token)
         setLicense(v.token);
-      checkLicense(null, v.token);
+      if (v.identity) {
+        setId(v.identity.id);
+        setTimeCheck(v.identity.timeCheck);
+        setClient(v.identity.client);
+      }
+      checkLicense(null, v.token, { id: v.identity.id, timeCheck: v.identity.timeCheck, client: v.identity.client });
     });
 
   }, []);
