@@ -1,5 +1,6 @@
 export const REACT_APP_KEY_PROTECT = 'THE APP PROTECTED KEY HERE';
-export const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
+export const PUBLIC_KEY =
+  `-----BEGIN PUBLIC KEY-----
 MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAz1LyfewSzi+eqbg1Dm10
 kKGB8DM9UWpsROyNTQCMC3gu7woyc6ft6SX/vRutXws/dhaqEalhBmE5iDiRS0wg
 EAvMd0WnJ/hQ9xz0m/ZJ/EjqOpTJrjK2GE7By+SRYHLY5ShGOhT8Y72iAUixq4QI
@@ -13,3 +14,6 @@ cubspYlw26jIH7LHkOxAsqKRD69f61z0yePrZJq5zuRBNDVQQqph8jbI80YhVChU
 +Fo9hL1+JFri4ffUrYBYCZIGSmLVRK+dXcTshkMXNz/5laE5WtYzroTFL7jE0bED
 A4iIny1yQ2xIOjxPgm/ukU0CAwEAAQ==
 -----END PUBLIC KEY-----`;
+export const PROXYS_SERVERS_LIST = [
+  { id: 1, ip: '192.95.39.46', domain: 's1.gcloud.bidbex.com', name: 'CA Montreal 01', flag: 'ca' },
+];
