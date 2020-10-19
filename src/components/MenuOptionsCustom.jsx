@@ -30,10 +30,10 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
         onClose={handleClose}
       >
 
-        <Tooltip
-          title={autoProxy
-            ? 'El proxy se activara de forma automática al iniciar sesión, por lo que su navegación sera segura y anónima.'
-            : 'Una vez iniciada la conexión usted puede iniciar la conexión privada si lo desea.'}>
+        <Tooltip enterDelay={2000}
+                 title={autoProxy
+                   ? 'El proxy se activara de forma automática al iniciar sesión, por lo que su navegación sera segura y anónima.'
+                   : 'Una vez iniciada la conexión usted puede iniciar la conexión privada si lo desea.'}>
           <MenuItem onClick={() => {
             if (autoProxy) chrome.runtime.sendMessage({ type: 'MANUAL_ENABLE_PROXY' });
             else chrome.runtime.sendMessage({ type: 'AUTO_ENABLE_PROXY' });
@@ -47,10 +47,10 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
           </MenuItem>
         </Tooltip>
 
-        <Tooltip
-          title={preventSleep
-            ? 'Se evitara que su ordenador se suspenda o apague mientras este conectado.'
-            : 'Su ordenador puede suspenderse o apagarse mientras este conectado, según su configuración de sistema.'}>
+        <Tooltip enterDelay={2000}
+                 title={preventSleep
+                   ? 'Se evitara que su ordenador se suspenda o apague mientras este conectado.'
+                   : 'Su ordenador puede suspenderse o apagarse mientras este conectado, según su configuración de sistema.'}>
           <MenuItem onClick={() => {
             if (preventSleep) chrome.runtime.sendMessage({ type: 'ALLOW_SLEEP_CONNECTED' });
             else chrome.runtime.sendMessage({ type: 'PREVENT_SLEEP_CONNECTED' });
@@ -64,10 +64,10 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
           </MenuItem>
         </Tooltip>
 
-        <Tooltip
-          title={theme === 'auto'
-            ? 'La extensión tomara el tema por defecto del navegador.'
-            : 'El tema de la extensión es el seleccionado manualmente.'}>
+        <Tooltip enterDelay={2000}
+                 title={theme === 'auto'
+                   ? 'La extensión tomara el tema por defecto del navegador.'
+                   : 'El tema de la extensión es el seleccionado manualmente.'}>
           <MenuItem onClick={() => {
             chrome.runtime.sendMessage({ type: 'NEXT_THEME' });
           }}>
@@ -87,10 +87,10 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
           </MenuItem>
         </Tooltip>
 
-        <Tooltip
-          title={disableWarnings
-            ? 'Algunas advertencias no se mostrarán más..'
-            : 'Se mostrarán todas las advertencias.'}>
+        <Tooltip enterDelay={2000}
+                 title={disableWarnings
+                   ? 'Algunas advertencias no se mostrarán más..'
+                   : 'Se mostrarán todas las advertencias.'}>
           <MenuItem onClick={() => {
             if (disableWarnings)
               chrome.runtime.sendMessage({ type: 'ENABLE_WARNINGS' });
@@ -110,7 +110,7 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
 
         <Divider/>
 
-        <Tooltip title="Administrar todas las cuentas guardadas.">
+        <Tooltip enterDelay={2000} title="Administrar todas las cuentas guardadas.">
           <MenuItem onClick={() => {
             chrome.runtime.sendMessage({ type: 'OPEN_DIALOG_USERS' });
             handleClose();
@@ -122,8 +122,8 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
           </MenuItem>
         </Tooltip>
 
-        <Tooltip
-          title="Permite retomar una sesión si el navegador o sistema se ha cerrado y la cuenta continuo abierta.">
+        <Tooltip enterDelay={2000}
+                 title="Permite retomar una sesión si el navegador o sistema se ha cerrado y la cuenta continuo abierta.">
           <MenuItem onClick={() => {
             chrome.runtime.sendMessage({ type: 'LOAD_SESSION_FROM_STORAGE' });
             handleClose();
@@ -137,8 +137,8 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
 
         <Divider/>
 
-        <Tooltip
-          title="Solicitar o activar una licencia para todas las funcionalidades de la extensión.">
+        <Tooltip enterDelay={2000}
+                 title="Solicitar o activar una licencia para todas las funcionalidades de la extensión.">
           <MenuItem onClick={() => {
             const w = window.open('/license.html');
             w.focus();

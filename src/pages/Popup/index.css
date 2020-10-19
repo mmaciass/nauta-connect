@@ -22,3 +22,11 @@ code {
 .MuiTooltip-tooltip {
     max-width: 150px !important;
 }
+
+.MuiTypography-root {
+    cursor: default;
+}
+
+a {
+    cursor: pointer !important;
+}
