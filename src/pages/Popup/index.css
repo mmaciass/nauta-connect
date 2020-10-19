@@ -18,3 +18,7 @@ code {
 .MuiMenu-paper {
     max-height: calc(100% - 10px) !important;
 }
+
+.MuiTooltip-tooltip {
+    max-width: 150px !important;
+}
