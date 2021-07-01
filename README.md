@@ -13,8 +13,8 @@
 Extensión de código fuente abierto, publicado en Github en el enlace [mmaciass/nauta-connect](https://github.com/mmaciass/nauta-connect)
 
 #### Ya puedes instalarlo en tu navegador.
-- Para Google Chrome, desde el enalce de  [Google/nauta-connect](https://chrome.google.com/webstore/detail/nauta-connect/ppopcmgfgajciikdmipmmpffkpccinep).
-- Para Mozilla Firefox, desde el enalce de  [Firefox/nauta-connect](https://addons.mozilla.org/es/firefox/addon/nauta-connect/).
+- Para Google Chrome, desde el enlace de  [Google/nauta-connect](https://chrome.google.com/webstore/detail/nauta-connect/ppopcmgfgajciikdmipmmpffkpccinep).
+- Para Mozilla Firefox, desde el enlace de  [Firefox/nauta-connect](https://addons.mozilla.org/es/firefox/addon/nauta-connect/).
 
 #### Tecnologías y herramientas utilizadas en el proceso de desarrollo:
 
