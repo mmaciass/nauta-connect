@@ -26,7 +26,7 @@
     "crypto-js": "^4.0.0",
     "fontsource-roboto": "^2.1.4",
     "formik": "^2.1.4",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.4",
     "react": "^16.13.1",
     "react-chrome-redux": "^2.0.0-alpha.5",
