@@ -3,14 +3,8 @@ import '../../assets/img/icon-128.png';
 import { render } from 'react-dom';
 import React from 'react';
 import Background from './Background';
-import { wrapStore } from 'react-chrome-redux';
-
-import store from '../../store';
 import { Provider } from 'react-redux';
-
-wrapStore(store, {
-  portName: 'nauta-connect',
-});
+import store from '../../store';
 
 render((
   <Provider store={store}>

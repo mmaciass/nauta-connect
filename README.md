@@ -41,6 +41,15 @@ Extensión de código fuente abierto, publicado en Github en el enlace [mmaciass
 
 Para compilar la extension en modo de producción debe ejecutar el comando `yarn build` o `npm run build`.
 
+### Cambios realizados para la migración a Manifest V3:
+
+- Se actualizó el archivo `src/manifest.json` para usar Manifest V3.
+  - La propiedad `background` ahora usa una clave `service_worker` con el valor `background.js`.
+  - Se eliminó `unsafe-eval` de `content_security_policy`.
+  - Se actualizaron las propiedades `permissions` y `browser_action` para alinearse con los requisitos de Manifest V3.
+- Se creó un nuevo archivo `src/background.js` para manejar tareas en segundo plano como un service worker.
+- Se actualizaron los archivos `src/pages/Background/index.jsx` y `src/pages/Background/Background.jsx` para trabajar con el nuevo service worker.
+
 ### Funciones que aún faltan por implementar:
 
 - Por el momento se me acabaron las ideas... AHORA ES CUANDO CUALQUIER IDEA ES BIENVENIDA 🎉 📬
