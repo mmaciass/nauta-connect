@@ -61,91 +61,110 @@ function initializeExtension() {
 
 // Handle messages from popup and other parts of the extension
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  switch (request.type) {
-    case 'LOGIN':
-      store.dispatch(loginAction(request.payload.username, request.payload.password, request.payload.remember));
-      break;
-    case 'LOGOUT':
-      store.dispatch(logoutAction());
-      break;
-    case 'FORCE_LOGOUT':
-      store.dispatch(forceLogoutAction());
-      break;
-    case 'LOAD_USER_STORE':
-      store.dispatch(loadUserAction(request.payload.username));
-      break;
-    case 'REMOVE_USER_STORE':
-      store.dispatch(removeUserAction(request.payload.username));
-      break;
-    case 'HIDE_SPLASH':
-      store.dispatch(hideSplash());
-      break;
-    case 'NEXT_THEME':
-      store.dispatch(nextTheme());
-      break;
-    case 'OPEN_DIALOG_USERS':
-      store.dispatch(openDialogUsers());
-      break;
-    case 'CLOSE_DIALOG_USERS':
-      store.dispatch(closeDialogUsers());
-      break;
-    case 'OPEN_DIALOG_ABOUT':
-      store.dispatch(openDialogAbout());
-      break;
-    case 'CLOSE_DIALOG_ABOUT':
-      store.dispatch(closeDialogAbout());
-      break;
-    case 'OPEN_DIALOG_QUALIFIED':
-      store.dispatch(openDialogQualified());
-      break;
-    case 'CLOSE_DIALOG_QUALIFIED':
-      store.dispatch(closeDialogQualified());
-      break;
-    case 'OPEN_DIALOG_TIMER':
-      store.dispatch(openDialogTimer());
-      break;
-    case 'CLOSE_DIALOG_TIMER':
-      store.dispatch(closeDialogTimer());
-      break;
-    case 'START_TIMER_DISCONNECT':
-      if (request.payload)
-        store.dispatch(startTimerDisconnect(request.payload));
-      break;
-    case 'STOP_TIMER_DISCONNECT':
-      store.dispatch(stopTimerDisconnect());
-      break;
-    case 'QUALIFIED_ACCEPTED':
-      store.dispatch(qualifiedAccepted());
-      break;
-    case 'LOAD_SESSION_FROM_STORAGE':
-      store.dispatch(loadSessionFromStorage());
-      break;
-    case 'PREVENT_SLEEP_CONNECTED':
-      store.dispatch(preventSleepConnected());
-      break;
-    case 'ALLOW_SLEEP_CONNECTED':
-      store.dispatch(allowSleepConnected());
-      break;
-    case 'DISABLE_WARNINGS':
-      store.dispatch(disableWarnings());
-      break;
-    case 'ENABLE_WARNINGS':
-      store.dispatch(enableWarnings());
-      break;
-    case 'END_TIME_TO_LOGOUT':
-      store.dispatch(endTimeToLogout());
-      break;
-    case 'AUTO_ENABLE_PROXY':
-      store.dispatch(autoProxy(true));
-      break;
-    case 'MANUAL_ENABLE_PROXY':
-      store.dispatch(autoProxy(false));
-      break;
-    case 'GET_STATE':
-      // Allow other parts of the extension to get the current state
-      sendResponse(store.getState());
-      return true;
+  console.log('[SW] 📨 Message received:', request.type);
+
+  try {
+    switch (request.type) {
+      case 'LOGIN':
+        store.dispatch(loginAction(request.payload.username, request.payload.password, request.payload.remember));
+        break;
+      case 'LOGOUT':
+        store.dispatch(logoutAction());
+        break;
+      case 'FORCE_LOGOUT':
+        store.dispatch(forceLogoutAction());
+        break;
+      case 'LOAD_USER_STORE':
+        store.dispatch(loadUserAction(request.payload.username));
+        break;
+      case 'REMOVE_USER_STORE':
+        store.dispatch(removeUserAction(request.payload.username));
+        break;
+      case 'HIDE_SPLASH':
+        store.dispatch(hideSplash());
+        break;
+      case 'NEXT_THEME':
+        console.log('[SW] 🎨 Changing theme');
+        store.dispatch(nextTheme());
+        break;
+      case 'OPEN_DIALOG_USERS':
+        store.dispatch(openDialogUsers());
+        break;
+      case 'CLOSE_DIALOG_USERS':
+        store.dispatch(closeDialogUsers());
+        break;
+      case 'OPEN_DIALOG_ABOUT':
+        store.dispatch(openDialogAbout());
+        break;
+      case 'CLOSE_DIALOG_ABOUT':
+        store.dispatch(closeDialogAbout());
+        break;
+      case 'OPEN_DIALOG_QUALIFIED':
+        store.dispatch(openDialogQualified());
+        break;
+      case 'CLOSE_DIALOG_QUALIFIED':
+        store.dispatch(closeDialogQualified());
+        break;
+      case 'OPEN_DIALOG_TIMER':
+        store.dispatch(openDialogTimer());
+        break;
+      case 'CLOSE_DIALOG_TIMER':
+        store.dispatch(closeDialogTimer());
+        break;
+      case 'START_TIMER_DISCONNECT':
+        if (request.payload)
+          store.dispatch(startTimerDisconnect(request.payload));
+        break;
+      case 'STOP_TIMER_DISCONNECT':
+        store.dispatch(stopTimerDisconnect());
+        break;
+      case 'QUALIFIED_ACCEPTED':
+        store.dispatch(qualifiedAccepted());
+        break;
+      case 'LOAD_SESSION_FROM_STORAGE':
+        store.dispatch(loadSessionFromStorage());
+        break;
+      case 'PREVENT_SLEEP_CONNECTED':
+        console.log('[SW] 💤 Preventing sleep');
+        store.dispatch(preventSleepConnected());
+        break;
+      case 'ALLOW_SLEEP_CONNECTED':
+        console.log('[SW] 💤 Allowing sleep');
+        store.dispatch(allowSleepConnected());
+        break;
+      case 'DISABLE_WARNINGS':
+        console.log('[SW] 🔔 Disabling warnings');
+        store.dispatch(disableWarnings());
+        break;
+      case 'ENABLE_WARNINGS':
+        console.log('[SW] 🔔 Enabling warnings');
+        store.dispatch(enableWarnings());
+        break;
+      case 'END_TIME_TO_LOGOUT':
+        store.dispatch(endTimeToLogout());
+        break;
+      case 'AUTO_ENABLE_PROXY':
+        console.log('[SW] 🔐 Setting proxy to AUTO');
+        store.dispatch(autoProxy(true));
+        break;
+      case 'MANUAL_ENABLE_PROXY':
+        console.log('[SW] 🔐 Setting proxy to MANUAL');
+        store.dispatch(autoProxy(false));
+        break;
+      case 'GET_STATE':
+        // Allow other parts of the extension to get the current state
+        sendResponse(store.getState());
+        return true;
+      default:
+        console.warn('[SW] ⚠️  Unknown message type:', request.type);
+    }
+    console.log('[SW] ✅ Message processed successfully');
+  } catch (error) {
+    console.error('[SW] ❌ Error processing message:', error);
   }
+
+  // Return true to indicate we handled the message
+  return true;
 });
 
 // Monitor store changes for power management
