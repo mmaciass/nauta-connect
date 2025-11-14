@@ -1,0 +1,66 @@
+name: Lint & Quality Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+      - develop
+  push:
+    branches:
+      - main
+      - master
+      - develop
+
+jobs:
+  lint:
+    name: Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Check for MV3 compatibility issues
+        run: |
+          echo "🔍 Checking for Manifest V3 compatibility issues..."
+
+          # Check for deprecated APIs
+          echo "Checking for deprecated Chrome APIs..."
+          ! grep -r "chrome\.extension\|chrome\.app\|chrome\.browserAction" src/ --include="*.js" --include="*.jsx" || {
+            echo "❌ Found deprecated Chrome APIs"
+            exit 1
+          }
+
+          # Check for unsafe window access in service worker contexts
+          echo "Checking for unsafe window/document access..."
+          ! grep -r "window\." src/pages/Background/ --include="*.js" || {
+            echo "⚠️  Warning: Found window access in Background (service worker)"
+          }
+
+          # Check manifest version
+          echo "Verifying manifest version..."
+          grep -q '"manifest_version": 3' src/manifest.json && echo "✅ Manifest V3 detected" || {
+            echo "❌ Not using Manifest V3"
+            exit 1
+          }
+
+          echo "✅ All MV3 compatibility checks passed!"
+
+      - name: Security audit
+        run: npm audit --production --audit-level=high || echo "⚠️ Security vulnerabilities found"
+        continue-on-error: true
+
+      - name: Check package.json scripts
+        run: |
+          echo "Available scripts:"
+          npm run

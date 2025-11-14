@@ -132,7 +132,6 @@ const Splash = ({ configs, login, timerConnection, proxy, ...props }) => {
 };
 
 const mapStateToProps = (state) => {
-  debugger
   return {
     configs: state.configs,
     login: state.login,

@@ -37,6 +37,7 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
           <MenuItem onClick={() => {
             if (autoProxy) chrome.runtime.sendMessage({ type: 'MANUAL_ENABLE_PROXY' });
             else chrome.runtime.sendMessage({ type: 'AUTO_ENABLE_PROXY' });
+            handleClose();
           }}>
             <ListItemIcon>
               {autoProxy
@@ -54,6 +55,7 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
           <MenuItem onClick={() => {
             if (preventSleep) chrome.runtime.sendMessage({ type: 'ALLOW_SLEEP_CONNECTED' });
             else chrome.runtime.sendMessage({ type: 'PREVENT_SLEEP_CONNECTED' });
+            handleClose();
           }}>
             <ListItemIcon>
               {preventSleep
@@ -70,6 +72,7 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
                    : 'El tema de la extensión es el seleccionado manualmente.'}>
           <MenuItem onClick={() => {
             chrome.runtime.sendMessage({ type: 'NEXT_THEME' });
+            handleClose();
           }}>
             <ListItemIcon>
               {theme === 'auto'
@@ -95,6 +98,7 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
             if (disableWarnings)
               chrome.runtime.sendMessage({ type: 'ENABLE_WARNINGS' });
             else chrome.runtime.sendMessage({ type: 'DISABLE_WARNINGS' });
+            handleClose();
           }}>
             <ListItemIcon>
               {disableWarnings
@@ -140,8 +144,13 @@ const MenuOptionsCustom = ({ anchorEl, handleClose, theme, preventSleep, disable
         <Tooltip enterDelay={2000}
                  title="Solicitar o activar una licencia para todas las funcionalidades de la extensión.">
           <MenuItem onClick={() => {
-            const w = window.open('/license.html');
-            w.focus();
+            // Use chrome.tabs.create for MV3 compatibility
+            if (chrome.tabs) {
+              chrome.tabs.create({ url: chrome.runtime.getURL('license.html') });
+            } else {
+              const w = window.open('/license.html');
+              if (w) w.focus();
+            }
             handleClose();
           }}>
             <ListItemIcon>

@@ -3,15 +3,24 @@ export const clog = (message, ...optionalParams) => {
     console.log(message, ...optionalParams);
 };
 
-window.browser = (function() {
-  return window.msBrowser ||
-    window.browser ||
-    window.chrome;
-})();
+// Only set window.browser in browser contexts (not in service workers)
+if (typeof window !== 'undefined') {
+  window.browser = (function() {
+    return window.msBrowser ||
+      window.browser ||
+      window.chrome;
+  })();
+}
 
+// Use chrome.tabs.create for compatibility with service workers
 export const openInNewTab = (url) => {
-  var win = window.open(url, '_blank');
-  win.focus();
+  if (typeof chrome !== 'undefined' && chrome.tabs) {
+    chrome.tabs.create({ url });
+  } else if (typeof window !== 'undefined') {
+    // Fallback for contexts where chrome.tabs is not available
+    var win = window.open(url, '_blank');
+    if (win) win.focus();
+  }
 };
 
 export const msToHMMSS = (time) => {

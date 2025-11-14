@@ -29,4 +29,21 @@ const App = (props) => {
   );
 };
 
+// Render immediately to avoid blank screen
 render(<App/>, window.document.querySelector('#app-container'));
+
+// Then try to connect to service worker with timeout
+const connectTimeout = setTimeout(() => {
+  console.warn('[Popup] Store connection timeout - service worker may not be running');
+}, 5000);
+
+proxyStore.ready()
+  .then(() => {
+    clearTimeout(connectTimeout);
+    console.log('[Popup] ✅ Store connected to service worker');
+  })
+  .catch((error) => {
+    clearTimeout(connectTimeout);
+    console.error('[Popup] ❌ Failed to connect to service worker:', error);
+    console.error('[Popup] Extension will work with limited functionality');
+  });

@@ -35,7 +35,7 @@ var options = {
   mode: process.env.NODE_ENV || 'development',
   entry: {
     popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.jsx'),
-    background: path.join(__dirname, 'src', 'pages', 'Background', 'index.jsx'),
+    background: path.join(__dirname, 'src', 'pages', 'Background', 'background.js'),
     license: path.join(__dirname, 'src', 'pages', 'License', 'index.jsx'),
   },
   chromeExtensionBoilerplate: {
@@ -131,13 +131,7 @@ var options = {
       filename: 'license.html',
       chunks: ['license'],
     }),
-    new HtmlWebpackPlugin({
-      template: path.join(
-        __dirname, 'src', 'pages', 'Background', 'index.html',
-      ),
-      filename: 'background.html',
-      chunks: ['background'],
-    }),
+    // Background is now a service worker, no HTML needed
     new WriteFilePlugin(),
   ],
 };

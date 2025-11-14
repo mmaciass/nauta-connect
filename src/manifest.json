@@ -1,10 +1,11 @@
 {
   "name": "nauta-connect",
+  "description": "Extensión para conectarse a la red Nauta de ETECSA de forma rápida, fácil y segura.",
   "background": {
-    "page": "background.html",
-    "persistent": true
+    "service_worker": "background.bundle.js",
+    "type": "module"
   },
-  "browser_action": {
+  "action": {
     "default_popup": "popup.html",
     "default_icon": "icon-34.png"
   },
@@ -17,9 +18,12 @@
   "permissions": [
     "storage",
     "notifications",
-    "https://secure.etecsa.net/*",
-    "proxy"
+    "proxy",
+    "power",
+    "tabs"
   ],
-  "manifest_version": 2,
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "host_permissions": [
+    "https://secure.etecsa.net/*"
+  ],
+  "manifest_version": 3
 }
