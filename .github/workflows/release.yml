@@ -1,0 +1,116 @@
+name: Release Extension
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v1.4.1)'
+        required: true
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create env.js from example
+        run: cp src/utils/env.example.js src/utils/env.js
+
+      - name: Build extension
+        run: npm run build
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+
+      - name: Get version from package.json
+        id: package_version
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Create extension ZIP for Chrome Web Store
+        run: |
+          cd build
+          zip -r ../nauta-connect-chrome-v${{ steps.package_version.outputs.version }}.zip .
+          cd ..
+
+      - name: Create extension ZIP for Firefox Add-ons
+        run: |
+          cd build
+          zip -r ../nauta-connect-firefox-v${{ steps.package_version.outputs.version }}.zip .
+          cd ..
+
+      - name: Create source code ZIP
+        run: |
+          git archive --format=zip --output=nauta-connect-source-v${{ steps.package_version.outputs.version }}.zip HEAD
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          echo "## 🎉 Nauta Connect v${{ steps.package_version.outputs.version }}" > RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "### ✨ Características principales" >> RELEASE_NOTES.md
+          echo "- ✅ Compatible con Manifest V3" >> RELEASE_NOTES.md
+          echo "- ✅ Soporte para Chrome 88+, Edge 88+, Firefox 109+" >> RELEASE_NOTES.md
+          echo "- ✅ Service Worker optimizado" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "### 📦 Archivos incluidos" >> RELEASE_NOTES.md
+          echo "- \`nauta-connect-chrome-v${{ steps.package_version.outputs.version }}.zip\` - Para Chrome/Edge Web Store" >> RELEASE_NOTES.md
+          echo "- \`nauta-connect-firefox-v${{ steps.package_version.outputs.version }}.zip\` - Para Firefox Add-ons" >> RELEASE_NOTES.md
+          echo "- \`nauta-connect-source-v${{ steps.package_version.outputs.version }}.zip\` - Código fuente" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "### 📝 Instalación manual" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "**Chrome/Edge:**" >> RELEASE_NOTES.md
+          echo "1. Descarga \`nauta-connect-chrome-v${{ steps.package_version.outputs.version }}.zip\`" >> RELEASE_NOTES.md
+          echo "2. Descomprime el archivo" >> RELEASE_NOTES.md
+          echo "3. Abre \`chrome://extensions/\` o \`edge://extensions/\`" >> RELEASE_NOTES.md
+          echo "4. Activa 'Modo de desarrollador'" >> RELEASE_NOTES.md
+          echo "5. Click en 'Cargar extensión sin empaquetar'" >> RELEASE_NOTES.md
+          echo "6. Selecciona la carpeta descomprimida" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "**Firefox:**" >> RELEASE_NOTES.md
+          echo "1. Descarga \`nauta-connect-firefox-v${{ steps.package_version.outputs.version }}.zip\`" >> RELEASE_NOTES.md
+          echo "2. Abre \`about:debugging#/runtime/this-firefox\`" >> RELEASE_NOTES.md
+          echo "3. Click en 'Cargar complemento temporal'" >> RELEASE_NOTES.md
+          echo "4. Selecciona el archivo ZIP descargado" >> RELEASE_NOTES.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release v${{ steps.package_version.outputs.version }}
+          body_path: RELEASE_NOTES.md
+          files: |
+            nauta-connect-chrome-v${{ steps.package_version.outputs.version }}.zip
+            nauta-connect-firefox-v${{ steps.package_version.outputs.version }}.zip
+            nauta-connect-source-v${{ steps.package_version.outputs.version }}.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload to Chrome Web Store
+        if: false  # Deshabilitado por defecto - habilitar cuando tengas credenciales
+        run: |
+          echo "Para publicar en Chrome Web Store, configura los secretos:"
+          echo "CHROME_EXTENSION_ID, CHROME_CLIENT_ID, CHROME_CLIENT_SECRET, CHROME_REFRESH_TOKEN"
+          # Aquí iría la lógica de publicación automática
+
+      - name: Comment on related PRs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const version = '${{ steps.package_version.outputs.version }}';
+            console.log(`Release v${version} created successfully! 🎉`);

@@ -1,0 +1,20 @@
+# Nauta Connect Code Owners
+# Estos usuarios serán automáticamente solicitados para revisar cuando
+# se modifiquen archivos que coincidan con estos patrones
+
+# Default owners for everything
+* @mmaciass
+
+# Manifest and configuration files
+/src/manifest.json @mmaciass
+/package.json @mmaciass
+/webpack.config.js @mmaciass
+
+# GitHub workflows and CI/CD
+/.github/ @mmaciass
+
+# Service worker (background)
+/src/pages/Background/ @mmaciass
+
+# Documentation
+*.md @mmaciass
