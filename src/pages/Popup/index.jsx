@@ -29,4 +29,12 @@ const App = (props) => {
   );
 };
 
-render(<App/>, window.document.querySelector('#app-container'));
+// CRITICAL: Wait for the store to connect to the service worker
+proxyStore.ready().then(() => {
+  console.log('[Popup] Store connected to service worker');
+  render(<App/>, window.document.querySelector('#app-container'));
+}).catch((error) => {
+  console.error('[Popup] Failed to connect to service worker:', error);
+  // Render anyway to show error state
+  render(<App/>, window.document.querySelector('#app-container'));
+});
