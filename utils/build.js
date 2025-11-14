@@ -7,6 +7,19 @@ var webpack = require('webpack'),
 
 delete config.chromeExtensionBoilerplate;
 
-webpack(config, function(err) {
+webpack(config, function(err, stats) {
   if (err) throw err;
+  if (stats.hasErrors()) {
+    console.error(stats.toString({
+      colors: true,
+      all: false,
+      errors: true,
+      warnings: true
+    }));
+    process.exit(1);
+  }
+  console.log(stats.toString({
+    colors: true,
+    chunks: false
+  }));
 });
