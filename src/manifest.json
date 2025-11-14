@@ -19,7 +19,8 @@
     "storage",
     "notifications",
     "proxy",
-    "power"
+    "power",
+    "tabs"
   ],
   "host_permissions": [
     "https://secure.etecsa.net/*"
