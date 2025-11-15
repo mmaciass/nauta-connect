@@ -1,46 +1,45 @@
-# Extensión Nauta Connect ![Logo](./src/assets/vector/logo-min.svg "Nauta Connect")
+# Nauta Connect v2.0 🚀
 
-### Ejemplo de la UI/UX final
+Extensión moderna para conectarse a la red Nauta de ETECSA de forma rápida, fácil y segura.
 
-![Logo](./images/ux.gif "User eXperience")
+## ✨ Características
 
----
+- ✅ **Manifest V3** - Última versión del estándar de Chrome
+- ✅ **TypeScript** - Type safety completo
+- ✅ **React 19** - UI moderna y reactiva
+- ✅ **Material UI 7** - Componentes de diseño profesional
+- ✅ **Clean Architecture** - Código mantenible y escalable
+- ✅ **SOLID Principles** - Mejores prácticas de desarrollo
+- ✅ **Zero Technical Debt** - Código limpio desde día 1
+- ✅ **Multi-Browser** - Chrome, Firefox, Edge, Brave, Opera
 
-### Extensión para conectarse a la red Nauta de ETECSA de forma rápida, fácil y segura.
+## 🚀 Inicio Rápido
 
-#### Toda colaboración al proyecto es bienvenida.
+\`\`\`bash
+# Instalar dependencias
+npm install
 
-Extensión de código fuente abierto, publicado en Github en el enlace [mmaciass/nauta-connect](https://github.com/mmaciass/nauta-connect)
+# Desarrollo
+npm run dev
 
-#### Ya puedes instalarlo en tu navegador.
-- Para Google Chrome, desde el enlace de  [Google/nauta-connect](https://chrome.google.com/webstore/detail/nauta-connect/ppopcmgfgajciikdmipmmpffkpccinep).
-- Para Mozilla Firefox, desde el enlace de  [Firefox/nauta-connect](https://addons.mozilla.org/es/firefox/addon/nauta-connect/).
+# Build para producción
+npm run build
+\`\`\`
 
-#### Tecnologías y herramientas utilizadas en el proceso de desarrollo:
+## 📦 Scripts
 
-- React ^16.13.1
-- Redux ^4.0.5
-- Node ^v13.12.0
-- Yarn ^1.22.4
-- NPM ^6.14.5
-- Otras
+- \`npm run dev\` - Desarrollo con HMR
+- \`npm run build\` - Build de producción
+- \`npm run lint\` - Verificar código
+- \`npm run format\` - Formatear código
+- \`npm run test\` - Ejecutar tests
 
-#### Navegador en que se ha probado satisfactoriamente
+## 🏗️ Arquitectura
 
-- Google Chrome
-- Mozilla Firefox
-- Opera
+Clean Architecture con 4 capas: Domain, Infrastructure, Application, Presentation.
 
-#### Pasos para configurar el proyecto
+Ver [MODERNIZATION_STRATEGY.md](../nauta-connect/MODERNIZATION_STRATEGY.md) para detalles completos.
 
-- Clonar el proyecto de Github.
-- Abrir un terminal en la carpeta del proyecto y ejecutar el siguiente comando: `yarn` o `npm install`.
-- Esperar hasta que termine de instalarse las dependencias.
-- Para comenzar el modo de desarrollo ejecutar el comando `yarn start` o `npm run start`.
-- Una vez terminado el transpilado, ya se puede instalar en el navegador la extensión en modo desarrollador.
+## 📄 Licencia
 
-Para compilar la extension en modo de producción debe ejecutar el comando `yarn build` o `npm run build`.
-
-### Funciones que aún faltan por implementar:
-
-- Por el momento se me acabaron las ideas... AHORA ES CUANDO CUALQUIER IDEA ES BIENVENIDA 🎉 📬
+MIT
