@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useMemo } from 'react'
 import { useConfigStore } from '../store'
 import type { ThemeMode } from '../store'
 import { getStorageService } from '@/shared/di'
@@ -13,7 +13,12 @@ import { getStorageService } from '@/shared/di'
  */
 export function useTheme() {
   const { theme, setTheme } = useConfigStore()
-  const [effectiveTheme, setEffectiveTheme] = useState<'light' | 'dark'>('light')
+  const [systemTheme, setSystemTheme] = useState<'light' | 'dark'>(() => {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark'
+    }
+    return 'light'
+  })
 
   /**
    * Detecta la preferencia del sistema
@@ -26,15 +31,11 @@ export function useTheme() {
   }, [])
 
   /**
-   * Actualiza el tema efectivo basado en el modo seleccionado
+   * Calcula el tema efectivo basado en el modo seleccionado
    */
-  const updateEffectiveTheme = useCallback((): void => {
-    if (theme === 'auto') {
-      setEffectiveTheme(detectSystemTheme())
-    } else {
-      setEffectiveTheme(theme)
-    }
-  }, [theme, detectSystemTheme])
+  const effectiveTheme = useMemo((): 'light' | 'dark' => {
+    return theme === 'auto' ? systemTheme : theme
+  }, [theme, systemTheme])
 
   /**
    * Cambia el tema y lo persiste
@@ -54,12 +55,10 @@ export function useTheme() {
    * Escuchar cambios en las preferencias del sistema
    */
   useEffect(() => {
-    if (theme !== 'auto') return
-
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
 
     const handleChange = (): void => {
-      updateEffectiveTheme()
+      setSystemTheme(detectSystemTheme())
     }
 
     // Usar addEventListener si está disponible, sino usar addListener (legacy)
@@ -67,7 +66,6 @@ export function useTheme() {
       mediaQuery.addEventListener('change', handleChange)
     } else {
       // Fallback para navegadores antiguos
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       mediaQuery.addListener(handleChange)
     }
 
@@ -76,18 +74,10 @@ export function useTheme() {
         mediaQuery.removeEventListener('change', handleChange)
       } else {
         // Fallback para navegadores antiguos
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         mediaQuery.removeListener(handleChange)
       }
     }
-  }, [theme, updateEffectiveTheme])
-
-  /**
-   * Actualizar tema efectivo cuando cambia el modo
-   */
-  useEffect(() => {
-    updateEffectiveTheme()
-  }, [updateEffectiveTheme])
+  }, [detectSystemTheme])
 
   /**
    * Cargar tema guardado al iniciar

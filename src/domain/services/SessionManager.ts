@@ -98,7 +98,7 @@ export class SessionManager {
     // Intentar actualizar el tiempo
     try {
       return await this.updateRemainingTime()
-    } catch (error) {
+    } catch {
       // Si falla la actualización, aún podemos usar la sesión guardada
       return session
     }

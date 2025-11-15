@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { useSessionStore, useAuthStore } from '../store'
 import { getSessionManager } from '@/shared/di'
+import { TimeLeft } from '@/domain/entities'
 
 /**
  * useSession Hook
@@ -59,9 +60,7 @@ export function useSession() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const sessionData = message.payload as any
         if (sessionData.timeLeft) {
-          const { TimeLeft } = require('@/domain/entities')
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-          const newTimeLeft = TimeLeft.fromString(sessionData.timeLeft)
+          const newTimeLeft = TimeLeft.fromString(sessionData.timeLeft as string)
           setTimeLeft(newTimeLeft)
         }
       } else if (message.type === 'session:expired') {

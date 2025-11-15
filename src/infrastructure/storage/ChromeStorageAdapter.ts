@@ -26,7 +26,6 @@ export class ChromeStorageAdapter implements IStorageService {
    */
   async loadSession(): Promise<Session | null> {
     const result = await chrome.storage.local.get(this.SESSION_KEY)
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const sessionData = result[this.SESSION_KEY]
 
     if (!sessionData) {
@@ -34,9 +33,9 @@ export class ChromeStorageAdapter implements IStorageService {
     }
 
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return Session.fromJSON(sessionData as any)
-    } catch (error) {
+    } catch {
       // Si hay error al parsear, eliminar sesión corrupta
       await this.clearSession()
       return null

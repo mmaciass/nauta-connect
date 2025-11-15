@@ -94,7 +94,7 @@ export class EtecsaResponseParser {
 
     // Algunos valores pueden estar en formato form
     const formMatch = this.$.html().match(
-      new RegExp(`${name}[\\s]*=[\\s]*["\']([^"\']+)["\']`, 'i')
+      new RegExp(`${name}[\\s]*=[\\s]*["']([^"']+)["']`, 'i')
     )
 
     if (formMatch) {
