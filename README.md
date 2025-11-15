@@ -1,46 +1,88 @@
-# Extensión Nauta Connect ![Logo](./src/assets/vector/logo-min.svg "Nauta Connect")
+# Nauta Connect v2.0 🚀
 
-### Ejemplo de la UI/UX final
+[![Build Extension](https://github.com/mmaciass/nauta-connect/actions/workflows/build.yml/badge.svg)](https://github.com/mmaciass/nauta-connect/actions/workflows/build.yml)
+[![Release Extension](https://github.com/mmaciass/nauta-connect/actions/workflows/release.yml/badge.svg)](https://github.com/mmaciass/nauta-connect/actions/workflows/release.yml)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-19.2-61DAFB?logo=react)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-7.2-646CFF?logo=vite)](https://vitejs.dev/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-![Logo](./images/ux.gif "User eXperience")
+Extensión moderna para conectarse a la red Nauta de ETECSA de forma rápida, fácil y segura.
 
----
+## ✨ Características
 
-### Extensión para conectarse a la red Nauta de ETECSA de forma rápida, fácil y segura.
+- ✅ **Manifest V3** - Última versión del estándar de Chrome
+- ✅ **TypeScript** - Type safety completo
+- ✅ **React 19** - UI moderna y reactiva
+- ✅ **Material UI 7** - Componentes de diseño profesional
+- ✅ **Clean Architecture** - Código mantenible y escalable
+- ✅ **SOLID Principles** - Mejores prácticas de desarrollo
+- ✅ **Zero Technical Debt** - Código limpio desde día 1
+- ✅ **Multi-Browser** - Chrome, Firefox, Edge, Brave, Opera
 
-#### Toda colaboración al proyecto es bienvenida.
+## 🚀 Inicio Rápido
 
-Extensión de código fuente abierto, publicado en Github en el enlace [mmaciass/nauta-connect](https://github.com/mmaciass/nauta-connect)
+### Opción 1: Descargar desde GitHub Actions (Recomendado para testers)
 
-#### Ya puedes instalarlo en tu navegador.
-- Para Google Chrome, desde el enlace de  [Google/nauta-connect](https://chrome.google.com/webstore/detail/nauta-connect/ppopcmgfgajciikdmipmmpffkpccinep).
-- Para Mozilla Firefox, desde el enlace de  [Firefox/nauta-connect](https://addons.mozilla.org/es/firefox/addon/nauta-connect/).
+1. Ve a la pestaña [Actions](https://github.com/mmaciass/nauta-connect/actions)
+2. Selecciona el workflow run más reciente con ✅
+3. En la sección "Artifacts", descarga `nauta-connect-v2.0.zip`
+4. Descomprime el archivo
+5. Abre Chrome → `chrome://extensions/`
+6. Activa "Developer mode"
+7. Click "Load unpacked" y selecciona la carpeta descomprimida
 
-#### Tecnologías y herramientas utilizadas en el proceso de desarrollo:
+### Opción 2: Build desde código fuente (Para desarrolladores)
 
-- React ^16.13.1
-- Redux ^4.0.5
-- Node ^v13.12.0
-- Yarn ^1.22.4
-- NPM ^6.14.5
-- Otras
+\`\`\`bash
+# Clonar repositorio
+git clone https://github.com/mmaciass/nauta-connect.git
+cd nauta-connect
 
-#### Navegador en que se ha probado satisfactoriamente
+# Instalar dependencias
+npm install
 
-- Google Chrome
-- Mozilla Firefox
-- Opera
+# Desarrollo
+npm run dev
 
-#### Pasos para configurar el proyecto
+# Build para producción
+npm run build
+\`\`\`
 
-- Clonar el proyecto de Github.
-- Abrir un terminal en la carpeta del proyecto y ejecutar el siguiente comando: `yarn` o `npm install`.
-- Esperar hasta que termine de instalarse las dependencias.
-- Para comenzar el modo de desarrollo ejecutar el comando `yarn start` o `npm run start`.
-- Una vez terminado el transpilado, ya se puede instalar en el navegador la extensión en modo desarrollador.
+Después del build, carga la carpeta `dist/` en Chrome como extensión unpacked.
 
-Para compilar la extension en modo de producción debe ejecutar el comando `yarn build` o `npm run build`.
+## 📦 Scripts
 
-### Funciones que aún faltan por implementar:
+- \`npm run dev\` - Desarrollo con HMR
+- \`npm run build\` - Build de producción
+- \`npm run lint\` - Verificar código
+- \`npm run format\` - Formatear código
+- \`npm run test\` - Ejecutar tests
 
-- Por el momento se me acabaron las ideas... AHORA ES CUANDO CUALQUIER IDEA ES BIENVENIDA 🎉 📬
+## 🏗️ Arquitectura
+
+Clean Architecture con 4 capas: Domain, Infrastructure, Application, Presentation.
+
+Ver [MODERNIZATION_STRATEGY.md](MODERNIZATION_STRATEGY.md) para detalles completos.
+
+## 🔄 CI/CD
+
+El proyecto usa GitHub Actions para automatizar el build y la distribución:
+
+### Build Workflow
+- **Trigger**: En cada push y pull request
+- **Ejecuta**: TypeScript check, ESLint, Build
+- **Genera**: Artefactos descargables (`nauta-connect-v2.0.zip`)
+- **Comentario**: Automáticamente comenta en PRs con link a artefactos
+
+### Release Workflow
+- **Trigger**: Al crear un tag `v*.*.*`
+- **Ejecuta**: Build completo + tests
+- **Publica**: GitHub Release con la extensión empaquetada
+- **Incluye**: Notas de la versión y archivo ZIP
+
+Para probar un PR sin hacer build local, simplemente descarga el artefacto generado automáticamente.
+
+## 📄 Licencia
+
+MIT

@@ -1,0 +1,1 @@
+export { ConnectedView } from './ConnectedView'

@@ -1,0 +1,125 @@
+name: Build Extension
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: ['**']
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run TypeScript type check
+        run: npm run type-check
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Build extension
+        run: npm run build
+
+      - name: Create extension package
+        run: |
+          cd dist
+          zip -r ../nauta-connect-v2.0.zip .
+          cd ..
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nauta-connect-extension
+          path: dist/
+          retention-days: 30
+
+      - name: Upload extension package
+        uses: actions/upload-artifact@v4
+        with:
+          name: nauta-connect-v2.0.zip
+          path: nauta-connect-v2.0.zip
+          retention-days: 30
+
+      - name: Build summary
+        run: |
+          echo "## ✅ Build Successful!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 Build Information" >> $GITHUB_STEP_SUMMARY
+          echo "- **Node Version:** ${{ matrix.node-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Time:** $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Event:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "- **PR Number:** #${{ github.event.pull_request.number }}" >> $GITHUB_STEP_SUMMARY
+            echo "- **PR Title:** ${{ github.event.pull_request.title }}" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📥 Download Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "Para descargar la extensión compilada:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "1. Ve a la pestaña **'Actions'** de este repositorio" >> $GITHUB_STEP_SUMMARY
+          echo "2. Selecciona este workflow run" >> $GITHUB_STEP_SUMMARY
+          echo "3. En la sección **'Artifacts'** al final de la página, descarga:" >> $GITHUB_STEP_SUMMARY
+          echo "   - \`nauta-connect-v2.0.zip\` - Extensión lista para instalar" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🚀 Instalación en Chrome" >> $GITHUB_STEP_SUMMARY
+          echo "1. Descargar \`nauta-connect-v2.0.zip\` de Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "2. Descomprimir el archivo ZIP" >> $GITHUB_STEP_SUMMARY
+          echo "3. Abrir Chrome y navegar a \`chrome://extensions/\`" >> $GITHUB_STEP_SUMMARY
+          echo "4. Activar el modo **'Developer mode'** (esquina superior derecha)" >> $GITHUB_STEP_SUMMARY
+          echo "5. Click en **'Load unpacked'**" >> $GITHUB_STEP_SUMMARY
+          echo "6. Seleccionar la carpeta descomprimida" >> $GITHUB_STEP_SUMMARY
+          echo "7. ¡La extensión está lista para usar! 🎉" >> $GITHUB_STEP_SUMMARY
+
+      - name: Comment PR with artifacts
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const comment = `## ✅ Build completado exitosamente!
+
+            ### 📦 Artefactos disponibles
+            Los artefactos de la extensión están listos para descargar y probar:
+
+            🔗 **[Ver artefactos en Actions](${runUrl})**
+
+            ### 📥 Cómo descargar e instalar:
+
+            1. **Descargar**: Click en el link de arriba y ve a la sección "Artifacts"
+            2. **Descargar**: \`nauta-connect-v2.0.zip\`
+            3. **Descomprimir** el archivo ZIP
+            4. **Abrir Chrome** → \`chrome://extensions/\`
+            5. **Activar** "Developer mode"
+            6. **Click** en "Load unpacked"
+            7. **Seleccionar** la carpeta descomprimida
+
+            ### ✅ Checks pasados:
+            - TypeScript type check
+            - ESLint
+            - Build production
+
+            ¡La extensión está lista para probar! 🚀`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
